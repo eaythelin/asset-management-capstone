@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 class ForgotPasswordController extends Controller
 {
     //
-    public function getResetPassword(){
-        return view("auth.resetpassword");
+    public function getForgotPage(){
+        return view("auth.forgotpassword");
+    }
+
+    public function sendResetLink(Request $request){
+        
     }
 }
