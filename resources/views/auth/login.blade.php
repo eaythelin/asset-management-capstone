@@ -1,12 +1,8 @@
 @extends('layouts.authlayout')
 @section('content')
-<div class = "min-h-screen flex items-center justify-center px-4">
-  <div class = "card card-border p-6 w-full max-w-sm shadow-xl bg-base-200">
-    <div class = "card-body w-full">
-      <div class = "text-center">
-        <h1 class = "font-bold text-lg sm:text-xl">Login</h1>
-      </div>
-      <form method = "POST" action = "{{ route('loginUser') }}">
+
+<x-auth-card title="Login">
+  <form method = "POST" action = "{{ route('loginUser') }}">
         <div class = "flex flex-col gap-3">
           @csrf
           <div><label for = "email" class = "font-medium">Email</label></div>
@@ -19,7 +15,5 @@
           </div>
         </div>
       </form>
-    </div>
-  </div>
-</div>
+</x-auth-card>
 @endsection
