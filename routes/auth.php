@@ -16,5 +16,5 @@ Route::group(['middleware' => ["guest", "throttle:100,1"]], function(){
 
   //reset password
   Route::get('/reset-password/{token}', [ResetPasswordController::class, "getResetPage"]) -> name("password.reset");
-  Route::post('reset-password', [ResetPasswordController::class, "resetPassword"]) -> name("password.update");
+  Route::post('/reset-password', [ResetPasswordController::class, "resetPassword"]) -> name("password.update");
 });

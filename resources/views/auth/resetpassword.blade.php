@@ -1,11 +1,15 @@
 @extends('layouts.authlayout')
 @section('content')
 <x-auth-card title="Reset Password">
-  <form>
+  <form method = "POST" action = "{{ route("password.update") }}">
     <div class = "flex flex-col gap-3">
       @csrf
+
+      {{-- Hidden input field for the token because we also need the reset token! --}}
+      <input name = "token" value = "{{ $token }}" type = "hidden">
+      
       <label for = "email" class = "font-medium">Email Address</label>
-      <input type = "email" id = "email" name = "email" class = "input w-full" placeholder="your.email@gmail.com">
+      <input type = "email" id = "email" name = "email" class = "input w-full" value = "{{ old('email', $email) }}" readonly>
       @error("email")
         <p class = "text-red-500 text-xs">{{ $message }}</p>
       @enderror
