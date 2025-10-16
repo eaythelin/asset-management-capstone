@@ -7,16 +7,34 @@
 
       {{-- Hidden input field for the token because we also need the reset token! --}}
       <input name = "token" value = "{{ $token }}" type = "hidden">
-      
+
+      {{-- Email field --}}
       <label for = "email" class = "font-medium">Email Address</label>
-      <input type = "email" id = "email" name = "email" class = "input w-full" value = "{{ old('email', $email) }}" readonly>
+      <div class = "relative">
+        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 opacity-50 z-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        <input type = "email" name = "email" id = "email" class = "input border-2 border-base-500 pl-10 w-full" value = "{{ old('email', $email) }}" readonly>
+      </div>
       @error("email")
         <p class = "text-red-500 text-xs">{{ $message }}</p>
       @enderror
+      {{-- New Password Field --}}
       <label for = "password" class = "font-medium">New Password</label>
-      <input type = "password" id = "password" name = "password" class = "input w-full">
+      <div class = "relative">
+        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 opacity-50 z-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+        </svg>
+        <input type = "password" id = "password" name = "password" class = "input border-2 border-base-500 pl-10 w-full" placeholder="New Password">
+      </div>
+      {{-- Confirm Password Field --}}
       <label for = "password" class = "font-medium">Confirm Password</label>
-      <input type = "password" name = "password_confirmation" class = "input w-full">
+      <div class = "relative">
+        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 opacity-50 z-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+        </svg>
+        <input type = "password" id = "password" name = "password_confirmation" class = "input border-2 border-base-500 pl-10 w-full" placeholder="Confirm Password">
+      </div>
       @error("password")
         <p class = "text-red-500 text-xs">{{ $message }}</p>
       @enderror
