@@ -16,9 +16,6 @@
         </svg>
         <input type = "email" name = "email" id = "email" class = "input border-2 border-base-500 pl-10 w-full" value = "{{ old('email', $email) }}" readonly>
       </div>
-      @error("email")
-        <p class = "text-red-500 text-xs">{{ $message }}</p>
-      @enderror
       {{-- New Password Field --}}
       <label for = "password" class = "font-medium">New Password</label>
       <div class = "relative">

@@ -1,4 +1,4 @@
 @extends('layouts.pageslayout')
 @section('content')
-<h1>Dashboard</h1>
+<h1>Departments</h1>
 @endsection

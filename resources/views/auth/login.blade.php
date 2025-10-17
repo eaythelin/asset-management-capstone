@@ -1,27 +1,6 @@
 @extends('layouts.authlayout')
 @section('content')
 
-{{-- <x-auth-card title="Login">
-  <form method = "POST" action = "{{ route('loginUser') }}">
-    <div class = "flex flex-col gap-3">
-      @csrf
-      <label for = "email" class = "font-medium">Email Address</label>
-      <input type = "email" id = "email" name = "email" class = "input w-full" placeholder="your.email@gmail.com">
-      @error("email")
-        <p class = "text-red-500 text-xs">{{ $message }}</p>
-      @enderror
-      <label for = "password" class = "font-medium">Password</label>
-      <input type = "password" id = "password" name = "password" class = "input w-full">
-      @error("password")
-        <p class = "text-red-500 text-xs">{{ $message }}</p>
-      @enderror
-      <div class = "card-actions justify-center">
-        <button class = "btn btn-primary w-full">Login</button>
-        <a href = "{{ route("password.request") }}" class = "text-sm hover:underline text-primary">Forgot Password? Click here</a>
-      </div>
-    </div>
-  </form> --}}
-
 <x-auth-card title="Login">
   <form method = "POST" action = "{{ route('loginUser') }}">
     <div class = "flex flex-col gap-3">
@@ -56,4 +35,3 @@
   </form>
 </x-auth-card>
 @endsection
-
