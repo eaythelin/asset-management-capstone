@@ -8,13 +8,12 @@
   <title>Fixed Asset Management System</title>
 </head>
 <body>
-  <div class="drawer xl:drawer-open">
+  <div class="drawer lg:drawer-open">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col h-screen overflow-hidden">
+    <div class="drawer-content flex flex-col lg:ml-80 h-screen lg:overflow-hidden">
       <!-- Top Navbar -->
-      <section>
-        @include("partials.pages-navbar")
-      </section>
+      @include("partials.pages-navbar")
+
       <!-- Page content -->
       <div class="min-h-full p-6 bg-base-300 overflow-auto">
         @yield("content")
