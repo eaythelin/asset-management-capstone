@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100 border-b border-gray-300 shadow-sm sticky top-0 z-10">
+<div class="navbar bg-base-100 border-b border-gray-300 shadow-sm sticky top-0 z-10 lg:px-6">
   <div class="flex-none xl:hidden">
     <!-- Drawer toggle button on mobile -->
     <label for="my-drawer" class="btn btn-square btn-ghost">
@@ -17,7 +17,7 @@
     <div x-data = "{open: false}" class = "relative">
       <!--Avatar button, when clicked it pops out a menu-->
       <button @click = "open = !open" class = "btn btn-ghost btn-circle avatar">
-        <div class = "bg-neutral text-neutral-content w-10 rounded-full flex items-center justify-center">
+        <div class = "bg-blue-800 text-white w-10 rounded-full flex items-center justify-center">
           <span>JM</span>
         </div>
       </button>

@@ -10,7 +10,7 @@
 <body>
   <div class="drawer lg:drawer-open">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col lg:ml-80 h-screen lg:overflow-hidden">
+    <div class="drawer-content flex flex-col lg:ml-80 h-screen">
       <!-- Top Navbar -->
       @include("partials.pages-navbar")
 
