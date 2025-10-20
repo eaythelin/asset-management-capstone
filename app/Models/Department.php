@@ -11,12 +11,12 @@ class Department extends Model
     use HasFactory;
 
     protected $fillable = [
-        'deparment_name',
+        'department_name',
         'description'
     ];
 
-    //One Department can have Many User
-    public function users(){
-        return $this->hasMany(User::class);
+    //One Department can have Many Employee
+    public function employees(){
+        return $this->hasMany(Employee::class);
     }
 }

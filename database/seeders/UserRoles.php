@@ -17,28 +17,34 @@ class UserRoles extends Seeder
     public function run(): void
     {
         //create role
-        $adminRole = Role::create(["name" => "admin"]);
-        $deptHeadRole = Role::create(["name" => "department_head"]);
-        $employeeRole = Role::create(["name" => "employee"]);
+        $systemSupervisorRole = Role::create(["name" => "System Supervisor"]);
+        $deptHeadRole = Role::create(["name" => "Department Head"]);
+        $generalManagerRole = Role::create(["name" => "General Manager"]);
 
         //Permission list [to be expanded on!]
         Permission::create(["name" => "manage assets"]); //CRUD permission on Asset
         Permission::create(["name" => "view assets"]); //view permission on Asset
+        Permission::create(["name" => "manage departments"]); //CRUD permission on Departments
+        Permission::create(["name" => "view departments"]); //view permission on Departments
+        Permission::create(["name" => "manage users"]); //CRUD permission on Users
+        Permission::create(["name" => "view users"]); //view permission on Users
+        Permission::create(["name" => "manage employees"]); //CRUD permission on Employees
+        Permission::create(["name" => "view employees"]); //view permission on Employees
 
         //Assigning permissions
-        $adminRole->givePermissionTo(["manage assets", "view assets"]);
+        $systemSupervisorRole->givePermissionTo(["manage assets", "view assets", "view departments" ,"manage departments", "manage users", "manage employees","view employees"]);
         $deptHeadRole->givePermissionTo(["view assets"]);
-        $employeeRole->givePermissionTo(["view assets"]);
+        $generalManagerRole->givePermissionTo(["view assets", "view employees", "view departments"]);
 
         //create basic users for testing!
         $admin = User::firstOrCreate(
             ["email" => "guerrerojnmh@gmail.com"],
                 [
-                    "name" => "Admin",
+                    "name" => "System Supervisor",
                     "password" => Hash::make('password123')
                 ]
             );
-        $admin->assignRole($adminRole);
+        $admin->assignRole($systemSupervisorRole);
 
         $deptHead = User::firstOrCreate(
             ["email" => "jannamhayg@gmail.com"],
@@ -52,10 +58,10 @@ class UserRoles extends Seeder
         $employee = User::firstOrCreate(
             ["email" => "gjannamhay@gmail.com"],
                 [
-                    "name" => "Employee",
+                    "name" => "General Manager",
                     "password" => Hash::make('password123')
                 ]
             );
-        $employee->assignRole($employeeRole);
+        $employee->assignRole($generalManagerRole);
     }
 }

@@ -47,8 +47,8 @@ class User extends Authenticatable
         ];
     }
     
-    //Users can only have one Department
-    public function department(){
-        return $this->belongsTo(Department::class);
+    //User can only have one employee
+    public function employee(){
+        return $this->hasOne(Employee::class);
     }
 }
