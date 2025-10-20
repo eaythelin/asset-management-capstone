@@ -22,14 +22,28 @@ class UserRoles extends Seeder
         $generalManagerRole = Role::create(["name" => "General Manager"]);
 
         //Permission list [to be expanded on!]
-        Permission::create(["name" => "manage assets"]); //CRUD permission on Asset
-        Permission::create(["name" => "view assets"]); //view permission on Asset
-        Permission::create(["name" => "manage departments"]); //CRUD permission on Departments
-        Permission::create(["name" => "view departments"]); //view permission on Departments
-        Permission::create(["name" => "manage users"]); //CRUD permission on Users
-        Permission::create(["name" => "view users"]); //view permission on Users
-        Permission::create(["name" => "manage employees"]); //CRUD permission on Employees
-        Permission::create(["name" => "view employees"]); //view permission on Employees
+        $crudPermissions = [
+            'manage assets', 
+            'manage departments',
+            'manage users',
+            'manage employees',
+        ];
+
+        $viewPermissions = [
+            'view assets',
+            'view departments',
+            'view users',
+            'view employees'
+        ];
+
+        foreach($crudPermissions as $crudPermission){
+            Permission::firstOrCreate(["name" => $crudPermission]);
+        }
+
+        foreach($viewPermissions as $viewPermission){
+            Permission::firstOrCreate(["name" => $viewPermission]);
+        }
+
 
         //Assigning permissions
         $systemSupervisorRole->givePermissionTo(["manage assets", "view assets", "view departments" ,"manage departments", "manage users", "manage employees","view employees"]);
