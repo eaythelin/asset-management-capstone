@@ -33,7 +33,9 @@ class UserRoles extends Seeder
             'view assets',
             'view departments',
             'view users',
-            'view employees'
+            'view employees',
+            'view configs',
+            'view dashboard'
         ];
 
         foreach($crudPermissions as $crudPermission){
@@ -44,11 +46,43 @@ class UserRoles extends Seeder
             Permission::firstOrCreate(["name" => $viewPermission]);
         }
 
-
         //Assigning permissions
-        $systemSupervisorRole->givePermissionTo(["manage assets", "view assets", "view departments" ,"manage departments", "manage users", "manage employees","view employees"]);
-        $deptHeadRole->givePermissionTo(["view assets"]);
-        $generalManagerRole->givePermissionTo(["view assets", "view employees", "view departments"]);
+        $systemSupervisorPerms = [
+            'manage assets', 
+            'manage departments',
+            'manage users',
+            'manage employees',
+            'view assets',
+            'view departments',
+            'view users',
+            'view employees',
+            'view configs',
+            'view dashboard'
+        ];
+
+        foreach($systemSupervisorPerms as $perms){
+            $systemSupervisorRole->givePermissionTo($perms);
+        }
+
+        $deptHeadPerms = [
+            'view assets',
+            'view employees',
+            'view dashboard'
+        ];
+
+        foreach($deptHeadPerms as $perms){
+            $deptHeadRole->givePermissionTo($perms);
+        }
+
+        $generalManagerPerms = [
+            'view assets',
+            'view employees',
+            'view dashboard'
+        ];
+
+        foreach($generalManagerPerms as $perms){
+            $generalManagerRole->givePermissionTo($perms);
+        }
 
         //create basic users for testing!
         $admin = User::firstOrCreate(
