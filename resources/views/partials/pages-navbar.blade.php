@@ -10,7 +10,7 @@
     </label>
   </div>
   <div class="flex-1">
-    <a class="btn btn-ghost text-base sm:text-2xl">Asset Manager</a>
+    <a class="btn btn-ghost text-base md:text-2xl">Asset Manager</a>
   </div>
   <div class="flex items-center gap-3">
     <div class="avatar placeholder">
@@ -20,9 +20,9 @@
     </div>
     <div>
       <!--Get the name of user-->
-      <div class="font-medium text-xs sm:text-sm">{{ Auth::user() -> name}}</div>
+      <div class="font-medium text-xs md:text-sm">{{ Auth::user() -> name}}</div>
       <!--Get the role of user-->
-      <div class="text-xs sm:text-sm opacity-60">{{ Auth::user() -> getRoleNames() -> first() }}</div>
+      <div class="text-xs md:text-sm opacity-60">{{ Auth::user() -> getRoleNames() -> first() }}</div>
     </div>
   </div>
 </div>

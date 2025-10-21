@@ -88,7 +88,7 @@ class UserRoles extends Seeder
         $admin = User::firstOrCreate(
             ["email" => "guerrerojnmh@gmail.com"],
                 [
-                    "name" => "System Supervisor",
+                    "name" => "Janna Mhay C. Guerrero",
                     "password" => Hash::make('password123')
                 ]
             );
@@ -97,7 +97,7 @@ class UserRoles extends Seeder
         $deptHead = User::firstOrCreate(
             ["email" => "jannamhayg@gmail.com"],
                 [
-                    "name" => "Department Head",
+                    "name" => "Janna Mhay C. Guerrero",
                     "password" => Hash::make('password123')
                 ]
             );
@@ -106,7 +106,7 @@ class UserRoles extends Seeder
         $employee = User::firstOrCreate(
             ["email" => "gjannamhay@gmail.com"],
                 [
-                    "name" => "General Manager",
+                    "name" => "Janna Mhay C. Guerrero",
                     "password" => Hash::make('password123')
                 ]
             );

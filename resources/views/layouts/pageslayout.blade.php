@@ -15,7 +15,7 @@
       @include("partials.pages-navbar")
 
       <!-- Page content -->
-      <div class="min-h-full p-6 bg-base-300 overflow-auto">
+      <div class="min-h-full p-7 bg-base-300 overflow-auto">
         @yield("content")
       </div>
     </div>
