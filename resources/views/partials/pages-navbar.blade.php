@@ -10,33 +10,19 @@
     </label>
   </div>
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">Asset Manager</a>
+    <a class="btn btn-ghost text-base sm:text-2xl">Asset Manager</a>
   </div>
-  <div class="flex-none gap-2 relative">
-    <!-- User Icon -->
-    <div x-data = "{open: false}" class = "relative">
-      <!--Avatar button, when clicked it pops out a menu-->
-      <button @click = "open = !open" class = "btn btn-ghost btn-circle avatar">
-        <div class = "bg-blue-800 text-white w-10 rounded-full flex items-center justify-center">
-          <span>JM</span>
-        </div>
-      </button>
-
-      <!--The menu!!-->
-      <div x-show="open" @click.away = "open = false" class = "absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
-        <div class = "p-4 border-b">
-          <p class = "font-semibold">Janna Mhay C. Guerrero</p>
-          <p class = "text-sm text-gray-500">Insert Role Here</p>
-        </div>
-        <ul>
-          <li>
-            <form method = "POST" action="{{ route("logoutUser") }}">
-              @csrf
-              <button type = "submit" class = "btn btn-primary w-full">Logout</button>
-            </form>
-          </li>
-        </ul>
+  <div class="flex items-center gap-3">
+    <div class="avatar placeholder">
+      <div class="bg-blue-800 text-neutral-content w-8 md:w-10 rounded-full flex items-center justify-center">
+        <span class="text-xs md:text-base text-white">JM</span>
       </div>
+    </div>
+    <div>
+      <!--Get the name of user-->
+      <div class="font-medium text-xs sm:text-sm">{{ Auth::user() -> name}}</div>
+      <!--Get the role of user-->
+      <div class="text-xs sm:text-sm opacity-60">{{ Auth::user() -> getRoleNames() -> first() }}</div>
     </div>
   </div>
 </div>
