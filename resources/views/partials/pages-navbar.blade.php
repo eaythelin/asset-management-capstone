@@ -2,23 +2,19 @@
   <div class="flex-none xl:hidden">
     <!-- Drawer toggle button on mobile -->
     <label for="my-drawer" class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+      <x-heroicon-o-bars-3 class="h-6 w-6" />
     </label>
   </div>
   <div class="flex-1">
     <a class="btn btn-ghost text-base md:text-2xl">Asset Manager</a>
   </div>
   <div class="flex items-center gap-3">
-    <div class="avatar placeholder">
-      <div class="bg-blue-800 text-neutral-content w-8 md:w-10 rounded-full flex items-center justify-center">
-        <span class="text-xs md:text-base text-white">JM</span>
+    <div class="avatar placeholder tooltip tooltip-left" data-tip = "{{ Auth::user() -> name}} | {{ Auth::user() -> getRoleNames() -> first() }}">
+      <div class="bg-blue-800 text-neutral-content w-10 rounded-full flex items-center justify-center mr-2 sm:mr-0">
+        <span class="text-sm md:text-base text-white">JM</span>
       </div>
     </div>
-    <div>
+    <div class = "hidden sm:block">
       <!--Get the name of user-->
       <div class="font-medium text-xs md:text-sm">{{ Auth::user() -> name}}</div>
       <!--Get the role of user-->

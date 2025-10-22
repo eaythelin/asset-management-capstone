@@ -7,7 +7,7 @@ const myChart = new Chart(ctx, {
   data:{
     labels: ["IT Equipment", "Vehicle", "Machinery", "Furniture", "Equipment"],
     datasets:[{
-      label:"# of Votes",
+      label:" Assets",
       data: [12,19,3,20,25],
       backgroundColor:['red','blue','yellow','orange','green'],
     }]
