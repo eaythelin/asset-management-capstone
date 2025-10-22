@@ -24,6 +24,7 @@
     <!--Cant do Section since it breaks the UI-->
     @include("partials.pages-sidebar")    
   </div>
+  @yield("scripts")
 </div>
 </body>
 </html>

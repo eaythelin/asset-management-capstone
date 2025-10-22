@@ -1,20 +1,14 @@
 @extends('layouts.pageslayout')
 @section('content')
-  <!-- Header -->
-<div class="mb-6">
-  <div class = "flex items-center gap-5">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="text-blue-800 size-8 md:size-10">
-      <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-      <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
-    </svg>
-    <div>
-      <div class="font-bold text-xl md:text-2xl">Dashboard</div>
-      <div class="text-xs md:text-base opacity-60">Monitor fixed assets and system activity</div>
-    </div>
-  </div>
-  <hr class="border-gray-300 mt-2">
-</div>
+<!-- Header -->
+<x-pages-header title="Dashboard" description="Monitor fixed assets and system activity">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="text-blue-800 size-8 md:size-10">
+    <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+    <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+  </svg>
+</x-pages-header>
 
+<!--Cards-->
 <div class ="grid grid-cols-2 md:grid-cols-4 gap-4 md:mx-6 p-3 bg-white rounded-2xl shadow-xl">
   <x-dashboard-cards bgColor="bg-green-500" title="Active Assets" :number="0">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 md:size-10">
@@ -40,4 +34,42 @@
     </svg>
   </x-dashboard-cards>
 </div>
+<!--Middle Charts-->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:mx-6 mt-6">
+  <!--Chart for Category-->
+  <div class = "bg-white p-4 rounded-2xl shadow-xl">
+    <canvas id="categoryChart"></canvas>
+  </div>
+  <div class = "bg-white p-4 rounded-2xl shadow-xl">
+    <!--Chart for Subcategory(which is filtered)-->
+    <h3 class="text-base font-bold text-gray-800 mb-4 text-center">Filter Subcategory by Category</h3>
+    <div class="flex flex-row justify-between items-center mb-4 m-2">
+      <label for="category" class="font-semibold text-base text-gray-700">Select Category</label>
+      <select id="category" class="border-2 border-gray-300 rounded-lg p-1 w-1/2 bg-white shadow-sm hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all cursor-pointer">
+        <option value="it_equipment">IT Equipment</option>
+        <option value="furniture">Furniture</option>
+        <option value="vehicles">Vehicle</option>
+      </select>
+    </div>
+    <div class="m-2 overflow-auto max-h-60 rounded-lg border border-gray-200 shadow-sm">
+      <table class="w-full text-left">
+        <thead class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b-2 border-gray-200">
+          <tr>
+            <th class="p-3 font-semibold text-gray-700">Subcategory</th>
+            <th class="p-3 font-semibold text-gray-700">Count</th>
+          </tr>
+        </thead>
+        <tbody id="subcategoryTable" class="divide-y divide-gray-400">
+          <!--Populated by the javascript!!-->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class = "bg-white p-4 rounded-2xl shadow-xl"></div>
+</div>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/dashboard/categorypiechart.js')
+    @vite('resources/js/dashboard/subcategory.js')
 @endsection
