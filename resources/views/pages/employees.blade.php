@@ -4,7 +4,7 @@
 @php
   $role = Auth::user() -> getRoleNames() -> first();
 
-  $desc = $role === "System Supervisor" ? "View, add, and manage employees and their assets" : "View employees and their assigned assets"
+  $desc = $role === "System Supervisor" ? "View, add, and manage employees and their assets" : "View employees and their assigned assets";
 @endphp
 
 <x-pages-header title="Employees" :description="$desc">

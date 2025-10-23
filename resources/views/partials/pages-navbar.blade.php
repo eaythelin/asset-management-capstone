@@ -6,7 +6,7 @@
     </label>
   </div>
   <div class="flex-1">
-    <a class="btn btn-ghost text-base md:text-2xl">Asset Manager</a>
+    <a class="btn btn-ghost text-xl md:text-2xl font-bold">Asset Manager</a>
   </div>
   <div class="flex items-center gap-3">
     <div class="avatar placeholder tooltip tooltip-left" data-tip = "{{ Auth::user() -> name}} | {{ Auth::user() -> getRoleNames() -> first() }}">
