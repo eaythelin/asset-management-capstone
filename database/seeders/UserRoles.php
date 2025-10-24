@@ -103,13 +103,13 @@ class UserRoles extends Seeder
             );
         $deptHead->assignRole($deptHeadRole);
 
-        $employee = User::firstOrCreate(
+        $generalManager = User::firstOrCreate(
             ["email" => "gjannamhay@gmail.com"],
                 [
                     "name" => "Janna Mhay C. Guerrero",
                     "password" => Hash::make('password123')
                 ]
             );
-        $employee->assignRole($generalManagerRole);
+        $generalManager->assignRole($generalManagerRole);
     }
 }

@@ -41,53 +41,26 @@
         <option value="vehicles">Vehicle</option>
       </select>
     </div>
-    <div class="m-2 overflow-auto max-h-60 rounded-lg border border-gray-300 shadow-sm">
-      <table class="w-full text-left">
-        <thead class="bg-gradient-to-r from-blue-200 to-indigo-200 border-b-2 border-gray-400">
-          <tr>
-            <th class="p-3 font-semibold text-gray-700">Subcategory</th>
-            <th class="p-3 font-semibold text-gray-700">Count</th>
-          </tr>
-        </thead>
-        <tbody id="subcategoryTable" class="divide-y divide-gray-400">
+    <x-tables :columnNames="$subcategoryFilterColumns">
+      <tbody id="subcategoryTable" class="divide-y divide-gray-400">
           <!--Populated by the javascript!!-->
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </x-tables>
   </div>
+  <!--Table for Assets per Department!!-->
   <div class = "bg-white p-4 rounded-2xl shadow-xl {{ $toggleTable }}">
     <h3 class="text-base font-bold text-gray-800 mb-4 text-center">Assets per Department</h3>
-    <div class = "m-2 overflow-auto max-h-73 rounded-lg border border-gray-400 shadow-sm">
-       <table class = "w-full text-left">
-        <thead class = "bg-gradient-to-r from-blue-200 to-indigo-200 border-b-2 border-gray-400">
-          <tr>
-            <th class="p-3 font-semibold text-gray-700">Department</th>
-            <th class="p-3 font-semibold text-gray-700">Count</th>
-          </tr>
-        </thead>
-        <tbody class = "divide-y divide-gray-400">
-          <!--Placeholder values!-->
-          <tr>
-            <td class="p-3 text-sm md:text-base">Admin</td><td class="p-3 text-sm md:text-base">20</td>
-          </tr>
-          <tr>
-            <td class="p-3 text-sm md:text-base">Human Resources</td><td class="p-3 text-sm md:text-base">35</td>
-          </tr>
-          <tr>
-            <td class="p-3 text-sm md:text-base">Manifacturing</td><td class="p-3 text-sm md:text-base">20</td>
-          </tr>
-          <tr>
-            <td class="p-3 text-sm md:text-base">Maintenance</td><td class="p-3 text-sm md:text-base">15</td>
-          </tr>
-          <tr>
-            <td class="p-3 text-sm md:text-base">Purchasing</td><td class="p-3 text-sm md:text-base">23</td>
-          </tr>
-          <tr>
-            <td class="p-3 text-sm md:text-base">Quality Control</td><td class="p-3 text-sm md:text-base">28</td>
-          </tr> 
+    <x-tables :columnNames="$assetsPerDepartmentColumns">
+      <tbody class = "divide-y divide-gray-400">
+          @foreach($departments as $department)
+            <tr>
+              <th class="p-3 text-sm text-center">{{ $department -> id }}</th>
+              <td class="p-3 text-sm">{{ $department -> department_name}}</td>
+              <td class="p-3 text-sm">0</td>
+            </tr>
+          @endforeach
         </tbody>
-       </table>
-    </div>
+    </x-tables>
   </div>
 </div>
 @endsection

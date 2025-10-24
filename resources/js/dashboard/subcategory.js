@@ -11,7 +11,7 @@ function renderTable(category) {
   const { labels, values } = DATA[category];
   labels.forEach((label, i) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="p-3 text-sm md:text-base">${label}</td><td class="p-3 text-sm md:text-base">${values[i]}</td>`;
+    tr.innerHTML = `<th class="p-3 text-sm text-center">${i + 1}</th><td class="p-3 text-sm">${label}</td><td class="p-3 text-sm">${values[i]}</td>`;
     tbody.appendChild(tr);
   });
 }
