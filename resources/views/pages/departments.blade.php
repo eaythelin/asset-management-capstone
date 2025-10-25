@@ -12,10 +12,10 @@
       placeholder="Search departments..." 
       class="input input-bordered w-full sm:w-1/3"
       />
-      <button class="btn btn-primary w-full sm:w-auto">
+      <x-buttons class="w-full sm:w-auto">
         <x-heroicon-s-plus class="size-5"/>
         Create Department
-      </button>
+      </x-buttons>
     </div>
     <x-tables :columnNames="$columns">
       <tbody class = "divide-y divide-gray-400">
@@ -24,6 +24,16 @@
               <th class = "p-3 text-sm md:text-base text-center">{{ $department -> id }}</th>
               <td class = "p-3 text-sm md:text-base">{{ $department -> department_name}}</td>
               <td class = "p-3 text-sm md:text-base">{{ $department -> description}}</td>
+              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
+                <x-buttons>
+                  <x-heroicon-s-eye class="size-3 sm:size-5"/>
+                  View
+                </x-buttons>
+                <x-buttons>
+                  <x-heroicon-s-trash class="size-3 sm:size-5"/>
+                  Delete
+                </x-buttons>
+              </td>
             </tr>
           @endforeach
         </tbody>

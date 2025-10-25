@@ -17,7 +17,7 @@
         @if(session(key:"status"))
           <p class = "text-green-500 text-xs">{{ session("status") }}</p>
         @endif
-        <button class = "btn bg-blue-800 text-white w-full rounded-lg font-bold hover:bg-yellow-700/30 hover:text-yellow-700 active:bg-yellow-600 active:text-white">Send Reset Email Link</button>
+        <x-buttons class="w-full" type="submit">Send Reset Email Link</x-buttons>
         <a href = "{{ route("login") }}" class = "text-sm hover:underline text-primary">Back to Login</a>
       </div>
     </div>

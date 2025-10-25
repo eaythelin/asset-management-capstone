@@ -30,7 +30,7 @@
         <p class = "text-red-500 text-xs">{{ $message }}</p>
       @enderror
       <div class = "card-actions justify-center pt-2">
-        <button class = "btn bg-blue-800 text-white w-full rounded-lg font-bold hover:bg-yellow-700/30 hover:text-yellow-700 active:bg-yellow-600 active:text-white">Confirm</button>
+        <x-buttons class="w-full" type="submit">Confirm</x-buttons>
       </div>
     </div>
   </form>

@@ -24,7 +24,7 @@
         <p class = "text-red-500 text-xs">{{ $message }}</p>
       @enderror
       <div class = "card-actions justify-center">
-        <button class = "btn bg-blue-800 text-white w-full rounded-lg font-bold hover:bg-yellow-700/30 hover:text-yellow-700 active:bg-yellow-600 active:text-white">Login</button>
+        <x-buttons class="w-full" type="submit">Login</x-buttons>
         <a href = "{{ route("password.request") }}" class = "text-sm hover:underline text-primary">Forgot Password? Click here</a>
       </div>
     </div>
