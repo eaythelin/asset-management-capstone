@@ -23,6 +23,11 @@ Route::middleware(['auth'])->group(function () {
     Route::group(["prefix" => "/configs"], function(){
       Route::middleware('can:view departments')->group(function(){
         Route::get('/departments', [DepartmentsController::class, 'getDepartments'])->name('showDepartments');
+        Route::middleware('can:manage departments')->group(function(){
+          Route::post('/departments', [DepartmentsController::class, 'storeDepartments'])->name('departments.store');
+          Route::put('departments/{id}', [DepartmentsController::class, 'updateDepartment'])->name('departments.update');
+          Route::delete('/departments/{id}',[DepartmentsController::class, 'deleteDepartment'])->name('departments.delete');
+        });
       });
     });
 

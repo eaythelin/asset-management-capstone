@@ -21,9 +21,9 @@
       <tbody class = "divide-y divide-gray-400">
           @foreach($departments as $department)
             <tr>
-              <th class = "p-3 text-sm md:text-base text-center">{{ $department -> id }}</th>
-              <td class = "p-3 text-sm md:text-base">{{ $department -> department_name}}</td>
-              <td class = "p-3 text-sm md:text-base">{{ $department -> description}}</td>
+              <th class = "p-3 text-center">{{ $department -> id }}</th>
+              <td class = "p-3">{{ $department -> department_name}}</td>
+              <td class = "p-3">{{ $department -> description}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 <x-buttons>
                   <x-heroicon-s-eye class="size-3 sm:size-5"/>

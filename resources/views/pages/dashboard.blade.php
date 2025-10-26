@@ -54,9 +54,9 @@
       <tbody class = "divide-y divide-gray-400">
           @foreach($departments as $department)
             <tr>
-              <th class="p-3 text-sm text-center">{{ $department -> id }}</th>
-              <td class="p-3 text-sm">{{ $department -> department_name}}</td>
-              <td class="p-3 text-sm">0</td>
+              <th class="p-3 text-center">{{ $department -> id }}</th>
+              <td class="p-3">{{ $department -> department_name}}</td>
+              <td class="p-3">0</td>
             </tr>
           @endforeach
         </tbody>
