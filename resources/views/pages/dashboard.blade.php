@@ -41,7 +41,7 @@
         <option value="vehicles">Vehicle</option>
       </select>
     </div>
-    <x-tables :columnNames="$subcategoryFilterColumns">
+    <x-tables :columnNames="$subcategoryFilterColumns" class="max-h-73">
       <tbody id="subcategoryTable" class="divide-y divide-gray-400">
           <!--Populated by the javascript!!-->
       </tbody>
@@ -50,7 +50,7 @@
   <!--Table for Assets per Department!!-->
   <div class = "bg-white p-4 rounded-2xl shadow-xl {{ $toggleTable }}">
     <h3 class="text-base font-bold text-gray-800 mb-4 text-center">Assets per Department</h3>
-    <x-tables :columnNames="$assetsPerDepartmentColumns">
+    <x-tables :columnNames="$assetsPerDepartmentColumns" class="max-h-73">
       <tbody class = "divide-y divide-gray-400">
           @foreach($departments as $department)
             <tr>

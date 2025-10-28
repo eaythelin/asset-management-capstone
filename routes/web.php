@@ -20,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/users', [UsersController::class, 'getUsers'])->name('showUsers');
     });
 
+    //Departments
     Route::group(["prefix" => "/configs"], function(){
       Route::middleware('can:view departments')->group(function(){
         Route::get('/departments', [DepartmentsController::class, 'getDepartments'])->name('showDepartments');

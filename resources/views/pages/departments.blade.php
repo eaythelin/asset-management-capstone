@@ -12,7 +12,7 @@
       placeholder="Search departments..." 
       class="input input-bordered w-full sm:w-1/3"
       />
-      <x-buttons class="w-full sm:w-auto">
+      <x-buttons class="w-full sm:w-auto" commandfor="createDepartment" command="show-modal">
         <x-heroicon-s-plus class="size-5"/>
         Create Department
       </x-buttons>
@@ -38,6 +38,10 @@
           @endforeach
         </tbody>
     </x-tables>
+    <div class = "text-base-content">
+      {{ $departments->links() }}
+    </div>
   </div>
 </div>
+@include('modals.department-modals.createDepartment-modal')
 @endsection

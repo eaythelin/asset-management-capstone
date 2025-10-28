@@ -1,4 +1,5 @@
-<div class="m-2 overflow-auto max-h-73 rounded-lg border border-gray-400 shadow-sm">
+<div {{ $attributes->merge([
+    "class" => "overflow-auto m-2 rounded-lg border border-gray-400 shadow-sm"]) }}>
     <table class="table">
     <!-- head -->
     <thead class="bg-gradient-to-r from-blue-300 to-indigo-200">
