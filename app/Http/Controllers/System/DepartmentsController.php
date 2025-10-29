@@ -26,11 +26,15 @@ class DepartmentsController extends Controller
         return redirect()->route('showDepartments')->with('success','Department successfully created!');
     }
 
-    public function updateDepartment(Request $request){
+    public function updateDepartment(Request $request, $id){
         
     }
 
-    public function deleteDepartment(Request $request){
-        
+    public function deleteDepartment($id){
+        //throws 404 error if ID doesnt exist
+        $department = Department::findOrFail($id);
+        $department->delete();
+
+        return redirect()->route('showDepartments')->with('success', 'Department deleted successfully!');
     }
 }

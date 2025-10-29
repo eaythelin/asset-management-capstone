@@ -29,7 +29,10 @@
                   <x-heroicon-s-eye class="size-3 sm:size-5"/>
                   View
                 </x-buttons>
-                <x-buttons>
+                <x-buttons commandfor="deleteDepartment" command="show-modal"
+                    class="deleteButton"
+                    data-id="{{ $department -> id }}"
+                    data-route="{{ route('departments.delete', ':id') }}">
                   <x-heroicon-s-trash class="size-3 sm:size-5"/>
                   Delete
                 </x-buttons>
@@ -44,4 +47,9 @@
   </div>
 </div>
 @include('modals.department-modals.createDepartment-modal')
+@include('modals.department-modals.deleteDepartment-modal')
+@endsection
+
+@section('scripts')
+  @vite('resources/js/department/delete-department.js')
 @endsection
