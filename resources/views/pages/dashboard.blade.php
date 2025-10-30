@@ -5,6 +5,8 @@
   <x-heroicon-s-home class="text-blue-800 size-8 md:size-10" />
 </x-pages-header>
 
+<x-toast-success />
+
 <!--Cards-->
 <div class ="grid grid-cols-2 md:grid-cols-4 gap-4 md:mx-6 p-3 bg-white rounded-2xl shadow-xl">
   <x-dashboard-cards bgColor="bg-green-500" title="Active Assets" :number="0">

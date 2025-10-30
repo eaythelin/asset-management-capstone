@@ -4,14 +4,24 @@
   <x-heroicon-s-briefcase class="text-blue-800 size-8 md:size-10"/>
 </x-pages-header>
 
+{{-- show success toast! --}}
+<x-toast-success />
+
 <div class = "md:m-4">
+  {{-- show the errors! --}}
+  <x-error-dropdown />
+  
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
-      <input 
-      type="text" 
-      placeholder="Search departments..." 
-      class="input input-bordered w-full sm:w-1/3"
-      />
+      <div class = "flex flex-row gap-3">
+        <input 
+          type="text" 
+          placeholder="Search departments.." 
+          class="input input-bordered w-full"
+        />
+        <x-buttons>Search</x-buttons>
+      </div>
+      
       <x-buttons class="w-full sm:w-auto" commandfor="createDepartment" command="show-modal">
         <x-heroicon-s-plus class="size-5"/>
         Create Department
@@ -28,14 +38,12 @@
                 @can("manage departments")
                   <x-buttons commandfor="editDepartment" command="show-modal"
                     class="editButton"
-                    data-route="{{ route('departments.delete', $department->id ) }}"
+                    data-route="{{ route('departments.update', $department->id ) }}"
                     data-name="{{ $department -> department_name}}"
                     data-description="{{ $department -> description}}">
                     <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
                     Edit
                   </x-buttons>
-                @endcan
-                @can('manage departments')
                   <x-buttons commandfor="deleteDepartment" command="show-modal"
                       class="deleteButton"
                       data-route="{{ route('departments.delete', $department->id ) }}">
@@ -53,6 +61,7 @@
     </div>
   </div>
 </div>
+
 @include('modals.department-modals.createDepartment-modal')
 @include('modals.department-modals.deleteDepartment-modal')
 @include('modals.department-modals.editDepartment-modal')
