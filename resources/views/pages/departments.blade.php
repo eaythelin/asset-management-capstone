@@ -25,17 +25,24 @@
               <td class = "p-3">{{ $department -> department_name}}</td>
               <td class = "p-3">{{ $department -> description}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
-                <x-buttons>
-                  <x-heroicon-s-eye class="size-3 sm:size-5"/>
-                  View
-                </x-buttons>
-                <x-buttons commandfor="deleteDepartment" command="show-modal"
-                    class="deleteButton"
-                    data-id="{{ $department -> id }}"
-                    data-route="{{ route('departments.delete', ':id') }}">
-                  <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                  Delete
-                </x-buttons>
+                @can("manage departments")
+                  <x-buttons commandfor="editDepartment" command="show-modal"
+                    class="editButton"
+                    data-route="{{ route('departments.delete', $department->id ) }}"
+                    data-name="{{ $department -> department_name}}"
+                    data-description="{{ $department -> description}}">
+                    <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
+                    Edit
+                  </x-buttons>
+                @endcan
+                @can('manage departments')
+                  <x-buttons commandfor="deleteDepartment" command="show-modal"
+                      class="deleteButton"
+                      data-route="{{ route('departments.delete', $department->id ) }}">
+                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
+                    Delete
+                  </x-buttons>
+                @endcan
               </td>
             </tr>
           @endforeach
@@ -48,8 +55,10 @@
 </div>
 @include('modals.department-modals.createDepartment-modal')
 @include('modals.department-modals.deleteDepartment-modal')
+@include('modals.department-modals.editDepartment-modal')
 @endsection
 
 @section('scripts')
   @vite('resources/js/department/delete-department.js')
+  @vite('resources/js/department/edit-department.js')
 @endsection
