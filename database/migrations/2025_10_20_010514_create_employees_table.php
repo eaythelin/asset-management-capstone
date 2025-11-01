@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->boolean('custodian')->default(false);
-            $table->foreignId('department_id')->constrained('departments')->onDelete('restrict'); //prevents deletion if employee exist in that department
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('department_id')->constrained('departments')->onDelete('restrict'); //prevents deletion of department if employee exist in that department
             $table->timestamps();
         });
     }

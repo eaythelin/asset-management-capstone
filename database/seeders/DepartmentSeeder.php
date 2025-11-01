@@ -23,5 +23,10 @@ class DepartmentSeeder extends Seeder
             "department_name" => "Admin",
             "description" => "Administration Department"
         ]);
+
+        Department::create([
+            "department_name" => "Maintenance",
+            "description" => "Maintenance Department"
+        ]);
     }
 }

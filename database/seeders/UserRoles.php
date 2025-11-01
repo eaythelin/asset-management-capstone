@@ -89,7 +89,8 @@ class UserRoles extends Seeder
             ["email" => "guerrerojnmh@gmail.com"],
                 [
                     "name" => "Janna Mhay C. Guerrero",
-                    "password" => Hash::make('password123')
+                    "password" => Hash::make('password123'),
+                    "employee_id" => 1
                 ]
             );
         $admin->assignRole($systemSupervisorRole);
@@ -97,8 +98,9 @@ class UserRoles extends Seeder
         $deptHead = User::firstOrCreate(
             ["email" => "jannamhayg@gmail.com"],
                 [
-                    "name" => "Janna Mhay C. Guerrero",
-                    "password" => Hash::make('password123')
+                    "name" => "Varka Mondstadt",
+                    "password" => Hash::make('password123'),
+                    "employee_id" => 2
                 ]
             );
         $deptHead->assignRole($deptHeadRole);
@@ -106,8 +108,9 @@ class UserRoles extends Seeder
         $generalManager = User::firstOrCreate(
             ["email" => "gjannamhay@gmail.com"],
                 [
-                    "name" => "Janna Mhay C. Guerrero",
-                    "password" => Hash::make('password123')
+                    "name" => "Potato Master",
+                    "password" => Hash::make('password123'),
+                    "employee_id" => 3
                 ]
             );
         $generalManager->assignRole($generalManagerRole);

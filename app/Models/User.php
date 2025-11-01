@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'employee_id'
     ];
 
     /**
@@ -47,8 +48,8 @@ class User extends Authenticatable
         ];
     }
     
-    //User can only have one employee
+    // Each user must belong to one employee
     public function employee(){
-        return $this->hasOne(Employee::class);
+        return $this->belongsTo(Employee::class);
     }
 }

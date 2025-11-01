@@ -9,7 +9,7 @@ class Employee extends Model
     protected $fillable = [
         'first_name',
         'last_name',
-        'department'
+        'department_id'
     ];
     
     //Employee can only have one Department
@@ -17,8 +17,8 @@ class Employee extends Model
         return $this->belongsTo(Department::class);
     }
 
-    //Each employee can optionally belongs to a user
+    // Optional: employee may have a user account
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
 }
