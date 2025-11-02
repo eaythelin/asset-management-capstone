@@ -13,9 +13,11 @@ class Tables extends Component
      */
 
     public $columnNames;
-    public function __construct($columnNames)
+    public $centeredColumns;
+    public function __construct($columnNames, $centeredColumns = [])
     {
         $this->columnNames = $columnNames;
+        $this->centeredColumns = $centeredColumns;
     }
 
     /**

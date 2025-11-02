@@ -15,13 +15,19 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logoutUser');
 
+    //employees
+    Route::middleware('can:view employees')->group(function(){
+      Route::get('/employees', [EmployeesController::class, "getEmployees"])->name('showEmployees');
+    });
+    
     // User Management
     Route::middleware('can:view users')->group(function () {
       Route::get('/users', [UsersController::class, 'getUsers'])->name('showUsers');
     });
 
-    //Departments
+    //Configurations!
     Route::group(["prefix" => "/configs"], function(){
+      //Departments
       Route::middleware('can:view departments')->group(function(){
         Route::get('/departments', [DepartmentsController::class, 'getDepartments'])->name('showDepartments');
         Route::middleware('can:manage departments')->group(function(){
@@ -30,10 +36,6 @@ Route::middleware(['auth'])->group(function () {
           Route::delete('/departments/{id}',[DepartmentsController::class, 'deleteDepartment'])->name('departments.delete');
         });
       });
-    });
-
-    Route::middleware('can:view employees')->group(function(){
-      Route::get('/employees', [EmployeesController::class, "getEmployees"])->name('showEmployees');
     });
 });
 

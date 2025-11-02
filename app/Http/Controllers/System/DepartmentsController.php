@@ -10,8 +10,17 @@ use Illuminate\Validation\Rule;
 class DepartmentsController extends Controller
 {
     //
-    public function getDepartments(){
-        $departments = Department::latest()->paginate(5);
+    public function getDepartments(Request $request){
+        // $departments = Department::latest()->paginate(5);
+        // get the search value if its provided!!
+        $search = $request->input("search");
+        // Search departments by name or description if search term provided
+        $departments = Department::query()
+            ->when($search, function($query, $search){
+                return $query->where('department_name', 'LIKE', "%{$search}%")
+                            ->orWhere('description', 'LIKE', "%{$search}%");
+        })->paginate(5);
+
         $columns = ["","Department Name", "Description", "Actions"];
         return view("pages.departments", compact('departments', "columns"));
     }

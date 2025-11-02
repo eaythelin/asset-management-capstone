@@ -13,15 +13,17 @@
   
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
-      <div class = "flex flex-row gap-3">
-        <input 
-          type="text" 
-          placeholder="Search departments.." 
-          class="input input-bordered w-full"
-        />
-        <x-buttons>Search</x-buttons>
-      </div>
-      
+      <form method = "GET" action="{{ route("showDepartments") }}">
+        <div class = "flex flex-row gap-3">
+          <input 
+            type="text" 
+            placeholder="Search departments.." 
+            class="input input-bordered w-full"
+            name="search"
+          />
+          <x-buttons type="submit">Search</x-buttons>
+        </div>
+      </form>
       <x-buttons class="w-full sm:w-auto" commandfor="createDepartment" command="show-modal">
         <x-heroicon-s-plus class="size-5"/>
         Create Department
