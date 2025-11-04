@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ErrorDropdown extends Component
+class ValidationError extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class ErrorDropdown extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.error-dropdown');
+        return view('components.validation-error');
     }
 }

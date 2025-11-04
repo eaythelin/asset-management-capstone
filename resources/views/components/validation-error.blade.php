@@ -1,3 +1,4 @@
+<!--This is for validation errors!!!-->
 @if($errors->any())
     <div class="alert alert-error mb-4 p-0 overflow-hidden">
         <!-- Collapse wrapper -->

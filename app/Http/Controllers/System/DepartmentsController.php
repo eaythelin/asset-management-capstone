@@ -12,16 +12,10 @@ class DepartmentsController extends Controller
 {
     //
     public function getDepartments(Request $request){
-        // $departments = Department::latest()->paginate(5);
         // get the search value if its provided!!
         $search = $request->input("search");
-        // Search departments by name or description if search term provided
-        $departments = Department::query()
-            ->when($search, function($query, $search){
-                return $query->where('department_name', 'LIKE', "%{$search}%")
-                            ->orWhere('description', 'LIKE', "%{$search}%");
-        })->paginate(5);
-
+        $departments = Department::search($search)->paginate(5);
+        
         $columns = ["","Department Name", "Description", "Actions"];
         return view("pages.departments", compact('departments', "columns"));
     }
@@ -53,6 +47,10 @@ class DepartmentsController extends Controller
     public function deleteDepartment($id){
         //throws 404 error if ID doesnt exist
         $department = Department::findOrFail($id);
+        if($department->employees()->exists()){
+            return redirect()->back()->with('error', 'Department have existing employees!');
+        }
+
         $department->delete();
 
         return redirect()->route('department.show')->with('success', 'Department deleted successfully!');

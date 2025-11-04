@@ -12,12 +12,13 @@
 </x-pages-header>
 
 <x-toast-success />
+<x-session-error />
 
 <div class = "md:m-4">
-  <x-error-dropdown />
+  <x-validation-error />
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
-      <form method = "GET" action="{{ route("employees.show") }}">
+      <form method = "GET" action="{{ route("employees.index") }}">
         <div class = "flex flex-row gap-3">
           <input 
             type="text" 
@@ -29,7 +30,7 @@
         </div>
       </form>
       @can('manage employees')
-        <x-buttons class="w-full sm:w-auto" commandfor="createEmployee" command="show-modal">
+        <x-buttons class="w-full sm:w-auto" onclick="createEmployee.showModal()">
           <x-heroicon-s-plus class="size-5"/>
           Create Employee
         </x-buttons>
@@ -50,18 +51,31 @@
                 @endif
               </td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
-                <x-buttons>
-                  <x-heroicon-o-eye class="size-3 sm:size-5"/>
-                  View
-                </x-buttons>
-                <x-buttons>
-                  <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                  Edit
-                </x-buttons>
-                <x-buttons>
-                  <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                  Delete
-                </x-buttons>
+                @can('view employees')
+                  <a href="{{ route('employees.show', $employee->id) }}">
+                    <x-buttons>
+                      <x-heroicon-o-eye class="size-3 sm:size-5"/>
+                      View
+                    </x-buttons>
+                  </a>
+                @endcan
+                @can('manage employees')
+                  <x-buttons onclick="editEmployee.showModal()"
+                    class="editButton"
+                    data-first-name="{{ $employee -> first_name}}"
+                    data-last-name="{{ $employee -> last_name }}"
+                    data-department="{{ $employee-> department -> id}}"
+                    data-route="{{ route('employees.update', $employee->id ) }}">
+                    <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
+                    Edit
+                  </x-buttons>
+                  <x-buttons onclick="deleteEmployee.showModal()"
+                    class="deleteButton"
+                    data-route="{{ route('employees.delete', $employee->id ) }}">
+                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
+                    Delete
+                  </x-buttons>
+                @endcan
               </td>
             </tr>
           @endforeach
@@ -74,5 +88,12 @@
 </div>
 
 @include('modals.employee-modals.createEmployee-modal', $departments)
+@include('modals.employee-modals.editEmployee-modal', $departments)
+@include('modals.employee-modals.deleteEmployee-modal')
 
+@endsection
+
+@section('scripts')
+  @vite('resources/js/employee/delete-employee.js')
+  @vite('resources/js/employee/edit-employee.js')
 @endsection

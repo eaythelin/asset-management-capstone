@@ -10,32 +10,53 @@ use Illuminate\Http\Request;
 class EmployeesController extends Controller
 {
     //
-    public function getEmployees(){
+    public function getEmployees(Request $request){
+        $search = $request->input("search");
         // Get employees with their department info
-        $employees = Employee::with('department')->paginate(5);
+        $employees = Employee::with('department')->search($search)->paginate(5);
         $departments = Department::pluck('department_name', 'id');
 
         $columns = ["","Name", "Department", "Custodian", "Actions"];
-        return view("pages.employees", compact('employees', 'columns', 'departments'));
+        return view("pages.employees.index-employees", compact('employees', 'columns', 'departments'));
+    }
+
+    public function getEmployee($id){
+        $employee = Employee::findOrFail($id);
+
+        return view('pages.employees.show-employee', compact('employee'));
     }
 
     public function storeEmployees(Request $request){
         $validated = $request->validate([
-            "first_name"=> "required", "max:100",
-            "last_name"=> "required", 'max:100',
-            "department_id"=> "required", "exists:departments,id"
+            "first_name"=> ["required", "max:100", "string"],
+            "last_name"=> ["required", 'max:100', "string"],
+            "department_id"=> ["required", "exists:departments,id"]
         ]);
 
         Employee::create($validated);
 
-        return redirect()->route('employees.show')->with('success', 'Employee successfully created!');
+        return redirect()->route('employees.index')->with('success', 'Employee successfully created!');
     }
 
-    public function updateEmployee(){
-        
+    public function updateEmployee(Request $request, $id){
+        $validated = $request->validate([
+            "first_name"=> ["required", "max:100", "string"],
+            "last_name"=> ["required", 'max:100', "string"],
+            "department_id"=> ["required", "exists:departments,id"]
+        ]);
+
+        //'regex:/^[a-zA-Z\s\'-]+$/' regex maybe? in the future??
+
+        $employee = Employee::findOrFail($id);
+        $employee->update($validated);
+
+        return redirect()->route('employees.index')->with('success', 'Employee edited successfully!');
     }
 
-    public function deleteEmployee(){
-        
+    public function deleteEmployee($id){
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+
+        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully!');
     }
 }

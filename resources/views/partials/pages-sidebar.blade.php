@@ -15,7 +15,7 @@
         </x-navlinks></li>
         @endcan
         @can("view employees")
-        <li><x-navlinks :routeName="'employees.show'" title="Employees">
+        <li><x-navlinks :routeName="'employees.index'" title="Employees">
           <x-heroicon-s-user-group class="size-5 mr-2"/>
         </x-navlinks></li>
         @endcan

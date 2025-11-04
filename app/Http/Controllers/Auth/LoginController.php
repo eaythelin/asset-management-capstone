@@ -27,7 +27,7 @@ class LoginController extends Controller
             //regenerate session token to prevent session hijacking and fixation
             $request -> session() -> regenerate();
 
-            return redirect() -> route("showDashboard") ->with('success', "Welcome to Asset Manager!");
+            return redirect() -> route("dashboard.show") ->with('success', "Welcome to Asset Manager!");
         }
 
         //if auth failed, redirect with an error message and only return email

@@ -18,7 +18,8 @@ Route::middleware(['auth'])->group(function () {
     //employees
     Route::group(["prefix" => "/employees"], function(){
       Route::middleware('check.permission:view employees')->group(function(){
-        Route::get('/', [EmployeesController::class, "getEmployees"])->name('employees.show');
+        Route::get('/', [EmployeesController::class, "getEmployees"])->name('employees.index');
+        Route::get('/{id}',[EmployeesController::class,"getEmployee"])->name('employees.show');
         Route::middleware('check.permission:manage employees')->group(function(){
           Route::post('/', [EmployeesController::class, 'storeEmployees'])->name('employees.store');
           Route::put('/{id}', [EmployeesController::class, 'updateEmployee'])->name('employees.update');

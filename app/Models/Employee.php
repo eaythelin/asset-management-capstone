@@ -22,4 +22,16 @@ class Employee extends Model
     public function user(){
         return $this->hasOne(User::class);
     }
+
+    //query!
+    public function scopeSearch($query, $search){
+        if (!$search) return $query;
+
+        return $query->where('first_name', "LIKE", "%{$search}%")
+                            ->orWhere('last_name', 'LIKE', "%{$search}%")
+                            ->orWhereRaw("CONCAT(first_name,' ',last_name) like ?", ["%{$search}%"])
+                            ->orWhereHas('department', function($q) use ($search){
+                                $q->where('department_name', 'LIKE', "%{$search}%");
+                            });
+    }
 }

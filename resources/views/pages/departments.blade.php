@@ -6,10 +6,12 @@
 
 {{-- show success toast! --}}
 <x-toast-success />
+{{-- show session errors! --}}
+<x-session-error />
 
 <div class = "md:m-4">
   {{-- show the errors! --}}
-  <x-error-dropdown />
+  <x-validation-error />
   
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
@@ -24,7 +26,7 @@
           <x-buttons type="submit">Search</x-buttons>
         </div>
       </form>
-      <x-buttons class="w-full sm:w-auto" commandfor="createDepartment" command="show-modal">
+      <x-buttons class="w-full sm:w-auto" onclick="createDepartment.showModal()">
         <x-heroicon-s-plus class="size-5"/>
         Create Department
       </x-buttons>
@@ -38,7 +40,7 @@
               <td class = "p-3">{{ $department -> description}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can("manage departments")
-                  <x-buttons commandfor="editDepartment" command="show-modal"
+                  <x-buttons onclick="editDepartment.showModal()"
                     class="editButton"
                     data-route="{{ route('departments.update', $department->id ) }}"
                     data-name="{{ $department -> department_name}}"
@@ -46,7 +48,7 @@
                     <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
                     Edit
                   </x-buttons>
-                  <x-buttons commandfor="deleteDepartment" command="show-modal"
+                  <x-buttons onclick="deleteDepartment.showModal()"
                       class="deleteButton"
                       data-route="{{ route('departments.delete', $department->id ) }}">
                     <x-heroicon-s-trash class="size-3 sm:size-5"/>

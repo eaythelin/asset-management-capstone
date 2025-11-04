@@ -19,4 +19,11 @@ class Department extends Model
     public function employees(){
         return $this->hasMany(Employee::class);
     }
+
+    public function scopeSearch($query, $search){
+        if (!$search) return $query;
+
+        return $query->where('department_name', 'LIKE', "%{$search}%")
+                            ->orWhere('description', 'LIKE', "%{$search}%");
+    }
 }
