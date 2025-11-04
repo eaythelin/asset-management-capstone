@@ -7,6 +7,17 @@
 
 <x-toast-success />
 
+<!--show unauthorized error-->
+@if(session('error'))
+  <div class="toast toast-center fixed top-10 right-0 z-50"
+    x-data="{ show: true}" x-show="show" x-init="setTimeout(() => show = false, 3000)">
+    <div class="alert alert-warning flex flex-row gap-5">
+      <x-heroicon-o-exclamation-triangle class="size-5 sm:size-7"/>
+      <span class = "sm:text-base font-medium">{{ session('error') }}</span>
+    </div>
+  </div>
+@endif
+
 <!--Cards-->
 <div class ="grid grid-cols-2 md:grid-cols-4 gap-4 md:mx-6 p-3 bg-white rounded-2xl shadow-xl">
   <x-dashboard-cards bgColor="bg-green-500" title="Active Assets" :number="0">

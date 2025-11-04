@@ -9,7 +9,7 @@ editButtons.forEach(button => {
     const form = document.getElementById('editForm');
     form.action = route;
     
-    form.querySelector('.department_name').value = name;
-    form.querySelector('.description').value = description;
+    form.querySelector('#edit_department_name').value = name;
+    form.querySelector('#edit_description').value = description;
   });
 });

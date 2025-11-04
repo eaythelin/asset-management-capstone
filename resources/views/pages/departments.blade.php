@@ -13,7 +13,7 @@
   
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
-      <form method = "GET" action="{{ route("showDepartments") }}">
+      <form method = "GET" action="{{ route("department.show") }}">
         <div class = "flex flex-row gap-3">
           <input 
             type="text" 

@@ -10,12 +10,12 @@
       <h1 class = "menu-title text-base text-white px-4 py-2 rounded">Menu</h1>
       <ul>
         @can("view dashboard")
-        <li><x-navlinks :routeName="'showDashboard'" title="Dashboard">
+        <li><x-navlinks :routeName="'dashboard.show'" title="Dashboard">
           <x-heroicon-s-home class="size-5 mr-2" />
         </x-navlinks></li>
         @endcan
         @can("view employees")
-        <li><x-navlinks :routeName="'showEmployees'" title="Employees">
+        <li><x-navlinks :routeName="'employees.show'" title="Employees">
           <x-heroicon-s-user-group class="size-5 mr-2"/>
         </x-navlinks></li>
         @endcan
@@ -27,13 +27,13 @@
         @can("view configs")
         <li>
           {{-- if any of the routes here gets chosen the config drowdown stays open --}}
-          <details {{ request()->routeIs("showDepartments") ? 'open' : '' }}>
+          <details {{ request()->routeIs("department.show") ? 'open' : '' }}>
             <x-dropdown-navs title="Configurations">
               <x-heroicon-o-adjustments-horizontal class="size-5 mr-2" />
             </x-dropdown-navs>
             <ul>
               @can("view departments")
-              <li><x-navlinks :routeName="'showDepartments'" title="Departments">
+              <li><x-navlinks :routeName="'department.show'" title="Departments">
                 <x-heroicon-s-briefcase class="size-5 mr-2"/>
               </x-navlinks></li>
               @endcan

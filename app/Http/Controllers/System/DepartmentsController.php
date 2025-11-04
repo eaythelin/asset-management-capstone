@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use Illuminate\Validation\Rule;
+use App\Models\User;
 
 class DepartmentsController extends Controller
 {
@@ -33,7 +34,7 @@ class DepartmentsController extends Controller
         //create the department if all the rules pass
         Department::create($validated);
 
-        return redirect()->route('showDepartments')->with('success','Department successfully created!');
+        return redirect()->route('department.show')->with('success','Department successfully created!');
     }
 
     public function updateDepartment(Request $request, $id){
@@ -46,7 +47,7 @@ class DepartmentsController extends Controller
         $department = Department::findOrFail($id);
         $department->update($validated);
 
-        return redirect()->route('showDepartments')->with('success', 'Department edited successfully!');
+        return redirect()->route('department.show')->with('success', 'Department edited successfully!');
     }
 
     public function deleteDepartment($id){
@@ -54,6 +55,6 @@ class DepartmentsController extends Controller
         $department = Department::findOrFail($id);
         $department->delete();
 
-        return redirect()->route('showDepartments')->with('success', 'Department deleted successfully!');
+        return redirect()->route('department.show')->with('success', 'Department deleted successfully!');
     }
 }
