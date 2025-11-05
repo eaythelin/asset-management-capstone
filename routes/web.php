@@ -27,10 +27,14 @@ Route::middleware(['auth'])->group(function () {
         });
       });
     });
-    
-    // User Management
-    Route::middleware('check.permission:view users')->group(function () {
-      Route::get('/users', [UsersController::class, 'getUsers'])->name('showUsers');
+
+    Route::group(['prefix' => '/users', 'middleware'=> 'check.permission:view users'], function(){
+      Route::get('/', [UsersController::class, 'getUsers'])->name('users.show');
+      Route::middleware('check.permission:manage users')->group(function(){
+        Route::post('/', [UsersController::class, 'storeUser'])->name('users.store');
+        Route::post('/{id}', [UsersController::class, 'updateUser'])->name('users.update');
+        Route::post('/{id}', [UsersController::class, 'deleteUser'])->name('users.delete');
+      });
     });
 
     //Configurations!

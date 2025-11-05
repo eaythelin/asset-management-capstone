@@ -20,7 +20,7 @@
         </x-navlinks></li>
         @endcan
         @can("view users")
-        <li><x-navlinks :routeName="'showUsers'" title="Users">
+        <li><x-navlinks :routeName="'users.show'" title="Users">
           <x-heroicon-s-user class="size-5 mr-2"/>
         </x-navlinks></li>
         @endcan
