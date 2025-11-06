@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $first_name
+ * @property string $last_name
+ */
+
 class Employee extends Model
 {
     protected $fillable = [
@@ -12,6 +17,10 @@ class Employee extends Model
         'department_id',
         'custodian'
     ];
+
+    public function getFullName():string {
+        return "{$this->first_name} {$this->last_name}";
+    }
     
     //Employee can only have one Department
     public function department(){

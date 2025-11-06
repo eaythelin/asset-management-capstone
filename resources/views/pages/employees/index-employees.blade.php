@@ -41,7 +41,7 @@
           @foreach($employees as $employee)
             <tr>
               <th class = "p-3 text-center">{{ $employee-> id }}</th>
-              <td class = "p-3">{{ $employee -> first_name}} {{ $employee -> last_name }}</td>
+              <td class = "p-3">{{ $employee -> getFullName()}}</td>
               <td class = "p-3">{{ $employee-> department -> department_name}}</td>
               <td class = "p-3 text-center">
                 @if($employee -> custodian)
@@ -52,8 +52,8 @@
               </td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can('view employees')
-                  <a href="{{ route('employees.show', $employee->id) }}">
-                    <x-buttons>
+                  <a href="{{ route('employees.show', $employee->id) }}" class="w-full sm:w-auto flex justify-center">
+                    <x-buttons class="px-5">
                       <x-heroicon-o-eye class="size-3 sm:size-5"/>
                       View
                     </x-buttons>

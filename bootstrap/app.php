@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\RedirectIfUnauthorized;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'check.permission' => \App\Http\Middleware\RedirectIfUnauthorized::class,
+            'check.permission' => RedirectIfUnauthorized::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

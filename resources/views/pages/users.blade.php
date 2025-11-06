@@ -33,6 +33,13 @@
               <th class = "p-3 text-center">{{ $user -> id }}</th>
               <td class = "p-3">{{ $user -> name}}</td>
               <td class = "p-3">{{ $user -> email}}</td>
+              <td class = "p-3">
+                @if($user -> is_active)
+                  <span class = "badge badge-success text-white font-medium">Active</span>
+                @else
+                  <span class = "badge badge-error text-white font-medium">Disabled</span>
+                @endif
+              </td>
               <td class = 'p-3'>{{ $user -> getRoleNames() -> first() }}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can("manage users")

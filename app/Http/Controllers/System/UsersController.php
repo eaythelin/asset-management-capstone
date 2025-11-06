@@ -11,7 +11,7 @@ class UsersController extends Controller
     //
     public function getUsers(){
         $users = User::with('roles')->paginate(5);
-        $columns = ["", "Name", "Email", "Role", "Actions"];
+        $columns = ["", "Name", "Email", "Status","Role", "Actions"];
         return view("pages.users", compact('users', 'columns'));
     }
 
