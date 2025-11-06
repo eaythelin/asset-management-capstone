@@ -9,7 +9,7 @@
     Return to Employees</a>
   </div>
 
-  <div class = "bg-white p-4 rounded-2xl shadow-xl">
+  <div class = "bg-white p-4 rounded-2xl shadow-xl mb-4">
     <div class = "flex flex-col sm:flex-row items-center sm:justify-between px-2 gap-5">
       <div class="flex flex-col gap-2">
         <p class="text-xl sm:text-2xl font-bold text-gray-800">{{ $employee->getFullName() }}</p>
@@ -32,6 +32,17 @@
           </span>
         @endif
       </div>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 rounded-2xl shadow-xl">
+    <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Assigned Assets</h3>
+    
+    <!-- if no assets assigned -->
+    <div class="flex flex-col items-center justify-center py-12 text-center">
+      <x-heroicon-s-archive-box class="size-16 text-gray-300 mb-4" />
+      <p class="text-gray-600 text-lg">No assets assigned</p>
+      <p class="text-gray-400 text-sm mt-2">Assets will appear here once they are assigned to this employee</p>
     </div>
   </div>
 </div>
