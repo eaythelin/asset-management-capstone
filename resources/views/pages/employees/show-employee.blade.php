@@ -1,7 +1,7 @@
 @extends('layouts.pageslayout')
 @section('content')
 
-<div class = "md:m-4">
+<div class = "md:mx-4">
   <div class = "mb-4">
     <a href="{{ route('employees.index') }}" 
     class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors"> 

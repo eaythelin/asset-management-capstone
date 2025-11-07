@@ -40,7 +40,7 @@
       <tbody class = "divide-y divide-gray-400">
           @foreach($employees as $employee)
             <tr>
-              <th class = "p-3 text-center">{{ $employee-> id }}</th>
+              <th class = "p-3 text-center">{{ $employee-> id}}</th>
               <td class = "p-3">{{ $employee -> getFullName()}}</td>
               <td class = "p-3">{{ $employee-> department -> department_name}}</td>
               <td class = "p-3 text-center">
@@ -71,7 +71,8 @@
                   </x-buttons>
                   <x-buttons onclick="deleteEmployee.showModal()"
                     class="deleteButton"
-                    data-route="{{ route('employees.delete', $employee->id ) }}">
+                    data-route="{{ route('employees.delete', $employee->id ) }}"
+                    data-has-user="{{ $employee -> user_count ? 1 : 0}}">
                     <x-heroicon-s-trash class="size-3 sm:size-5"/>
                     Delete
                   </x-buttons>

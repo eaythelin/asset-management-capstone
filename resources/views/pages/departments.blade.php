@@ -26,10 +26,12 @@
           <x-buttons type="submit">Search</x-buttons>
         </div>
       </form>
-      <x-buttons class="w-full sm:w-auto" onclick="createDepartment.showModal()">
-        <x-heroicon-s-plus class="size-5"/>
-        Create Department
-      </x-buttons>
+      @can('manage departments')
+        <x-buttons class="w-full sm:w-auto" onclick="createDepartment.showModal()">
+          <x-heroicon-s-plus class="size-5"/>
+          Create Department
+        </x-buttons>
+      @endcan
     </div>
     <x-tables :columnNames="$columns">
       <tbody class = "divide-y divide-gray-400">

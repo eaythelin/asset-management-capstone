@@ -4,10 +4,12 @@
   <x-heroicon-s-user class="text-blue-800 size-8 md:size-10"/>
 </x-pages-header>
 
+<x-toast-success />
+
 <div class = "md:m-4">
   {{-- show the errors! --}}
   <x-validation-error />
-  
+
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
       <form method = "GET" action="{{ route("users.show") }}">
@@ -21,10 +23,12 @@
           <x-buttons type="submit">Search</x-buttons>
         </div>
       </form>
-      <x-buttons class="w-full sm:w-auto">
-        <x-heroicon-s-plus class="size-5"/>
-        Create User
-      </x-buttons>
+      @can('manage users')
+        <x-buttons class="w-full sm:w-auto" onclick="createUser.showModal()">
+          <x-heroicon-s-plus class="size-5"/>
+          Create User
+        </x-buttons>
+      @endcan
     </div>
     <x-tables :columnNames="$columns">
       <tbody class = "divide-y divide-gray-400">
@@ -51,6 +55,9 @@
                     <x-heroicon-s-trash class="size-3 sm:size-5"/>
                     Delete
                   </x-buttons>
+                  <x-buttons class="tooltip" data-tip="{{ $user -> is_active ? 'Deactivate user' : 'Re-enable user' }}">
+                    <x-heroicon-c-power class="size-3 sm:size-5"/>
+                  </x-buttons>
                 @endcan
               </td>
             </tr>
@@ -62,4 +69,6 @@
     </div>
   </div>
 </div>
+
+@include('modals.user-modals.createUser-modal', [$employees, $roles])
 @endsection

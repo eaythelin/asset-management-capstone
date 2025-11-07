@@ -13,7 +13,7 @@ class EmployeesController extends Controller
     public function getEmployees(Request $request){
         $search = $request->input("search");
         // Get employees with their department info
-        $employees = Employee::with('department')->search($search)->paginate(5);
+        $employees = Employee::with(['department'])->withCount('user')->search($search)->paginate(5);
         $departments = Department::pluck('department_name', 'id');
 
         $columns = ["","Name", "Department", "Custodian", "Actions"];

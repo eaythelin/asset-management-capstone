@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property string $first_name
  * @property string $last_name
+ * @property string $id
  */
 
 class Employee extends Model
