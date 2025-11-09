@@ -5,6 +5,7 @@
 </x-pages-header>
 
 <x-toast-success />
+<x-session-error />
 
 <div class = "md:m-4">
   {{-- show the errors! --}}
@@ -12,24 +13,42 @@
 
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
-      <form method = "GET" action="{{ route("users.show") }}">
-        <div class = "flex flex-row gap-3">
+      <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <form method="GET" action="{{ route('users.show') }}" class="flex gap-3">
           <input 
             type="text" 
             placeholder="Search users.." 
             class="input input-bordered w-full"
             name="search"
+            value="{{ request('search') }}"
           />
           <x-buttons type="submit">Search</x-buttons>
-        </div>
-      </form>
+        </form>
+    
+        @can('manage users')
+          <form method="GET" action="{{ route('users.show') }}">
+            <input type="hidden" name="search" value="{{ request('search') }}">
+            <label class="flex mt-3 items-center gap-2 cursor-pointer">
+              <input 
+                type="checkbox" 
+                name="show_deleted" 
+                class="checkbox checkbox-sm"
+                {{ request('show_deleted') ? 'checked' : '' }}
+                onchange="this.form.submit()"
+              />
+              <span class="text-sm font-medium">Show deleted</span>
+            </label>
+          </form>
+        @endcan
+      </div>
+
       @can('manage users')
         <x-buttons class="w-full sm:w-auto" onclick="createUser.showModal()">
           <x-heroicon-s-plus class="size-5"/>
           Create User
         </x-buttons>
       @endcan
-    </div>
+</div>
     <x-tables :columnNames="$columns">
       <tbody class = "divide-y divide-gray-400">
           @foreach($users as $user)
@@ -46,19 +65,35 @@
               </td>
               <td class = 'p-3'>{{ $user -> getRoleNames() -> first() }}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
-                @can("manage users")
+                @if($user->trashed())
                   <x-buttons>
-                    <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                    Edit
+                    <x-heroicon-o-arrow-uturn-left class="size-3 sm:size-5"/>
+                    Reactivate
                   </x-buttons>
-                  <x-buttons>
-                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                    Delete
-                  </x-buttons>
-                  <x-buttons class="tooltip" data-tip="{{ $user -> is_active ? 'Deactivate user' : 'Re-enable user' }}">
-                    <x-heroicon-c-power class="size-3 sm:size-5"/>
-                  </x-buttons>
-                @endcan
+                @else
+                  @can("manage users")
+                    <x-buttons onclick="editUser.showModal()"
+                      class="editButton"
+                      data-user="{{ json_encode([
+                        'employee_id'=> $user->employee_id,
+                        'employee_name'=> $user->employee->first_name . ' ' . $user->employee->last_name,
+                        'role_id'=> $user->roles->first()->id ?? null,
+                        'email'=> $user->email,
+                        'route'=> route('users.update', $user->id )]) }}">
+                      <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
+                      Edit
+                    </x-buttons>
+                    <x-buttons onclick="deleteUser.showModal()"
+                      class="deleteButton"
+                      data-route="{{ route('users.delete', $user->id ) }}">
+                      <x-heroicon-s-trash class="size-3 sm:size-5"/>
+                      Delete
+                    </x-buttons>
+                    <x-buttons class="tooltip" data-tip="{{ $user -> is_active ? 'Deactivate user' : 'Re-enable user' }}">
+                      <x-heroicon-c-power class="size-3 sm:size-5"/>
+                    </x-buttons>
+                  @endcan
+                @endif
               </td>
             </tr>
           @endforeach
@@ -70,5 +105,12 @@
   </div>
 </div>
 
-@include('modals.user-modals.createUser-modal', [$employees, $roles])
+@include('modals.user-modals.create-user-modal', [$employees, $roles])
+@include('modals.user-modals.delete-user-modal')
+@include('modals.user-modals.edit-user-modal', [$employees, $roles])
+@endsection
+
+@section('scripts')
+  @vite('resources/js/user/delete-user.js')
+  @vite('resources/js/user/edit-user.js')
 @endsection

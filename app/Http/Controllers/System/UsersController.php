@@ -12,9 +12,17 @@ use Spatie\Permission\Models\Role;
 class UsersController extends Controller
 {
     //
-    public function getUsers(){
-        $users = User::with('roles')->paginate(5);
-        $employees = (new Employee)->newQuery()->select('id', 'first_name', 'last_name')->whereDoesntHave('user')->get();
+    public function getUsers(Request $request){
+        $query = User::with('roles', 'employee');
+
+        if(request('show_deleted')){
+            //show only soft deleted users!
+            $query->onlyTrashed();
+        }
+
+        $users = $query->paginate(5);
+
+        $employees = Employee::select('id', 'first_name', 'last_name')->whereDoesntHave('user')->get();
         $roles = Role::pluck('name', 'id');
 
         $employees = $employees->mapWithKeys(function ($employee) {
@@ -53,11 +61,20 @@ class UsersController extends Controller
         return redirect()->route('users.show')->with('success', 'System User successfully created!');
     }
 
-    public function updateUser(){
+    public function updateUser(Request $request, $id){
         
     }
 
-    public function deleteUser(){
-        
+    public function deleteUser($id){
+        $user = User::findOrFail($id);
+
+        if(auth()->id()=== $user->id){
+            return redirect()->route('users.show')->with('error', 'You cannot delete your own account!');
+        }
+
+        $user->update(['is_active' => false]);
+        $user->delete();
+
+        return redirect()->route('users.show')->with('success', 'User has been successfully deleted!');
     }
 }
