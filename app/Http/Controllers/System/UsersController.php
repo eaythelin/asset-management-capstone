@@ -21,6 +21,13 @@ class UsersController extends Controller
             $query->onlyTrashed();
         }
 
+        //search!
+        if(request('search')){
+            $search = $request->input("search");
+
+            $query->search($search)->paginate(5);
+        }
+
         $users = $query->paginate(5);
 
         $employees = Employee::select('id', 'first_name', 'last_name')
@@ -122,7 +129,7 @@ class UsersController extends Controller
         return back()->with('success', 'User restored!');
     }
 
-    public function deleteUser($id){
+    public function softDeleteUser($id){
         $user = User::findOrFail($id);
 
         if(auth()->id()=== $user->id){
@@ -133,5 +140,16 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->route('users.show')->with('success', 'User has been successfully deleted!');
+    }
+
+    public function forceDelete($id){
+        $user = User::withTrashed()->findOrFail($id);
+
+        //NOTE:
+        //add prevent force deletion of user if its tied to a record like requests or workorder!!!
+
+        $user->forceDelete();
+
+        return redirect()->route('users.show')->with('success', 'User record has been deleted!');
     }
 }

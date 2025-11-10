@@ -58,4 +58,14 @@ class User extends Authenticatable
     public function employee(){
         return $this->belongsTo(Employee::class);
     }
+
+    public function scopeSearch($query, $search){
+        if (!$search) return $query;
+
+        return $query->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%")
+                            ->orWhereHas('roles', function($roleQuery) use ($search){
+                                $roleQuery->where('name', 'LIKE', "%{$search}%");
+                            });
+    }
 }

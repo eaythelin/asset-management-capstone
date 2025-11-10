@@ -35,7 +35,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/{id}', [UsersController::class, 'updateUser'])->name('users.update');
         Route::put('/{id}/update',[UsersController::class, 'toggleUser'])->name('users.toggle');
         Route::put('/{id}/restore',[UsersController::class, 'restoreUser'])->name('users.restore');
-        Route::delete('/{id}', [UsersController::class, 'deleteUser'])->name('users.delete');
+        Route::delete('/{id}', [UsersController::class, 'softDeleteUser'])->name('users.soft-delete');
+        Route::delete('/{id}/force-delete', [UsersController::class, 'forceDelete'])->name('users.force-delete');
       });
     });
 

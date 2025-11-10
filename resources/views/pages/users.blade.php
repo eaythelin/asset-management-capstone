@@ -72,7 +72,9 @@
                     <x-heroicon-o-arrow-uturn-left class="size-3 sm:size-5"/>
                     Reactivate
                   </x-buttons>
-                  <x-buttons>
+                  <x-buttons onclick="permaDeleteUser.showModal()"
+                    class="permaDeleteBtn"
+                    data-route="{{ route('users.force-delete', $user->id ) }}">
                     <x-heroicon-s-trash class="size-3 sm:size-5"/>
                     Permanent Delete
                   </x-buttons>
@@ -91,7 +93,7 @@
                     </x-buttons>
                     <x-buttons onclick="deleteUser.showModal()"
                       class="deleteButton"
-                      data-route="{{ route('users.delete', $user->id ) }}">
+                      data-route="{{ route('users.soft-delete', $user->id ) }}">
                       <x-heroicon-s-trash class="size-3 sm:size-5"/>
                       Delete
                     </x-buttons>
@@ -121,10 +123,12 @@
 @include('modals.user-modals.delete-user-modal')
 @include('modals.user-modals.edit-user-modal', [$employees, $roles])
 @include('modals.user-modals.reactivate-user-modal')
+@include('modals.user-modals.permanent-delete-user');
 @endsection
 
 @section('scripts')
-  @vite('resources/js/user/delete-user.js')
+  @vite('resources/js/user/soft-delete-user.js')
   @vite('resources/js/user/edit-user.js')
   @vite('resources/js/user/restore-user.js')
+  @vite('resources/js/user/force-delete-user.js')
 @endsection
