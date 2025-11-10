@@ -19,11 +19,6 @@
           <x-heroicon-s-user-group class="size-5 mr-2"/>
         </x-navlinks></li>
         @endcan
-        @can("view users")
-        <li><x-navlinks :routeName="'users.show'" title="Users">
-          <x-heroicon-s-user class="size-5 mr-2"/>
-        </x-navlinks></li>
-        @endcan
         @can("view configs")
         <li>
           {{-- if any of the routes here gets chosen the config drowdown stays open --}}
@@ -46,6 +41,12 @@
     <li>
       <h1 class = "menu-title text-base text-white px-4 py-2 rounded">General</h1>
       <ul>
+        <!--System Users-->
+        @can("view users")
+        <li><x-navlinks :routeName="'users.show'" title="Users">
+          <x-heroicon-s-user class="size-5 mr-2"/>
+        </x-navlinks></li>
+        @endcan
         <!--Logout-->
         <li>
           <form class="w-full group hover:bg-yellow-700/20" method = "POST" action="{{ route("logoutUser") }}">

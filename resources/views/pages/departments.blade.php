@@ -68,9 +68,9 @@
   </div>
 </div>
 
-@include('modals.department-modals.createDepartment-modal')
-@include('modals.department-modals.deleteDepartment-modal')
-@include('modals.department-modals.editDepartment-modal')
+@include('modals.department-modals.create-department-modal')
+@include('modals.department-modals.delete-department-modal')
+@include('modals.department-modals.edit-department-modal')
 @endsection
 
 @section('scripts')

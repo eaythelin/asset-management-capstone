@@ -1,6 +1,6 @@
-<x-modal :name="'deleteDepartment'" title="Delete Department">
+<x-modal name="deleteEmployee" title="Delete Employee">
   <div class = "flex flex-col gap-6 text-center sm:px-4">
-    <h2 class = "text-base">This will permanently delete the department!</h2>
+    <h2 class = "text-base deleteText"></h2>
     <form method="POST" id = "deleteForm">
       @csrf
       @method("DELETE")

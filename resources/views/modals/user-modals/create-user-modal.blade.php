@@ -16,8 +16,8 @@
           <option value="{{ $id }}">{{ $role_name }}</option>
         @endforeach
       </select>
-      <x-label :for="'create_email'" :required="true">Email </x-label>
-      <x-modal-input-box :id="'create_email'" :name="'email'"/>
+      <x-label for="create_email" :required="true">Email </x-label>
+      <x-modal-input-box id="create_email" :name="'email'" type="email" autocomplete="email"/>
       <x-label :for="'create_password'" :required="true">Password </x-label>
       <x-modal-input-box :id="'create_password'" :name="'password'" type="password" />
       <x-buttons class="mt-2" type="Submit">Submit</x-buttons>

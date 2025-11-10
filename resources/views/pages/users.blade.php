@@ -66,9 +66,15 @@
               <td class = 'p-3'>{{ $user -> getRoleNames() -> first() }}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @if($user->trashed())
-                  <x-buttons>
+                  <x-buttons onclick="reactivateUser.showModal()"
+                    class="restoreButton"
+                    data-route="{{ route('users.restore', $user->id ) }}">
                     <x-heroicon-o-arrow-uturn-left class="size-3 sm:size-5"/>
                     Reactivate
+                  </x-buttons>
+                  <x-buttons>
+                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
+                    Permanent Delete
                   </x-buttons>
                 @else
                   @can("manage users")
@@ -89,9 +95,15 @@
                       <x-heroicon-s-trash class="size-3 sm:size-5"/>
                       Delete
                     </x-buttons>
-                    <x-buttons class="tooltip" data-tip="{{ $user -> is_active ? 'Deactivate user' : 'Re-enable user' }}">
-                      <x-heroicon-c-power class="size-3 sm:size-5"/>
-                    </x-buttons>
+                    <div class = "flex justify-center items-center">
+                      <form method="POST" action="{{ route('users.toggle', $user->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <x-buttons class="tooltip" data-tip="{{ $user -> is_active ? 'Deactivate user' : 'Re-enable user' }}" type="submit">
+                          <x-heroicon-c-power class="size-3 sm:size-5"/>
+                        </x-buttons>
+                      </form>
+                    </div>
                   @endcan
                 @endif
               </td>
@@ -108,9 +120,11 @@
 @include('modals.user-modals.create-user-modal', [$employees, $roles])
 @include('modals.user-modals.delete-user-modal')
 @include('modals.user-modals.edit-user-modal', [$employees, $roles])
+@include('modals.user-modals.reactivate-user-modal')
 @endsection
 
 @section('scripts')
   @vite('resources/js/user/delete-user.js')
   @vite('resources/js/user/edit-user.js')
+  @vite('resources/js/user/restore-user.js')
 @endsection

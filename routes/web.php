@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
       Route::middleware('check.permission:manage users')->group(function(){
         Route::post('/', [UsersController::class, 'storeUser'])->name('users.store');
         Route::put('/{id}', [UsersController::class, 'updateUser'])->name('users.update');
+        Route::put('/{id}/update',[UsersController::class, 'toggleUser'])->name('users.toggle');
+        Route::put('/{id}/restore',[UsersController::class, 'restoreUser'])->name('users.restore');
         Route::delete('/{id}', [UsersController::class, 'deleteUser'])->name('users.delete');
       });
     });

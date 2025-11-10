@@ -2,6 +2,7 @@
 @section('content')
 
 <x-toast-success />
+<x-session-error />
 
 <x-auth-card title="Login">
   <form method = "POST" action = "{{ route('loginUser') }}">

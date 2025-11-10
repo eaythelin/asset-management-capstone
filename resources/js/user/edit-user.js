@@ -23,5 +23,7 @@ editButtons.forEach(button => {
     selectRole.value=userData.role_id;
 
     document.querySelector('#edit_email').value = userData.email;
+    const form = document.getElementById('editForm');
+    form.action = userData.route;
   });
 });

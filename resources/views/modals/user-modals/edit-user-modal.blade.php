@@ -18,13 +18,13 @@
         @endforeach
       </select>
       <x-label :for="'edit_email'" :required="true">Email </x-label>
-      <x-modal-input-box :id="'edit_email'" :name="'email'"/>
+      <x-modal-input-box :id="'edit_email'" :name="'email'" type="email" autocomplete="email"/>
       <hr class="border-gray-300 mt-2">
       <p class="text-xs sm:text-sm text-gray-500 italic mb-3 text-center">Leave password fields blank to keep current password</p>
       <x-label :for="'edit_password'">Password </x-label>
-      <x-modal-input-box :id="'edit_password'" :name="'password'" type="password" />
+      <x-modal-input-box :id="'edit_password'" :name="'password'" type="password"  />
       <x-label :for="'confirm_password'">Confirm Password </x-label>
-      <x-modal-input-box :id="'confirm_password'" :name="'password_confirmation'" />
+      <x-modal-input-box :id="'confirm_password'" :name="'password_confirmation'" type="password"/>
       <x-buttons class="mt-2" type="Submit">Submit</x-buttons>
     </div>
   </form>

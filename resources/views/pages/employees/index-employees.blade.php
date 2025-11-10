@@ -88,9 +88,9 @@
   </div>
 </div>
 
-@include('modals.employee-modals.createEmployee-modal', $departments)
-@include('modals.employee-modals.editEmployee-modal', $departments)
-@include('modals.employee-modals.deleteEmployee-modal')
+@include('modals.employee-modals.create-employee-modal', $departments)
+@include('modals.employee-modals.edit-employee-modal', $departments)
+@include('modals.employee-modals.delete-employee-modal')
 
 @endsection
 
