@@ -1,7 +1,11 @@
 <?php
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\System\AssetsController;
+use App\Http\Controllers\System\CategoriesController;
 use App\Http\Controllers\System\DepartmentsController;
 use App\Http\Controllers\System\EmployeesController;
+use App\Http\Controllers\System\SubCategoriesController;
+use App\Http\Controllers\System\SuppliersController;
 use App\Http\Controllers\System\UsersController;
 use App\Http\Controllers\System\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -13,21 +17,51 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard.show');
     });
 
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('logoutUser');
+    Route::group(["prefix" => "/assets", "middleware" => "check.permission:view assets"], function(){
+      Route::get('/', [AssetsController::class, 'getAssets'])->name('assets.index');
+      Route::get('/{id}', [AssetsController::class, 'getAsset'])->name('assets.show');
+    });
 
     //employees
-    Route::group(["prefix" => "/employees"], function(){
-      Route::middleware('check.permission:view employees')->group(function(){
-        Route::get('/', [EmployeesController::class, "getEmployees"])->name('employees.index');
-        Route::get('/{id}',[EmployeesController::class,"getEmployee"])->name('employees.show');
-        Route::middleware('check.permission:manage employees')->group(function(){
-          Route::post('/', [EmployeesController::class, 'storeEmployees'])->name('employees.store');
-          Route::put('/{id}', [EmployeesController::class, 'updateEmployee'])->name('employees.update');
-          Route::delete('/{id}',[EmployeesController::class, 'deleteEmployee'])->name('employees.delete');
-        });
+    Route::group(["prefix" => "/employees", "middleware" => "check.permission:view employees"], function(){
+      Route::get('/', [EmployeesController::class, "getEmployees"])->name('employees.index');
+      Route::get('/{id}',[EmployeesController::class,"getEmployee"])->name('employees.show');
+      Route::middleware('check.permission:manage employees')->group(function(){
+        Route::post('/', [EmployeesController::class, 'storeEmployees'])->name('employees.store');
+        Route::put('/{id}', [EmployeesController::class, 'updateEmployee'])->name('employees.update');
+        Route::delete('/{id}',[EmployeesController::class, 'deleteEmployee'])->name('employees.delete');
       });
     });
 
+    //Configurations!
+    Route::group(["prefix" => "/configs"], function(){
+      //Departments
+      Route::group(['prefix' => "/departments", "middleware" => "check.permission:view categories"], function(){
+        Route::get('/', [DepartmentsController::class, 'getDepartments'])->name('department.show');
+        Route::middleware("check.permission:manage departments")->group(function(){
+          Route::post('/', [DepartmentsController::class, 'storeDepartments'])->name('departments.store');
+          Route::put('/{id}', [DepartmentsController::class, 'updateDepartment'])->name('departments.update');
+          Route::delete('/{id}',[DepartmentsController::class, 'deleteDepartment'])->name('departments.delete');
+        });
+      });
+
+      //Categories
+      Route::group(['prefix' => "/categories", "middleware" => "check.permission:view categories"], function(){
+        Route::get('/', [CategoriesController::class, "getCategories"])->name('category.show');
+      });
+
+      //Sub-categories
+      Route::group(['prefix' => "/sub-categories", "middleware" => "check.permission:view sub-categories"], function(){
+        Route::get('/', [SubCategoriesController::class, "getSubCategories"])->name('sub-category.show');
+      });
+
+      //Suppliers
+      Route::group(['prefix' => "/suppliers", "middleware" => "check.permission:view suppliers"], function(){
+        Route::get('/', [SuppliersController::class, "getSuppliers"])->name('suppliers.show');
+      });
+    });
+
+    //users
     Route::group(['prefix' => '/users', 'middleware'=> 'check.permission:view users'], function(){
       Route::get('/', [UsersController::class, 'getUsers'])->name('users.show');
       Route::middleware('check.permission:manage users')->group(function(){
@@ -40,18 +74,8 @@ Route::middleware(['auth'])->group(function () {
       });
     });
 
-    //Configurations!
-    Route::group(["prefix" => "/configs"], function(){
-      //Departments
-      Route::middleware('check.permission:view departments')->group(function(){
-        Route::get('/departments', [DepartmentsController::class, 'getDepartments'])->name('department.show');
-        Route::group(["prefix" => "/departments", "middleware" => "check.permission:manage departments"], function(){
-          Route::post('/', [DepartmentsController::class, 'storeDepartments'])->name('departments.store');
-          Route::put('/{id}', [DepartmentsController::class, 'updateDepartment'])->name('departments.update');
-          Route::delete('/{id}',[DepartmentsController::class, 'deleteDepartment'])->name('departments.delete');
-        });
-      });
-    });
+    //logout
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logoutUser');
 });
 
 

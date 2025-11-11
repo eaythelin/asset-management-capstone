@@ -14,27 +14,17 @@
           <x-heroicon-s-home class="size-5 mr-2" />
         </x-navlinks></li>
         @endcan
+        @can("view assets")
+        <li>
+          <x-navlinks :routeName="'assets.index'" title="Assets">
+            <x-heroicon-s-cube class="w-5 h-5 mr-2" />
+          </x-navlinks>
+        </li>
+        @endcan
         @can("view employees")
         <li><x-navlinks :routeName="'employees.index'" title="Employees">
           <x-heroicon-s-user-group class="size-5 mr-2"/>
         </x-navlinks></li>
-        @endcan
-        @can("view configs")
-        <li>
-          {{-- if any of the routes here gets chosen the config drowdown stays open --}}
-          <details {{ request()->routeIs("department.show") ? 'open' : '' }}>
-            <x-dropdown-navs title="Configurations">
-              <x-heroicon-o-adjustments-horizontal class="size-5 mr-2" />
-            </x-dropdown-navs>
-            <ul>
-              @can("view departments")
-              <li><x-navlinks :routeName="'department.show'" title="Departments">
-                <x-heroicon-s-briefcase class="size-5 mr-2"/>
-              </x-navlinks></li>
-              @endcan
-            </ul>
-          </details>
-        </li>
         @endcan
       </ul>
     </li>
@@ -46,6 +36,44 @@
         <li><x-navlinks :routeName="'users.show'" title="Users">
           <x-heroicon-s-user class="size-5 mr-2"/>
         </x-navlinks></li>
+        @endcan
+        @can("view configs")
+        <li>
+          {{-- if any of the routes here gets chosen the config drowdown stays open --}}
+          <details {{ request()->is('configs*') ? 'open' : '' }}>
+            <x-dropdown-navs title="Configurations">
+              <x-heroicon-o-adjustments-horizontal class="size-5 mr-2" />
+            </x-dropdown-navs>
+            <ul>
+              @can("view departments")
+              <li><x-navlinks :routeName="'department.show'" title="Departments">
+                <x-heroicon-s-briefcase class="size-5 mr-2"/>
+              </x-navlinks></li>
+              @endcan
+              @can("view categories")
+              <li>
+                <x-navlinks routeName="category.show" title="Categories">
+                  <x-heroicon-s-clipboard-document-list class="w-5 h-5 mr-2" />
+                </x-navlinks>
+              </li>
+              @endcan
+              @can("view sub-categories")
+              <li>
+                <x-navlinks routeName="sub-category.show" title="Sub-Categories">
+                  <x-heroicon-s-folder-open class="w-5 h-5 mr-2" />
+                </x-navlinks>
+              </li>
+              @endcan
+              @can("view suppliers")
+              <li>
+                <x-navlinks routeName="suppliers.show" title="Suppliers">
+                  <x-heroicon-s-truck class="w-5 h-5 mr-2" />
+                </x-navlinks>
+              </li>
+              @endcan
+            </ul>
+          </details>
+        </li>
         @endcan
         <!--Logout-->
         <li>

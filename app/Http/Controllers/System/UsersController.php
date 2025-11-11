@@ -25,7 +25,7 @@ class UsersController extends Controller
         if(request('search')){
             $search = $request->input("search");
 
-            $query->search($search)->paginate(5);
+            $query->search($search);
         }
 
         $users = $query->paginate(5);
