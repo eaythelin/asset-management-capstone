@@ -27,7 +27,7 @@ class EmployeesController extends Controller
         }
 
         $employees = $query->paginate(5);
-        $departments = Department::pluck('department_name', 'id');
+        $departments = Department::pluck('name', 'id');
 
         $columns = ["","Name", "Department", "Custodian", "Actions"];
         return view("pages.employees.index-employees", compact('employees', 'columns', 'departments'));

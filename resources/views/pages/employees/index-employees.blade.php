@@ -42,7 +42,7 @@
             <tr>
               <th class = "p-3 text-center">{{ $employee-> id}}</th>
               <td class = "p-3">{{ $employee -> getFullName()}}</td>
-              <td class = "p-3">{{ $employee-> department -> department_name}}</td>
+              <td class = "p-3">{{ $employee-> department -> name}}</td>
               <td class = "p-3 text-center">
                 @if($employee -> custodian)
                   <span class="badge badge-success"><x-heroicon-m-check class="size-5"/></span>

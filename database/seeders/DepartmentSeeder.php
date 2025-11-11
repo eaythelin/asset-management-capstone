@@ -15,17 +15,17 @@ class DepartmentSeeder extends Seeder
     {
         //
         Department::create([
-            "department_name" => "HR",
+            "name" => "HR",
             "description" => "Human Resources Department"
         ]);
 
         Department::create([
-            "department_name" => "Admin",
+            "name" => "Admin",
             "description" => "Administration Department"
         ]);
 
         Department::create([
-            "department_name" => "Maintenance",
+            "name" => "Maintenance",
             "description" => "Maintenance Department"
         ]);
     }

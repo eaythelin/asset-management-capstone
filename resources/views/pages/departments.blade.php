@@ -38,14 +38,14 @@
           @foreach($departments as $department)
             <tr>
               <th class = "p-3 text-center">{{ $department -> id }}</th>
-              <td class = "p-3">{{ $department -> department_name}}</td>
+              <td class = "p-3">{{ $department -> name}}</td>
               <td class = "p-3">{{ $department -> description}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can("manage departments")
                   <x-buttons onclick="editDepartment.showModal()"
                     class="editButton"
                     data-route="{{ route('departments.update', $department->id ) }}"
-                    data-name="{{ $department -> department_name}}"
+                    data-name="{{ $department -> name}}"
                     data-description="{{ $department -> description}}">
                     <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
                     Edit

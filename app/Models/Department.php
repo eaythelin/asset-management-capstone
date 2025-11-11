@@ -11,7 +11,7 @@ class Department extends Model
     use HasFactory;
 
     protected $fillable = [
-        'department_name',
+        'name',
         'description'
     ];
 
@@ -20,10 +20,14 @@ class Department extends Model
         return $this->hasMany(Employee::class);
     }
 
+    public function assets(){
+        return $this->hasMany(Asset::class);
+    }
+
     public function scopeSearch($query, $search){
         if (!$search) return $query;
 
-        return $query->where('department_name', 'LIKE', "%{$search}%")
+        return $query->where('name', 'LIKE', "%{$search}%")
                             ->orWhere('description', 'LIKE', "%{$search}%");
     }
 }

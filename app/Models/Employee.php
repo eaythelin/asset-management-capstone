@@ -33,6 +33,11 @@ class Employee extends Model
         return $this->hasOne(User::class);
     }
 
+    //one employee can have many assets
+    public function assets(){
+        return $this->hasMany(Asset::class, 'custodian_id');
+    }
+
     //query!
     public function scopeSearch($query, $search){
         if (!$search) return $query;

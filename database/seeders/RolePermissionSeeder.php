@@ -25,6 +25,10 @@ class RolePermissionSeeder extends Seeder
             'manage departments',
             'manage users',
             'manage employees',
+            'manage categories',
+            'manage sub-categories',
+            'manage suppliers',
+            'manage assets'
         ];
 
         $viewPermissions = [
@@ -33,7 +37,11 @@ class RolePermissionSeeder extends Seeder
             'view users',
             'view employees',
             'view configs',
-            'view dashboard'
+            'view dashboard',
+            'view categories',
+            'view sub-categories',
+            'view assets',
+            'view suppliers'
         ];
 
         foreach($crudPermissions as $crudPermission){
@@ -50,12 +58,19 @@ class RolePermissionSeeder extends Seeder
             'manage departments',
             'manage users',
             'manage employees',
-            'view assets',
+            'manage categories',
+            'manage sub-categories',
+            'manage assets',
+            'manage suppliers',
             'view departments',
             'view users',
             'view employees',
             'view configs',
-            'view dashboard'
+            'view dashboard',
+            'view categories',
+            'view sub-categories',
+            'view assets',
+            'view suppliers'
         ];
 
         foreach($systemSupervisorPerms as $perms){
