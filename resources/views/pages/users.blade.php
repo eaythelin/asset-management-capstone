@@ -14,19 +14,10 @@
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
       <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-        <form method="GET" action="{{ route('users.show') }}" class="flex gap-3">
-          <input 
-            type="text" 
-            placeholder="Search users.." 
-            class="input input-bordered w-full"
-            name="search"
-            value="{{ request('search') }}"
-          />
-          <x-buttons type="submit">Search</x-buttons>
-        </form>
+        <x-search-bar route="users.index" placeholder="Search users..."/>
     
         @can('manage users')
-          <form method="GET" action="{{ route('users.show') }}">
+          <form method="GET" action="{{ route('users.index') }}">
             <input type="hidden" name="search" value="{{ request('search') }}">
             <label class="flex mt-3 items-center gap-2 cursor-pointer">
               <input 

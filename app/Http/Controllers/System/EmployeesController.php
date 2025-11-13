@@ -26,11 +26,15 @@ class EmployeesController extends Controller
             $query->search($search);
         }
 
+        $role = auth()->user()->getRoleNames()->first();
+
+        $desc = $role === "System Supervisor" ? "View, add, and manage employees and their assets" : "View employees and their assigned assets";
+
         $employees = $query->paginate(5);
         $departments = Department::pluck('name', 'id');
 
         $columns = ["","Name", "Department", "Custodian", "Actions"];
-        return view("pages.employees.index-employees", compact('employees', 'columns', 'departments'));
+        return view("pages.employees.index-employees", compact('employees', 'columns', 'departments', 'desc'));
     }
 
     public function getEmployee($id){

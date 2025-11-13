@@ -1,12 +1,6 @@
 @extends("layouts.pageslayout")
 @section("content")
 <!--Change description depending on the role-->
-@php
-  $role = Auth::user() -> getRoleNames() -> first();
-
-  $desc = $role === "System Supervisor" ? "View, add, and manage employees and their assets" : "View employees and their assigned assets";
-@endphp
-
 <x-pages-header title="Employees" :description="$desc">
   <x-heroicon-s-user-group class="text-blue-800 size-8 md:size-10"/>
 </x-pages-header>
@@ -18,17 +12,9 @@
   <x-validation-error />
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 mx-2">
-      <form method = "GET" action="{{ route("employees.index") }}">
-        <div class = "flex flex-row gap-3">
-          <input 
-            type="text" 
-            placeholder="Search employees.." 
-            class="input input-bordered w-full"
-            name="search"
-          />
-          <x-buttons type="submit">Search</x-buttons>
-        </div>
-      </form>
+      
+      <x-search-bar route="employees.index" placeholder="Search employees..."/>
+
       @can('manage employees')
         <x-buttons class="w-full sm:w-auto" onclick="createEmployee.showModal()">
           <x-heroicon-s-plus class="size-5"/>

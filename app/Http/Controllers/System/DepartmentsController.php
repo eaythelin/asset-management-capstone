@@ -21,26 +21,26 @@ class DepartmentsController extends Controller
 
     public function storeDepartments(Request $request){
         $validated = $request->validate([
-            "department_name"=>["required", "string","unique:departments,department_name", "max:100"],
+            "name"=>["required", "string","unique:departments,name", "max:100"],
             "description"=>["nullable","string", "max:255"]
         ]);
         //create the department if all the rules pass
         Department::create($validated);
 
-        return redirect()->route('department.show')->with('success','Department successfully created!');
+        return redirect()->route('department.index')->with('success','Department successfully created!');
     }
 
     public function updateDepartment(Request $request, $id){
         //rule is: This name must be unique, except for the department that is currently being edited
         $validated = $request->validate([
-            "department_name"=>["required", "string", Rule::unique('departments', 'department_name')->ignore($id), "max:100"],
+            "name"=>["required", "string", Rule::unique('departments', 'name')->ignore($id), "max:100"],
             "description"=>["nullable","string", "max:255"]
         ]);
 
         $department = Department::findOrFail($id);
         $department->update($validated);
 
-        return redirect()->route('department.show')->with('success', 'Department edited successfully!');
+        return redirect()->route('department.index')->with('success', 'Department edited successfully!');
     }
 
     public function deleteDepartment($id){
@@ -52,6 +52,6 @@ class DepartmentsController extends Controller
 
         $department->delete();
 
-        return redirect()->route('department.show')->with('success', 'Department deleted successfully!');
+        return redirect()->route('department.index')->with('success', 'Department deleted successfully!');
     }
 }

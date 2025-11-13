@@ -14,7 +14,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard + Logout
     Route::middleware('check.permission:view dashboard')->group(function () {
-      Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard.show');
+      Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard.index');
     });
 
     Route::group(["prefix" => "/assets", "middleware" => "check.permission:view assets"], function(){
@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(["prefix" => "/configs"], function(){
       //Departments
       Route::group(['prefix' => "/departments", "middleware" => "check.permission:view categories"], function(){
-        Route::get('/', [DepartmentsController::class, 'getDepartments'])->name('department.show');
+        Route::get('/', [DepartmentsController::class, 'getDepartments'])->name('department.index');
         Route::middleware("check.permission:manage departments")->group(function(){
           Route::post('/', [DepartmentsController::class, 'storeDepartments'])->name('departments.store');
           Route::put('/{id}', [DepartmentsController::class, 'updateDepartment'])->name('departments.update');
@@ -47,23 +47,28 @@ Route::middleware(['auth'])->group(function () {
 
       //Categories
       Route::group(['prefix' => "/categories", "middleware" => "check.permission:view categories"], function(){
-        Route::get('/', [CategoriesController::class, "getCategories"])->name('category.show');
+        Route::get('/', [CategoriesController::class, "getCategories"])->name('category.index');
+        Route::middleware('check.permission:manage categories')->group(function(){
+          Route::post('/', [CategoriesController::class, "storeCategory"])->name("category.store");
+          Route::put('/', [CategoriesController::class, "updateCategory"])->name("category.update");
+          Route::delete('/', [CategoriesController::class, "deleteCategory"])->name("category.delete");
+        });
       });
 
       //Sub-categories
       Route::group(['prefix' => "/sub-categories", "middleware" => "check.permission:view sub-categories"], function(){
-        Route::get('/', [SubCategoriesController::class, "getSubCategories"])->name('sub-category.show');
+        Route::get('/', [SubCategoriesController::class, "getSubCategories"])->name('sub-category.index');
       });
 
       //Suppliers
       Route::group(['prefix' => "/suppliers", "middleware" => "check.permission:view suppliers"], function(){
-        Route::get('/', [SuppliersController::class, "getSuppliers"])->name('suppliers.show');
+        Route::get('/', [SuppliersController::class, "getSuppliers"])->name('suppliers.index');
       });
     });
 
     //users
     Route::group(['prefix' => '/users', 'middleware'=> 'check.permission:view users'], function(){
-      Route::get('/', [UsersController::class, 'getUsers'])->name('users.show');
+      Route::get('/', [UsersController::class, 'getUsers'])->name('users.index');
       Route::middleware('check.permission:manage users')->group(function(){
         Route::post('/', [UsersController::class, 'storeUser'])->name('users.store');
         Route::put('/{id}', [UsersController::class, 'updateUser'])->name('users.update');

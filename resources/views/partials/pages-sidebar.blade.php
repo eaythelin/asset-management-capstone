@@ -10,7 +10,7 @@
       <h1 class = "menu-title text-base text-white px-4 py-2 rounded">Menu</h1>
       <ul>
         @can("view dashboard")
-        <li><x-navlinks :routeName="'dashboard.show'" title="Dashboard">
+        <li><x-navlinks :routeName="'dashboard.index'" title="Dashboard">
           <x-heroicon-s-home class="size-5 mr-2" />
         </x-navlinks></li>
         @endcan
@@ -33,7 +33,7 @@
       <ul>
         <!--System Users-->
         @can("view users")
-        <li><x-navlinks :routeName="'users.show'" title="Users">
+        <li><x-navlinks :routeName="'users.index'" title="Users">
           <x-heroicon-s-user class="size-5 mr-2"/>
         </x-navlinks></li>
         @endcan
@@ -46,27 +46,27 @@
             </x-dropdown-navs>
             <ul>
               @can("view departments")
-              <li><x-navlinks :routeName="'department.show'" title="Departments">
+              <li><x-navlinks :routeName="'department.index'" title="Departments">
                 <x-heroicon-s-briefcase class="size-5 mr-2"/>
               </x-navlinks></li>
               @endcan
               @can("view categories")
               <li>
-                <x-navlinks routeName="category.show" title="Categories">
+                <x-navlinks routeName="category.index" title="Categories">
                   <x-heroicon-s-clipboard-document-list class="w-5 h-5 mr-2" />
                 </x-navlinks>
               </li>
               @endcan
               @can("view sub-categories")
               <li>
-                <x-navlinks routeName="sub-category.show" title="Sub-Categories">
+                <x-navlinks routeName="sub-category.index" title="Sub-Categories">
                   <x-heroicon-s-folder-open class="w-5 h-5 mr-2" />
                 </x-navlinks>
               </li>
               @endcan
               @can("view suppliers")
               <li>
-                <x-navlinks routeName="suppliers.show" title="Suppliers">
+                <x-navlinks routeName="suppliers.index" title="Suppliers">
                   <x-heroicon-s-truck class="w-5 h-5 mr-2" />
                 </x-navlinks>
               </li>

@@ -68,4 +68,12 @@ class User extends Authenticatable
                                 $roleQuery->where('name', 'LIKE', "%{$search}%");
                             });
     }
+
+    public function getInitials(){
+        $name = $this->name ?? '';
+        $parts = array_filter(explode(' ', trim($name)));
+        $selected = array_slice($parts, 0, 2);
+
+        return implode('', array_map(fn($p)=>strtoupper($p[0]), $selected));
+    }
 }

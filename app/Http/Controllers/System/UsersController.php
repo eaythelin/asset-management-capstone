@@ -71,7 +71,7 @@ class UsersController extends Controller
 
         $user->assignRole($role->name);
 
-        return redirect()->route('users.show')->with('success', 'System User successfully created!');
+        return redirect()->route('users.index')->with('success', 'System User successfully created!');
     }
 
     public function updateUser(Request $request, $id){
@@ -99,13 +99,13 @@ class UsersController extends Controller
         //Only update role if not editing their own account!!
         //prevent role change if editing yourself AND the role is different
         if(auth()->id() === $user->id && $validated['role_id'] != $currentRoleID){
-            return redirect()->route('users.show')->with('error', 'You cannot change your own role!');
+            return redirect()->route('users.index')->with('error', 'You cannot change your own role!');
         }
 
         $role = Role::findOrFail($validated['role_id']);
         $user->syncRoles($role->name);
 
-        return redirect()->route('users.show')->with('success', 'User updated successfully!');
+        return redirect()->route('users.index')->with('success', 'User updated successfully!');
     }
 
     public function toggleUser($id){
@@ -133,13 +133,13 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         if(auth()->id()=== $user->id){
-            return redirect()->route('users.show')->with('error', 'You cannot delete your own account!');
+            return redirect()->route('users.index')->with('error', 'You cannot delete your own account!');
         }
 
         $user->update(['is_active' => false]);
         $user->delete();
 
-        return redirect()->route('users.show')->with('success', 'User has been successfully deleted!');
+        return redirect()->route('users.index')->with('success', 'User has been successfully deleted!');
     }
 
     public function forceDelete($id){
@@ -150,6 +150,6 @@ class UsersController extends Controller
 
         $user->forceDelete();
 
-        return redirect()->route('users.show')->with('success', 'User record has been deleted!');
+        return redirect()->route('users.index')->with('success', 'User record has been deleted!');
     }
 }

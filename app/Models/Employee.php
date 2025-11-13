@@ -46,7 +46,7 @@ class Employee extends Model
                             ->orWhere('last_name', 'LIKE', "%{$search}%")
                             ->orWhereRaw("CONCAT(first_name,' ',last_name) like ?", ["%{$search}%"])
                             ->orWhereHas('department', function($q) use ($search){
-                                $q->where('department_name', 'LIKE', "%{$search}%");
+                                $q->where('name', 'LIKE', "%{$search}%");
                             });
     }
 }
