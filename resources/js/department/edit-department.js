@@ -1,15 +1,16 @@
 const editButtons = document.querySelectorAll('.editButton');
+const form = document.getElementById('editForm');
+const nameInput = document.querySelector('#edit_department_name');
+const descInput = document.querySelector('#edit_description');
 
 editButtons.forEach(button => {
   button.addEventListener('click', function() {
     const name = this.dataset.name;
     const description = this.dataset.description;
     let route = this.dataset.route;
-    
-    const form = document.getElementById('editForm');
+
     form.action = route;
-    
-    form.querySelector('#edit_department_name').value = name;
-    form.querySelector('#edit_description').value = description;
+    nameInput.value = name;
+    descInput.value = description;
   });
 });

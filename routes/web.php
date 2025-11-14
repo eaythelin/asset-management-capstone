@@ -50,8 +50,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [CategoriesController::class, "getCategories"])->name('category.index');
         Route::middleware('check.permission:manage categories')->group(function(){
           Route::post('/', [CategoriesController::class, "storeCategory"])->name("category.store");
-          Route::put('/', [CategoriesController::class, "updateCategory"])->name("category.update");
-          Route::delete('/', [CategoriesController::class, "deleteCategory"])->name("category.delete");
+          Route::put('/{id}', [CategoriesController::class, "updateCategory"])->name("category.update");
+          Route::delete('/{id}', [CategoriesController::class, "deleteCategory"])->name("category.delete");
         });
       });
 

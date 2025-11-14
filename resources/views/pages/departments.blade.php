@@ -30,8 +30,8 @@
           @foreach($departments as $department)
             <tr>
               <th class = "p-3 text-center">{{ $department -> id }}</th>
-              <td class = "p-3">{{ $department -> name}}</td>
-              <td class = "p-3">{{ $department -> description}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $department -> name}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $department -> description}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can("manage departments")
                   <x-buttons onclick="editDepartment.showModal()"

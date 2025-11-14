@@ -11,7 +11,7 @@ class RedirectIfUnauthorized
     {
         if (!$request->user() || !$request->user()->can($permission)) {
             return redirect()
-                ->route('dashboard.show')
+                ->route('dashboard.index')
                 ->with('error', 'You do not have permission to access that page.');
         }
 

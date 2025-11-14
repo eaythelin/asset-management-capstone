@@ -27,15 +27,22 @@
           @foreach($categories as $category)
             <tr>
               <th class = "p-3 text-center">{{ $category -> id }}</th>
-              <td class = "p-3">{{ $category -> name}}</td>
-              <td class = "p-3">{{ $category -> description}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $category -> name}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $category -> description}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can("manage categories")
-                  <x-buttons>
+                  <x-buttons onclick="editCategory.showModal()"
+                    class="editBtn"
+                    data-category="{{ json_encode([
+                    'name'=>$category->name,
+                    'description'=>$category->description,
+                    'route'=>route('category.update', $category->id)]) }}">
                     <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
                     Edit
                   </x-buttons>
-                  <x-buttons>
+                  <x-buttons onclick="deleteCategory.showModal()"
+                    class="deleteBtn"
+                    data-route="{{ route('category.delete', $category->id) }}">
                     <x-heroicon-s-trash class="size-3 sm:size-5"/>
                     Delete
                   </x-buttons>
@@ -51,5 +58,12 @@
   </div>
 </div>
 
-@include('modals.category-modals.create-category-modal');
+@include('modals.category-modals.create-category-modal')
+@include('modals.category-modals.edit-category-modal')
+@include('modals.category-modals.delete-category-modal')
+@endsection
+
+@section('scripts')
+  @vite('resources/js/category/delete-category.js')
+  @vite('resources/js/category/edit-category.js')
 @endsection

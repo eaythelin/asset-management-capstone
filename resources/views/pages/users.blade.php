@@ -45,8 +45,8 @@
           @foreach($users as $user)
             <tr>
               <th class = "p-3 text-center">{{ $user -> id }}</th>
-              <td class = "p-3">{{ $user -> name}}</td>
-              <td class = "p-3">{{ $user -> email}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $user -> name}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $user -> email}}</td>
               <td class = "p-3">
                 @if($user -> is_active)
                   <span class = "badge badge-success text-white font-medium">Active</span>
