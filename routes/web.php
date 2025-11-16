@@ -57,7 +57,12 @@ Route::middleware(['auth'])->group(function () {
 
       //Sub-categories
       Route::group(['prefix' => "/sub-categories", "middleware" => "check.permission:view sub-categories"], function(){
-        Route::get('/', [SubCategoriesController::class, "getSubCategories"])->name('sub-category.index');
+        Route::get('/', [SubCategoriesController::class, "getSubCategories"])->name('subcategory.index');
+        Route::middleware('check.permission:manage sub-categories')->group(function(){
+          Route::post('/', [SubCategoriesController::class, "storeSubCategory"])->name("subcategory.store");
+          Route::put('/{id}', [SubCategoriesController::class, "updateSubCategory"])->name("subcategory.update");
+          Route::delete('/{id}', [SubCategoriesController::class, "deleteSubCategory"])->name("subcategory.delete");
+        });
       });
 
       //Suppliers

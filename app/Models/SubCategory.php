@@ -21,4 +21,14 @@ class SubCategory extends Model
     public function assets(){
         return $this->hasMany(Asset::class);
     }
+
+    public function scopeSearch($query, $search){
+        if (!$search) return $query;
+
+        return $query->where('name', "LIKE", "%{$search}%")
+                            ->orWhere('description', 'LIKE', "%{$search}%")
+                            ->orWhereHas('category', function($q) use ($search){
+                                $q->where('name', 'LIKE', "%{$search}%");
+                            });
+    }
 }

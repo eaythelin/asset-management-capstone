@@ -59,7 +59,7 @@
               @endcan
               @can("view sub-categories")
               <li>
-                <x-navlinks routeName="sub-category.index" title="Sub-Categories">
+                <x-navlinks routeName="subcategory.index" title="Subcategories">
                   <x-heroicon-s-folder-open class="w-5 h-5 mr-2" />
                 </x-navlinks>
               </li>
