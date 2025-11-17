@@ -25,19 +25,25 @@
       <tbody class = "divide-y divide-gray-400">
           @foreach($subCategories as $subCategory)
             <tr>
-              <th class = "p-3 text-center">{{ $subCategory -> id }}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $subCategory -> name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $subCategory -> category -> name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $subCategory -> description}}</td>
+              <th class = "p-3 text-center">{{ $subCategory->id }}</th>
+              <td class = "p-3 break-words max-w-xs">{{ $subCategory->name}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $subCategory->category->name}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $subCategory->description}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
-                @can("manage categories")
+                @can("manage sub-categories")
                   <x-buttons onclick="editSubCategory.showModal()"
-                    class="editBtn">
+                    class="editBtn"
+                    data-subcategory="{{ json_encode([
+                      'name'=>$subCategory->name,
+                      'category_id'=>$subCategory->category->id,
+                      'description'=>$subCategory->description,
+                      'route'=>route('subcategory.update', $subCategory->id)]) }}">
                     <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
                     Edit
                   </x-buttons>
                   <x-buttons onclick="deleteSubCategory.showModal()"
-                    class="deleteBtn">
+                    class="deleteBtn"
+                    data-route="{{ route('subcategory.delete', $subCategory->id) }}">
                     <x-heroicon-s-trash class="size-3 sm:size-5"/>
                     Delete
                   </x-buttons>
@@ -54,4 +60,11 @@
 </div>
 
 @include('modals.subcategory-modals.create-subcategory-modal')
+@include('modals.subcategory-modals.edit-subcategory-modal')
+@include('modals.subcategory-modals.delete-subcategory-modal')
+@endsection
+
+@section('scripts')
+  @vite('resources/js/subcategory/delete-subcategory.js')
+  @vite('resources/js/subcategory/edit-subcategory.js')
 @endsection
