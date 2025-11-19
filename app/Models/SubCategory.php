@@ -25,10 +25,12 @@ class SubCategory extends Model
     public function scopeSearch($query, $search){
         if (!$search) return $query;
 
-        return $query->where('name', "LIKE", "%{$search}%")
-                            ->orWhere('description', 'LIKE', "%{$search}%")
-                            ->orWhereHas('category', function($q) use ($search){
-                                $q->where('name', 'LIKE', "%{$search}%");
-                            });
+        return $query->where(function($q) use ($search) {
+            $q->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->orWhereHas('category', function($q2) use ($search) {
+                $q2->where('name', 'LIKE', "%{$search}%");
+            });
+        });
     }
 }

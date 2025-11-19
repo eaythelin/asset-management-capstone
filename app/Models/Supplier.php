@@ -20,4 +20,16 @@ class Supplier extends Model
     public function assets(){
         return $this->hasMany(Asset::class);
     }
+
+    public function scopeSearch($query, $search){
+        if (!$search) return $query;
+
+        return $query->where(function($q) use ($search) {
+            $q->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('contact_person', 'LIKE', "%{$search}%")
+            ->orWhere('email', 'LIKE', "%{$search}%")
+            ->orWhere('phone_number', 'LIKE', "%{$search}%")
+            ->orWhere('address', 'LIKE', "%{$search}%");
+        });
+    }
 }

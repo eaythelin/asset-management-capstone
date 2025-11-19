@@ -31,7 +31,7 @@ class EmployeesController extends Controller
         $desc = $role === "System Supervisor" ? "View, add, and manage employees and their assets" : "View employees and their assigned assets";
 
         $employees = $query->paginate(5);
-        $departments = Department::pluck('name', 'id');
+        $departments = Department::orderBy('name')->pluck('name', 'id');
 
         $columns = ["","Name", "Department", "Custodian", "Actions"];
         return view("pages.employees.index-employees", compact('employees', 'columns', 'departments', 'desc'));

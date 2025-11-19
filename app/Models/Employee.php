@@ -42,11 +42,13 @@ class Employee extends Model
     public function scopeSearch($query, $search){
         if (!$search) return $query;
 
-        return $query->where('first_name', "LIKE", "%{$search}%")
-                            ->orWhere('last_name', 'LIKE', "%{$search}%")
-                            ->orWhereRaw("CONCAT(first_name,' ',last_name) like ?", ["%{$search}%"])
-                            ->orWhereHas('department', function($q) use ($search){
-                                $q->where('name', 'LIKE', "%{$search}%");
-                            });
+        return $query->where(function($q) use ($search) {
+            $q->where('first_name', 'LIKE', "%{$search}%")
+            ->orWhere('last_name', 'LIKE', "%{$search}%")
+            ->orWhereRaw("CONCAT(first_name,' ',last_name) LIKE ?", ["%{$search}%"])
+            ->orWhereHas('department', function($q2) use ($search) {
+                $q2->where('name', 'LIKE', "%{$search}%");
+            });
+        });
     }
 }

@@ -68,6 +68,11 @@ Route::middleware(['auth'])->group(function () {
       //Suppliers
       Route::group(['prefix' => "/suppliers", "middleware" => "check.permission:view suppliers"], function(){
         Route::get('/', [SuppliersController::class, "getSuppliers"])->name('suppliers.index');
+        Route::middleware('check.permission:manage suppliers')->group(function(){
+          Route::post('/', [SuppliersController::class, "storeSupplier"])->name("suppliers.store");
+          Route::put('/{id}', [SuppliersController::class, "updateSupplier"])->name("suppliers.update");
+          Route::delete('/{id}', [SuppliersController::class, "deleteSupplier"])->name("suppliers.delete");
+        });
       });
     });
 

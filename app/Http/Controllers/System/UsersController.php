@@ -34,13 +34,15 @@ class UsersController extends Controller
             ->whereDoesntHave('user', function($query){
                 $query->withTrashed();
             })
+            ->orderBy('first_name')
+            ->orderBy('last_name')
             ->get();
 
         $employees = $employees->mapWithKeys(function ($employee) {
                 return [$employee->id => $employee->first_name . ' ' . $employee->last_name];
         });
 
-        $roles = Role::pluck('name', 'id');
+        $roles = Role::orderBy('name')->pluck('name', 'id');
         
         $columns = ["", "Name", "Email", "Status","Role", "Actions"];
         return view("pages.users", compact('employees', 'columns', 'users', 'roles'));
