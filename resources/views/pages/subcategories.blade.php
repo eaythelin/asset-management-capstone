@@ -17,7 +17,7 @@
       @can('manage sub-categories')
         <x-buttons class="w-full sm:w-auto" onclick="createSubCategory.showModal()">
           <x-heroicon-s-plus class="size-5"/>
-          Create Sub-Category
+          Create Subcategory
         </x-buttons>
       @endcan
     </div>
@@ -32,20 +32,22 @@
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can("manage sub-categories")
                   <x-buttons onclick="editSubCategory.showModal()"
-                    class="editBtn"
+                    class="editBtn tooltip tooltip-top"
+                    data-tip="Edit"
+                    aria-label="Edit Subcategory"
                     data-subcategory="{{ json_encode([
                       'name'=>$subCategory->name,
                       'category_id'=>$subCategory->category->id,
                       'description'=>$subCategory->description,
                       'route'=>route('subcategory.update', $subCategory->id)]) }}">
-                    <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                    Edit
+                    <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
                   </x-buttons>
                   <x-buttons onclick="deleteSubCategory.showModal()"
-                    class="deleteBtn"
+                    class="deleteBtn bg-red-700 tooltip tooltip-top"
+                    data-tip="Delete"
+                    aria-label="Delete Subcategory"
                     data-route="{{ route('subcategory.delete', $subCategory->id) }}">
-                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                    Delete
+                    <x-heroicon-s-trash class="size-4 sm:size-5"/>
                   </x-buttons>
                 @endcan
               </td>

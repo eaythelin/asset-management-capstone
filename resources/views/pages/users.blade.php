@@ -55,48 +55,52 @@
                 @endif
               </td>
               <td class = 'p-3'>{{ $user -> getRoleNames() -> first() }}</td>
-              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <td class = "flex flex-row gap-2 sm:gap-4">
                 @if($user->trashed())
+                <div class = "flex flex-col sm:flex-row gap-2">
                   <x-buttons onclick="reactivateUser.showModal()"
                     class="restoreButton"
                     data-route="{{ route('users.restore', $user->id ) }}">
-                    <x-heroicon-o-arrow-uturn-left class="size-3 sm:size-5"/>
+                    <x-heroicon-o-arrow-uturn-left class="size-4 sm:size-5"/>
                     Reactivate
                   </x-buttons>
                   <x-buttons onclick="permaDeleteUser.showModal()"
-                    class="permaDeleteBtn"
+                    class="permaDeleteBtn bg-red-700"
                     data-route="{{ route('users.force-delete', $user->id ) }}">
-                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
+                    <x-heroicon-s-trash class="size-4 sm:size-5"/>
                     Permanent Delete
                   </x-buttons>
+                </div>
                 @else
                   @can("manage users")
                     <x-buttons onclick="editUser.showModal()"
-                      class="editButton"
+                      class="editButton tooltip tooltip-top"
+                      data-tip="Edit"
+                      aria-label="Edit User"
                       data-user="{{ json_encode([
                         'employee_id'=> $user->employee_id,
                         'employee_name'=> $user->employee->first_name . ' ' . $user->employee->last_name,
                         'role_id'=> $user->roles->first()->id ?? null,
                         'email'=> $user->email,
                         'route'=> route('users.update', $user->id )]) }}">
-                      <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                      Edit
-                    </x-buttons>
-                    <x-buttons onclick="deleteUser.showModal()"
-                      class="deleteButton"
-                      data-route="{{ route('users.soft-delete', $user->id ) }}">
-                      <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                      Delete
+                      <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
                     </x-buttons>
                     <div class = "flex justify-center items-center">
                       <form method="POST" action="{{ route('users.toggle', $user->id) }}">
                         @csrf
                         @method('PUT')
                         <x-buttons class="tooltip" data-tip="{{ $user -> is_active ? 'Deactivate user' : 'Re-enable user' }}" type="submit">
-                          <x-heroicon-c-power class="size-3 sm:size-5"/>
+                          <x-heroicon-c-power class="size-4 sm:size-5"/>
                         </x-buttons>
                       </form>
                     </div>
+                    <x-buttons onclick="deleteUser.showModal()"
+                      class="deleteButton tooltip tooltip-top bg-red-700"
+                      data-tip="Delete"
+                      aria-label="Delete User"
+                      data-route="{{ route('users.soft-delete', $user->id ) }}">
+                      <x-heroicon-s-trash class="size-4 sm:size-5"/>
+                    </x-buttons>
                   @endcan
                 @endif
               </td>

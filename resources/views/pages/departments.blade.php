@@ -32,21 +32,23 @@
               <th class = "p-3 text-center">{{ $department -> id }}</th>
               <td class = "p-3 break-words max-w-xs">{{ $department -> name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $department -> description}}</td>
-              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <td class = "flex flex-row gap-2 sm:gap-4">
                 @can("manage departments")
                   <x-buttons onclick="editDepartment.showModal()"
-                    class="editButton"
+                    class="editButton tooltip tooltip-top"
+                    data-tip="Edit"
+                    aria-label="Edit Department"
                     data-route="{{ route('departments.update', $department->id ) }}"
                     data-name="{{ $department -> name}}"
                     data-description="{{ $department -> description}}">
-                    <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                    Edit
+                    <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
                   </x-buttons>
                   <x-buttons onclick="deleteDepartment.showModal()"
-                      class="deleteButton"
+                      class="deleteButton bg-red-700 tooltip tooltip-top"
+                      data-tip="Delete"
+                      aria-label="Delete Department"
                       data-route="{{ route('departments.delete', $department->id ) }}">
-                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                    Delete
+                    <x-heroicon-s-trash class="size-4 sm:size-5"/>
                   </x-buttons>
                 @endcan
               </td>

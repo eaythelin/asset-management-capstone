@@ -30,19 +30,29 @@
               <td class = "p-3 break-words max-w-xs">{{ $supplier->name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $supplier->contact_person}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $supplier->email}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $supplier->phone_number}}</td>
+              <td class = "p-3 break-words max-w-xs text-center">{{ $supplier->phone_number}}</td>
               <td class = "p-3 break-words whitespace-normal max-w-xs">{{ $supplier->address}}</td>
               <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
                 @can("manage suppliers")
                   <x-buttons onclick="editSupplier.showModal()"
-                    class="editBtn">
+                    class="editBtn tooltip tooltip-top"
+                    data-tip="Edit"
+                    aria-label="Edit Supplier"
+                    data-supplier="{{ json_encode([
+                      'name'=>$supplier->name,
+                      'contact_person'=>$supplier->contact_person,
+                      'email'=>$supplier->email,
+                      'phone_number'=>$supplier->phone_number,
+                      'address'=>$supplier->address,
+                      'route'=>route('suppliers.update', $supplier->id)], JSON_HEX_QUOT | JSON_HEX_APOS)}}">
                     <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                    Edit
                   </x-buttons>
                   <x-buttons onclick="deleteSupplier.showModal()"
-                    class="deleteBtn">
+                    class="deleteBtn bg-red-700 tooltip tooltip-top"
+                    data-tip="Delete"
+                    aria-label="Delete Supplier"
+                    data-route="{{ route('suppliers.delete', $supplier->id) }}">
                     <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                    Delete
                   </x-buttons>
                 @endcan
               </td>
@@ -57,4 +67,11 @@
 </div>
 
 @include('modals.supplier-modals.create-supplier-modal')
+@include('modals.supplier-modals.edit-supplier-modal')
+@include('modals.supplier-modals.delete-supplier-modal')
+@endsection
+
+@section('scripts')
+  @vite('resources/js/supplier/delete-supplier.js')
+  @vite('resources/js/supplier/edit-supplier.js')
 @endsection

@@ -1,6 +1,6 @@
 const editBtns = document.querySelectorAll('.editBtn');
-const nameInput = document.querySelector('#edit_category_name');
-const descInput = document.querySelector('#edit_description');
+const nameInput = document.getElementById('edit_category_name');
+const descInput = document.getElementById('edit_description');
 const editForm = document.getElementById('editForm');
 
 editBtns.forEach(button => {

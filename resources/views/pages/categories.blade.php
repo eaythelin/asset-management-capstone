@@ -29,22 +29,24 @@
               <th class = "p-3 text-center">{{ $category -> id }}</th>
               <td class = "p-3 break-words max-w-xs">{{ $category -> name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $category -> description}}</td>
-              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <td class = "flex flex-row gap-2 sm:gap-4">
                 @can("manage categories")
                   <x-buttons onclick="editCategory.showModal()"
-                    class="editBtn"
+                    class="editBtn tooltip tooltip-top"
+                    data-tip="Edit"
+                    aria-label="Edit Category"
                     data-category="{{ json_encode([
                     'name'=>$category->name,
                     'description'=>$category->description,
-                    'route'=>route('category.update', $category->id)]) }}">
-                    <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                    Edit
+                    'route'=>route('category.update', $category->id), JSON_HEX_QUOT | JSON_HEX_APOS]) }}">
+                    <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
                   </x-buttons>
                   <x-buttons onclick="deleteCategory.showModal()"
-                    class="deleteBtn"
+                    class="deleteBtn bg-red-700 tooltip tooltip-top"
+                    data-tip="Delete"
+                    aria-label="Delete Category"
                     data-route="{{ route('category.delete', $category->id) }}">
-                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                    Delete
+                    <x-heroicon-s-trash class="size-4 sm:size-5"/>
                   </x-buttons>
                 @endcan
               </td>

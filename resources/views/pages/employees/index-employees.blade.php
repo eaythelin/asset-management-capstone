@@ -36,31 +36,32 @@
                   <span class="badge badge-error"><x-heroicon-c-x-mark class="size-5"/></span>
                 @endif
               </td>
-              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <td class = "flex flex-row gap-2 sm:gap-4">
                 @can('view employees')
                   <a href="{{ route('employees.show', $employee->id) }}" class="w-full sm:w-auto flex justify-center">
-                    <x-buttons class="px-5">
-                      <x-heroicon-o-eye class="size-3 sm:size-5"/>
-                      View
+                    <x-buttons class="px-4 tooltip tooltip-top" data-tip="View Employee" aria-label="View Employee">
+                      <x-heroicon-s-eye class="size-4 sm:size-5"/>
                     </x-buttons>
                   </a>
                 @endcan
                 @can('manage employees')
                   <x-buttons onclick="editEmployee.showModal()"
-                    class="editButton"
+                    class="editButton tooltip tooltip-top"
+                    data-tip="Edit"
+                    aria-label="Edit Employee"
                     data-first-name="{{ $employee -> first_name}}"
                     data-last-name="{{ $employee -> last_name }}"
                     data-department="{{ $employee-> department -> id}}"
                     data-route="{{ route('employees.update', $employee->id ) }}">
-                    <x-heroicon-o-pencil-square class="size-3 sm:size-5" />
-                    Edit
+                    <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
                   </x-buttons>
                   <x-buttons onclick="deleteEmployee.showModal()"
-                    class="deleteButton"
+                    class="deleteButton bg-red-700 tooltip tooltip-top"
+                    data-tip="Delete"
+                    aria-label="Delete Employee"
                     data-route="{{ route('employees.delete', $employee->id ) }}"
                     data-has-user="{{ $employee -> user_count ? 1 : 0}}">
-                    <x-heroicon-s-trash class="size-3 sm:size-5"/>
-                    Delete
+                    <x-heroicon-s-trash class="size-4 sm:size-5"/>
                   </x-buttons>
                 @endcan
               </td>
