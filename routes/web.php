@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard.index');
     });
 
+    //Assets
     Route::group(["prefix" => "/assets", "middleware" => "check.permission:view assets"], function(){
       Route::get('/', [AssetsController::class, 'getAssets'])->name('assets.index');
       Route::get('/{id}', [AssetsController::class, 'getAsset'])->name('assets.show');

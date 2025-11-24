@@ -5,6 +5,7 @@ namespace App\Http\Controllers\System;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Asset;
 
 class AssetsController extends Controller
 {
@@ -14,7 +15,10 @@ class AssetsController extends Controller
 
         $desc = $role === "System Supervisor" ? "View and manage assets" : "View assets information";
 
-        return view('pages.assets.index-assets', compact('desc'));
+        $assets = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->paginate(5);
+        $columns = ["Asset Code", "Asset Name", "Serial Name","Department", "Custodian", "Category", "Status", "Actions"];
+
+        return view('pages.assets.index-assets', compact('desc', 'assets', 'columns'));
     }
 
     public function getAsset(){
