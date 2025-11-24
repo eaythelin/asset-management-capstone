@@ -19,21 +19,21 @@ class UserSeeder extends Seeder
         // Users (replace with test emails or env vars later)
         $users = [
             [
-                "name" => "Mydeimos Kremnos",
+                "name" => "Janna Guerrero",
                 "email" => "admin@example.com",
                 "password" => Hash::make('password123'),
                 "employee_id" => 1,
                 "role" => $systemSupervisorRole,
             ],
             [
-                "name" => "Varka Mondstadt",
+                "name" => "Monika Monique",
                 "email" => "depthead@example.com",
                 "password" => Hash::make('password123'),
                 "employee_id" => 2,
                 "role" => $deptHeadRole,
             ],
             [
-                "name" => "Phainon Khaslana",
+                "name" => "Alice Wanda",
                 "email" => "manager@example.com",
                 "password" => Hash::make('password123'),
                 "employee_id" => 3,
