@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('asset_code')->unique();
             $table->string('name');
             $table->string('serial_name')->nullable();
-            $table->string('status')->default('active'); //enum values handled in the model
+            $table->string('status')->default('active'); //enum values handles in the model
             $table->text('description')->nullable();
             $table->boolean('is_depreciable')->default(false);
             $table->date('acquisition_date')->nullable();

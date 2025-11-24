@@ -20,6 +20,12 @@ class SubCategorySeeder extends Seeder
         ]);
 
         SubCategory::create([
+            'name' => 'Laptops',
+            'category_id' => 1,
+            'description' => 'Office Laptops'
+        ]);
+
+        SubCategory::create([
             'name' => 'Peripherals & Accessories',
             'category_id' => 1,
             'description' => 'Mouse, keyboards, mice and other IT accessories'
