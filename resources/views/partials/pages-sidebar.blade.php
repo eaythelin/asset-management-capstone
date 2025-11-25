@@ -10,21 +10,60 @@
       <h1 class = "menu-title text-base text-white px-4 py-2 rounded">Menu</h1>
       <ul>
         @can("view dashboard")
-        <li><x-navlinks :routeName="'dashboard.index'" title="Dashboard">
+        <li><x-navlinks routeName="dashboard.index" title="Dashboard">
           <x-heroicon-s-home class="size-5 mr-2" />
         </x-navlinks></li>
         @endcan
         @can("view assets")
         <li>
-          <x-navlinks :routeName="'assets.index'" title="Assets">
+          <x-navlinks routeName="assets.index" title="Assets">
             <x-heroicon-s-cube class="w-5 h-5 mr-2" />
           </x-navlinks>
         </li>
         @endcan
+        @can("view requests")
+        <li>
+          <x-navlinks routeName="placeholder" title="Requests">
+             <x-heroicon-s-clipboard-document-list class="size-5 mr-2" />
+          </x-navlinks>
+        </li>
+        @endcan
+        @can("view workorders")
+        <li>
+          <x-navlinks routeName="placeholder" title="Workorders">
+            <x-heroicon-s-clipboard-document class="size-5 mr-2" />
+          </x-navlinks>
+        </li>
+        @endcan
         @can("view employees")
-        <li><x-navlinks :routeName="'employees.index'" title="Employees">
+        <li><x-navlinks routeName="employees.index" title="Employees">
           <x-heroicon-s-user-group class="size-5 mr-2"/>
         </x-navlinks></li>
+        @endcan
+        @can("view reports")
+          <li>
+            <details>
+              <x-dropdown-navs title="Reports">
+                <x-heroicon-c-chart-bar-square class="size-5 mr-2" />
+              </x-dropdown-navs>
+              <ul>
+                <li>
+                  <x-navlinks routeName="placeholder" title="Asset Reports" >
+                    <x-heroicon-s-table-cells class="size-5 mr-2" />
+                  </x-navlinks>
+                  <x-navlinks routeName="placeholder" title="Depreciation Reports">
+                    <x-heroicon-s-calculator class="size-5 mr-2" />
+                  </x-navlinks>
+                  <x-navlinks routeName="placeholder" title="Request History Reports">
+                    <x-heroicon-c-document-chart-bar class="size-5 mr-2" />
+                  </x-navlinks>
+                  <x-navlinks routeName="placeholder" title="Asset Service Reports">
+                    <x-heroicon-s-wrench class="size-5 mr-2" />
+                  </x-navlinks>
+                </li>
+              </ul>
+            </details>
+          </li>
         @endcan
       </ul>
     </li>
@@ -33,7 +72,7 @@
       <ul>
         <!--System Users-->
         @can("view users")
-        <li><x-navlinks :routeName="'users.index'" title="Users">
+        <li><x-navlinks routeName="users.index" title="Users">
           <x-heroicon-s-user class="size-5 mr-2"/>
         </x-navlinks></li>
         @endcan
@@ -46,14 +85,14 @@
             </x-dropdown-navs>
             <ul>
               @can("view departments")
-              <li><x-navlinks :routeName="'department.index'" title="Departments">
+              <li><x-navlinks routeName="department.index" title="Departments">
                 <x-heroicon-s-briefcase class="size-5 mr-2"/>
               </x-navlinks></li>
               @endcan
               @can("view categories")
               <li>
                 <x-navlinks routeName="category.index" title="Categories">
-                  <x-heroicon-s-clipboard-document-list class="w-5 h-5 mr-2" />
+                  <x-heroicon-c-square-2-stack class="w-5 h-5 mr-2" />
                 </x-navlinks>
               </li>
               @endcan

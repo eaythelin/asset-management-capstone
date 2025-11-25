@@ -28,7 +28,15 @@ class RolePermissionSeeder extends Seeder
             'manage categories',
             'manage sub-categories',
             'manage suppliers',
-            'manage assets'
+            'manage assets',
+            'manage reports',
+            'manage workorders'
+        ];
+
+        $requestPermissions = [
+            'approve requests',
+            'decline requests',
+            'submit requests'
         ];
 
         $viewPermissions = [
@@ -41,7 +49,10 @@ class RolePermissionSeeder extends Seeder
             'view categories',
             'view sub-categories',
             'view assets',
-            'view suppliers'
+            'view suppliers',
+            'view reports',
+            'view requests',
+            'view workorders'
         ];
 
         foreach($crudPermissions as $crudPermission){
@@ -50,6 +61,10 @@ class RolePermissionSeeder extends Seeder
 
         foreach($viewPermissions as $viewPermission){
             Permission::firstOrCreate(["name" => $viewPermission]);
+        }
+
+        foreach($requestPermissions as $requestPermission){
+            Permission::firstOrCreate(["name" => $requestPermission]);
         }
 
         //Assigning permissions
@@ -62,6 +77,8 @@ class RolePermissionSeeder extends Seeder
             'manage sub-categories',
             'manage assets',
             'manage suppliers',
+            'manage reports',
+            'manage workorders',
             'view departments',
             'view users',
             'view employees',
@@ -70,7 +87,10 @@ class RolePermissionSeeder extends Seeder
             'view categories',
             'view sub-categories',
             'view assets',
-            'view suppliers'
+            'view suppliers',
+            'view reports',
+            'view requests',
+            'view workorders'
         ];
 
         foreach($systemSupervisorPerms as $perms){
@@ -80,7 +100,9 @@ class RolePermissionSeeder extends Seeder
         $deptHeadPerms = [
             'view assets',
             'view employees',
-            'view dashboard'
+            'view dashboard',
+            'view requests',
+            'submit requests'
         ];
 
         foreach($deptHeadPerms as $perms){
@@ -90,7 +112,10 @@ class RolePermissionSeeder extends Seeder
         $generalManagerPerms = [
             'view assets',
             'view employees',
-            'view dashboard'
+            'view dashboard',
+            'view requests',
+            'approve requests',
+            'decline requests',
         ];
 
         foreach($generalManagerPerms as $perms){

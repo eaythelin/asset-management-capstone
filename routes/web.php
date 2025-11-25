@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\PlaceholderController;
 use App\Http\Controllers\System\AssetsController;
 use App\Http\Controllers\System\CategoriesController;
 use App\Http\Controllers\System\DepartmentsController;
@@ -92,6 +93,9 @@ Route::middleware(['auth'])->group(function () {
 
     //logout
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logoutUser');
+
+    Route::get('/placeholder', [PlaceholderController::class, 'getPlaceholder'])->name('placeholder');
+
 });
 
 
