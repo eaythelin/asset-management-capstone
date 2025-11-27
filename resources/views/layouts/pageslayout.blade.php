@@ -10,10 +10,10 @@
 <body>
   <div class="drawer lg:drawer-open">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col lg:ml-80 h-screen overflow-y-auto">
+    <div class="drawer-content flex flex-col lg:ml-80 min-h-screen">
       @include("partials.pages-navbar")
 
-      <div class="min-h-full p-7 bg-base-300">
+      <div class="flex-1 p-7 bg-base-300">
         @yield("content")
       </div>
     </div>

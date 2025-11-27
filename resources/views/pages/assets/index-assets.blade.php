@@ -22,10 +22,12 @@
           <x-heroicon-o-document-arrow-down class="size-5"/>
           Import from Excel
         </x-buttons>
-        <x-buttons>
-          <x-heroicon-s-plus class="size-5"/>
-          Create Asset
-        </x-buttons>
+        <a href="{{ route('assets.create') }}">
+          <x-buttons class="w-full">
+            <x-heroicon-s-plus class="size-5"/>
+            Create Asset
+          </x-buttons>
+        </a>
       </div>
       @endcan
     </div>

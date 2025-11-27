@@ -3,10 +3,7 @@
 
 <div class = "md:mx-4">
   <div class = "mb-4">
-    <a href="{{ route('employees.index') }}" 
-    class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors"> 
-      <x-heroicon-o-arrow-left class="size-4 mr-2 mt-1" /> 
-    Return to Employees</a>
+    <x-back-link route="employees.index">Return to Employees</x-back-link>
   </div>
 
   <div class = "bg-white p-4 rounded-2xl shadow-xl mb-4">
@@ -16,7 +13,7 @@
         <div class="flex items-center gap-2 text-sm">
             <x-heroicon-s-briefcase class="text-gray-500 size-4"/>
             <span class="text-gray-500">Department:</span>
-            <span class="font-semibold text-gray-700">{{ $employee->department->department_name }}</span>
+            <span class="font-semibold text-gray-700">{{ $employee->department->name }}</span>
         </div>
       </div>
       <div class="flex items-center gap-2">

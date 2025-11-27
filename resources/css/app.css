@@ -9,4 +9,8 @@
     themes: light --default;
 };
 
+.form-row {
+    @apply md:flex md:items-center md:gap-4;
+}
+
 
