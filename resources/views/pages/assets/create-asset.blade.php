@@ -92,27 +92,42 @@
 
     <hr class="border-gray-300 m-5">
     <h2 class="text-lg font-bold text-gray-800 mb-4">Financial Details</h2>
-    <div class = "flex flex-col sm:flex-row gap-6">
+    <div class = "flex flex-col sm:flex-row gap-6" x-data="{isDepreciable : false}">
       {{-- Left Column!! --}}
       <div class = "flex flex-col flex-1 gap-4">
         <div class = "form-row">
-          <label class="font-medium w-30" for="acquisition_date">Acquisition Date</label>
-          <input class="input max-w-xs border-2 border-gray-400" type="date" name="acquisition_date" id="acquisition_date">
+          <x-page-label for="is_depreciable">Is Depreciable
+            <span class="text-xs text-gray-500 align-super tooltip tooltip-info" data-tip="Asset will be included in asset depreciation">?</span>
+          </x-page-label>
+          <input x-model="isDepreciable" type="checkbox" class="checkbox border-2 border-gray-400" name="is_depreciable" id="is_depreciable">
         </div>
 
         <div class = "form-row">
-          <label class="font-medium w-30" for="cost">Cost</label>
+          <x-page-label for="cost" required="isDepreciable">Cost</x-page-label>
           <x-page-input name="cost" id="cost" />
+        </div>
+
+        <div class = "form-row">
+          <x-page-label for="salvage_value" required="isDepreciable">Salvage Value</x-page-label>
+          <x-page-input name="salvage_value" id="salvage_value" />
         </div>
       </div>
 
       {{-- Right Column --}}
       <div class = "flex flex-col flex-1 gap-4">
         <div class = "form-row">
-          <x-page-label for="is_depreciable">Is Depreciable
-            <span class="text-xs text-gray-500 align-super tooltip tooltip-info" data-tip="Asset will be included in asset depreciation">?</span>
-          </x-page-label>
-          <input type="checkbox" class="checkbox border-2 border-gray-400" name="is_depreciable" id="is_depreciable">
+          <x-page-label for="acquisition_date" required="isDepreciable">Acquisition Date</x-page-label>
+          <input class="input max-w-xs border-2 border-gray-400" type="date" name="acquisition_date" id="acquisition_date">
+        </div>
+
+        <div class = "form-row">
+          <x-page-label for="useful_life_in_years" required="isDepreciable">Useful Life in Years</x-page-label>
+          <x-page-input name="useful_life_in_years" id="useful_life_in_years" />
+        </div>
+
+        <div class = "form-row">
+          <x-page-label for="end_of_life_date" required="isDepreciable">End of Life Date</x-page-label>
+          <input class="input max-w-xs border-2 border-gray-400" type="date" name="end_of_life_date" id="end_of_life_date" disabled>
         </div>
       </div>
     </div>

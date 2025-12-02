@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('status')->default('active'); //enum values handles in the model
             $table->text('description')->nullable();
             $table->boolean('is_depreciable')->default(false);
-            $table->date('acquisition_date')->nullable();
-            $table->decimal('cost', 15, 2)->default(0);
             $table->string('image_path')->nullable();
             //foreign keys
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
@@ -29,6 +27,13 @@ return new class extends Migration
             $table->foreignId('supplier_id')->nullable()->constrained('suppliers')->onDelete('set null');
             $table->foreignId('custodian_id')->nullable()->constrained('employees')->onDelete('set null');
             
+            //finance
+            $table->date('acquisition_date')->nullable();
+            $table->decimal('cost', 15, 2)->default(0);
+            $table->decimal('salvage_value', 15, 2)->default(0);
+            $table->integer('useful_life_in_years')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
