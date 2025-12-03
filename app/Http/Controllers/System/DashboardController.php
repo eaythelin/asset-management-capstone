@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $toggleTable = $role === "Department Head" ? "hidden" : "block";
 
         //Get Departments
-        $departments = Department::all();
+        $departments = Department::with("assets")->get();
 
         //Column names for Filter Subcategory by Category and Assets per Department
         $subcategoryFilterColumns = ["", "Subcategory", "Count"];

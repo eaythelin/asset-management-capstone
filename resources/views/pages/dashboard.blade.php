@@ -61,7 +61,7 @@
             <tr>
               <th class="p-3 text-center">{{ $department -> id }}</th>
               <td class="p-3">{{ $department -> name}}</td>
-              <td class="p-3">0</td>
+              <td class="p-3">{{ $department->assets->count() }}</td>
             </tr>
           @endforeach
         </tbody>

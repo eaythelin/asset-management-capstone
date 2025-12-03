@@ -30,7 +30,7 @@
               <td class = "p-3 break-words max-w-xs">{{ $employee -> getFullName()}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $employee-> department -> name}}</td>
               <td class = "p-3 text-center">
-                @if($employee -> custodian)
+                @if($employee->assets->count() > 0)
                   <span class="badge badge-success"><x-heroicon-m-check class="size-5"/></span>
                 @else
                   <span class="badge badge-error"><x-heroicon-c-x-mark class="size-5"/></span>

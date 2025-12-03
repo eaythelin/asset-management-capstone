@@ -16,7 +16,6 @@ class Employee extends Model
         'first_name',
         'last_name',
         'department_id',
-        'custodian'
     ];
 
     public function getFullName():string {

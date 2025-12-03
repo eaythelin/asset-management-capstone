@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        @if($employee->custodian)
+        @if($employee->assets->count() > 0)
           <span class="badge badge-success p-4 font-medium text-sm flex items-center gap-1">
             <x-heroicon-m-check class="size-5" />
             Asset Custodian
@@ -34,13 +34,33 @@
 
   <div class="bg-white p-6 rounded-2xl shadow-xl">
     <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Assigned Assets</h3>
-    
+    @if($employee->assets->count() > 0)
+    <!-- if assets assigned -->
+      <x-tables :columnNames="$columns" :centeredColumns="[0]">
+        <tbody class = "divide-y divide-gray-400">
+          @foreach($employee->assets as $asset)
+            <th class = "p-3 text-center">{{ $asset->asset_code}}</th>
+            <x-td>{{ $asset->name}}</x-td>
+            <x-td>{{ $asset->serial_name}}</x-td>
+            <x-td>{{ $asset->department->name}}</x-td>
+            <x-td>{{ $asset->category->name }}</x-td>
+            <x-td>{{ $asset->subCategory->name }}</x-td>
+            <x-td>
+              @if($asset->status->label() === "Active")
+                <span class = "badge badge-success text-white font-medium text">Active</span>
+              @endif
+            </x-td>
+          @endforeach
+        </tbody>
+      </x-tables>
+    @else
     <!-- if no assets assigned -->
-    <div class="flex flex-col items-center justify-center py-12 text-center">
-      <x-heroicon-s-archive-box class="size-16 text-gray-300 mb-4" />
-      <p class="text-gray-600 text-lg">No assets assigned</p>
-      <p class="text-gray-400 text-sm mt-2">Assets will appear here once they are assigned to this employee</p>
-    </div>
+      <div class="flex flex-col items-center justify-center py-12 text-center">
+        <x-heroicon-s-archive-box class="size-16 text-gray-300 mb-4" />
+        <p class="text-gray-600 text-lg">No assets assigned</p>
+        <p class="text-gray-400 text-sm mt-2">Assets will appear here once they are assigned to this employee</p>
+      </div>
+    @endif
   </div>
 </div>
 @endsection

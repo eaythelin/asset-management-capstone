@@ -38,9 +38,11 @@ class EmployeesController extends Controller
     }
 
     public function getEmployee($id){
-        $employee = Employee::with('department')->findOrFail($id);
+        $employee = Employee::with('department', 'assets')->findOrFail($id);
 
-        return view('pages.employees.show-employee', compact('employee'));
+        $columns = ["Asset Code", "Asset Name", "Serial Name", "Department", "Category", "Subcategory", "Status"];
+        
+        return view('pages.employees.show-employee', compact('employee', 'columns'));
     }
 
     public function storeEmployees(Request $request){
