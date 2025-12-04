@@ -32,6 +32,7 @@ return new class extends Migration
             $table->decimal('cost', 15, 2)->default(0);
             $table->decimal('salvage_value', 15, 2)->default(0);
             $table->integer('useful_life_in_years')->nullable();
+            $table->date('end_of_life_date')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

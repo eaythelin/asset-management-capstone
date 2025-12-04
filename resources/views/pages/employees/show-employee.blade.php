@@ -39,17 +39,19 @@
       <x-tables :columnNames="$columns" :centeredColumns="[0]">
         <tbody class = "divide-y divide-gray-400">
           @foreach($employee->assets as $asset)
+          <tr>
             <th class = "p-3 text-center">{{ $asset->asset_code}}</th>
             <x-td>{{ $asset->name}}</x-td>
             <x-td>{{ $asset->serial_name}}</x-td>
             <x-td>{{ $asset->department->name}}</x-td>
             <x-td>{{ $asset->category->name }}</x-td>
-            <x-td>{{ $asset->subCategory->name }}</x-td>
+            <x-td>{{ $asset->subCategory?->name }}</x-td>
             <x-td>
               @if($asset->status->label() === "Active")
                 <span class = "badge badge-success text-white font-medium text">Active</span>
               @endif
             </x-td>
+          </tr>
           @endforeach
         </tbody>
       </x-tables>

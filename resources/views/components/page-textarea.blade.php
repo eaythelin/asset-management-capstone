@@ -1,1 +1,3 @@
-<textarea {{ $attributes->merge(['class' => 'textarea max-w-xs border-2 border-gray-400']) }} ></textarea>
+<textarea {{ $attributes->merge(['class' => 'textarea max-w-xs border-2 border-gray-400']) }} >
+  {{ $slot }}
+</textarea>

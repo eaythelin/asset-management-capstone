@@ -16,6 +16,7 @@ class Asset extends Model
     ];
 
     protected $fillable = [
+        'asset_code',
         'name',
         'serial_name',
         'description',
@@ -26,7 +27,11 @@ class Asset extends Model
         'category_id',
         'sub_category_id',
         'supplier_id',
-        'custodian_id'
+        'custodian_id',
+        'department_id',
+        'useful_life_in_years',
+        'salvage_value',
+        'end_of_life_date'
     ];
 
     public function custodian(){

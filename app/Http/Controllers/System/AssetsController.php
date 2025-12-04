@@ -35,7 +35,7 @@ class AssetsController extends Controller
         $latestAsset = Asset::latest('id')->first();
         $nextCode = $latestAsset ? 'AST-' . ($latestAsset->id + 1): 'AST-1';
         
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
         $employees = Employee::select('id', 'first_name', 'last_name')
             ->orderBy('first_name')
@@ -54,5 +54,53 @@ class AssetsController extends Controller
 
     public function getSubcategories(Category $category){
         return response()->json($category->subCategories);
+    }
+
+    public function storeAsset(Request $request){
+        $validated = $request->validate([
+            "asset_code" => ["required", "unique:assets"],
+            "asset_name" => ["required", "string", "max:100"],
+            "serial_name" => ["nullable", "string", "max:100"],
+            "category" => ["required", "exists:categories,id"],
+            "subcategory" => ["nullable", "exists:sub_categories,id"],
+            "description" => ["nullable", "string", "max:255"],
+            "department" => ["required", "exists:departments,id"],
+            "custodian" => ["nullable", "exists:employees,id"],
+
+            //financial fields!!
+            "is_depreciable" => ["nullable"],
+            "cost" => ["required_if:is_depreciable,on", "nullable", "numeric", "min:0"],
+            "salvage_value" => ["required_if:is_depreciable,on", "nullable", "numeric", "min:0"],
+            "acquisition_date" => ["required_if:is_depreciable,on", "nullable", "date"],
+            "useful_life_in_years" => ["required_if:is_depreciable,on", "nullable", "integer", "min:1"],
+            "end_of_life_date" => ["required_if:is_depreciable,on", "nullable", "date"],
+
+            //misc fields
+            "supplier" => ["nullable", "exists:suppliers,id"]
+        ]);
+
+        //make the is_depreciable true/false!
+        $validated['is_depreciable'] = $request->has('is_depreciable');
+        
+        Asset::create([
+            "asset_code" => $validated['asset_code'],
+            "name" => $validated['asset_name'],
+            "serial_name" => $validated['serial_name'],
+            "category_id" => $validated['category'],
+            "sub_category_id" => $validated['subcategory'] ?? null,
+            "description" => $validated['description'],
+
+            "department_id" => $validated['department'],
+            "custodian_id" => $validated['custodian'] ?? null,
+
+            "is_depreciable" => $validated['is_depreciable'],
+            "acquisition_date" => $validated['acquisition_date'],
+            "useful_life_in_years" => $validated['useful_life_in_years'],
+            "end_of_life_date" => $validated['end_of_life_date'],
+            
+            "supplier_id" => $validated['supplier'] ?? null,
+        ]);
+
+        return redirect()->route('assets.index')->with('success', 'Asset successfully created!');
     }
 }

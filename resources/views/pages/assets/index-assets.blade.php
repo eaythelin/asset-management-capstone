@@ -39,7 +39,7 @@
               <td class = "p-3 break-words max-w-xs">{{ $asset->name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $asset->serial_name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $asset->department->name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $asset->custodian->first_name}} {{ $asset->custodian->last_name}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $asset->custodian?->first_name}} {{ $asset->custodian?->last_name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $asset->category->name}}</td>
               <td class = "p-3 break-words max-w-xs text-center">
                 @if($asset->status->label() === "Active")
