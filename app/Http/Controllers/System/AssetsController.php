@@ -35,8 +35,7 @@ class AssetsController extends Controller
         $latestAsset = Asset::latest('id')->first();
         $nextCode = $latestAsset ? 'AST-' . ($latestAsset->id + 1): 'AST-1';
         
-        $categories = Category::orderBy('name')->pluck('name', 'id');
-        $subcategories = SubCategory::orderBy('name')->pluck('name', 'id');
+        $categories = Category::orderBy('name')->get();
         $departments = Department::orderBy('name')->pluck('name', 'id');
         $employees = Employee::select('id', 'first_name', 'last_name')
             ->orderBy('first_name')
@@ -49,7 +48,11 @@ class AssetsController extends Controller
 
         $suppliers = Supplier::orderBy('name')->pluck('name', 'id');
 
-        return view('pages.assets.create-asset', compact('nextCode', 'categories', 'subcategories', 'departments'
+        return view('pages.assets.create-asset', compact('nextCode', 'categories', 'departments'
                                                                     , 'employees', 'suppliers'));
+    }
+
+    public function getSubcategories(Category $category){
+        return response()->json($category->subCategories);
     }
 }

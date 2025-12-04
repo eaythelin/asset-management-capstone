@@ -11,7 +11,7 @@
       <div class = "flex flex-col flex-1 gap-4">
         <div class = "form-row">
           <x-page-label for="asset_code" :required="true">Asset Code</x-page-label>
-          <x-page-input value="{{ $nextCode }}" name="asset_code" id="asset_code" />
+          <x-page-input value="{{ $nextCode }}" name="asset_code" id="asset_code" disabled/>
         </div>
 
         <div class = "form-row">
@@ -36,19 +36,16 @@
           <x-page-label for="category" :required="true">Category</x-page-label>
           <x-page-select name="category_id" id="category">
             <option value="" disabled selected>--Select Category--</option>
-            @foreach($categories as $id => $name)
-              <option value="{{ $id }}">{{ $name }}</option>
+            @foreach($categories as $category)
+              <option value="{{ $category ->id }}">{{ $category->name }}</option>
             @endforeach
           </x-page-select>
         </div>
 
         <div class = "form-row">
           <x-page-label for="subcategory">Subcategory</x-page-label>
-          <x-page-select name="subcategory_id" id="subcategory">
+          <x-page-select name="subcategory_id" id="subcategory" disabled>
             <option value="" disabled selected>--Select Subcategory--</option>
-            @foreach($subcategories as $id=>$name)
-              <option value="{{ $id }}">{{ $name }}</option>
-            @endforeach
           </x-page-select>
         </div>
 
@@ -155,4 +152,8 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+  @vite('resources/js/assets/getSubcategory.js')
 @endsection
