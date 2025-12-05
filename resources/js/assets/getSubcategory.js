@@ -14,8 +14,7 @@ categorySelect.addEventListener('change', async function(){
     //fetch subcategories
     const response = await fetch(`/assets/create/subcategories/${categoryId}`);
     const subCategories = await response.json();
-
-    console.log(subCategories);
+    
     //populate the subcategory!!
     subCategories.forEach(sub => {
       const option = document.createElement('option');

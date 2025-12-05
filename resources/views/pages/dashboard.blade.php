@@ -40,10 +40,11 @@
       <label for="category" class="font-semibold text-sm md:text-base text-gray-700 flex items-center">
         <x-heroicon-s-funnel class="w-5 h-5 text-blue-800 mr-1" />
         Select Category</label>
-      <select id="category" class="border-2 border-gray-300 rounded-lg p-1 px-4 w-1/2 bg-white shadow-sm hover:border-blue-500 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all duration-200 cursor-pointer text-gray-700 font-medium">
-        <option value="it_equipment">IT Equipment</option>
-        <option value="furniture">Furniture</option>
-        <option value="vehicles">Vehicle</option>
+      <select id="category" name="category" class="border-2 border-gray-300 p-1 w-1/2 bg-white shadow-sm hover:border-blue-500 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all duration-200 cursor-pointer text-gray-700 font-medium">
+        <option class="text-sm" value="" disabled>Select Category</option>
+        @foreach($categories as $id=>$name)
+          <option value="{{ $id }}">{{ $name }}</option>
+        @endforeach
       </select>
     </div>
     <x-tables :columnNames="$subcategoryFilterColumns" class="max-h-73">

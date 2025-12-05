@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
 
-    // Dashboard + Logout
-    Route::middleware('check.permission:view dashboard')->group(function () {
-      Route::get('/dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard.index');
+    //Dashboard
+    Route::group(["prefix" => "/dashboard", "middleware" => "check.permission:view dashboard"], function(){
+      Route::get('/', [DashboardController::class, 'getDashboard'])->name('dashboard.index');
+      Route::get('/subcategories/{category}', [DashboardController::class, 'getSubcategoryCount'])->name('subcategorycount.get');
     });
 
     //Assets
