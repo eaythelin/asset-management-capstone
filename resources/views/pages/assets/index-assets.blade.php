@@ -55,12 +55,14 @@
                   </a>
                 @endcan
                 @can("manage assets")
-                  <x-buttons
-                    class="editBtn tooltip tooltip-top"
-                    data-tip="Edit"
-                    aria-label="Edit Asset">
-                    <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
-                  </x-buttons>
+                  <a href="{{ route('assets.edit', $asset->id) }}" class="w-full sm:w-auto flex justify-center">
+                    <x-buttons
+                      class="editBtn tooltip tooltip-top"
+                      data-tip="Edit"
+                      aria-label="Edit Asset">
+                      <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
+                    </x-buttons>
+                  </a>
                   <x-buttons
                     class="deleteBtn bg-red-700 tooltip tooltip-top"
                     data-tip="Dispose"

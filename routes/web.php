@@ -29,6 +29,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/subcategories/{category}', [AssetsController::class, 'getSubcategories'])->name('subcategories.get');
       });
 
+      Route::group(["prefix" => "/edit", "middleware" => "check.permission:manage assets"], function(){
+        Route::get('/{id}', [AssetsController::class, 'getEditAsset'])->name('assets.edit');
+      });
+
       Route::get('/{id}', [AssetsController::class, 'getAsset'])->name('assets.show');
     });
 

@@ -26,8 +26,16 @@ class AssetsController extends Controller
         return view('pages.assets.index-assets', compact('desc', 'assets', 'columns'));
     }
 
-    public function getAsset(){
-        return view('pages.assets.show-asset');
+    public function getAsset($id){
+        $asset = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->findOrFail($id);
+
+        return view('pages.assets.show-asset', compact('asset'));
+    }
+
+    public function getEditAsset($id){
+        $asset = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->findOrFail($id);
+
+        return view('pages.assets.edit-asset', compact('asset'));
     }
 
     public function getCreateAsset(){
@@ -58,12 +66,15 @@ class AssetsController extends Controller
 
     public function storeAsset(Request $request){
         $validated = $request->validate([
+            //general fields
             "asset_code" => ["required", "unique:assets"],
             "asset_name" => ["required", "string", "max:100"],
             "serial_name" => ["nullable", "string", "max:100"],
             "category" => ["required", "exists:categories,id"],
             "subcategory" => ["nullable", "exists:sub_categories,id"],
             "description" => ["nullable", "string", "max:255"],
+
+            //assignment fields
             "department" => ["required", "exists:departments,id"],
             "custodian" => ["nullable", "exists:employees,id"],
 
@@ -97,6 +108,8 @@ class AssetsController extends Controller
             "acquisition_date" => $validated['acquisition_date'],
             "useful_life_in_years" => $validated['useful_life_in_years'],
             "end_of_life_date" => $validated['end_of_life_date'],
+            "cost" => $validated['cost'],
+            "salvage_value" => $validated['salvage_value'],
             
             "supplier_id" => $validated['supplier'] ?? null,
         ]);
