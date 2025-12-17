@@ -32,12 +32,6 @@ class AssetsController extends Controller
         return view('pages.assets.show-asset', compact('asset'));
     }
 
-    public function getEditAsset($id){
-        $asset = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->findOrFail($id);
-
-        return view('pages.assets.edit-asset', compact('asset'));
-    }
-
     public function getCreateAsset(){
         //gets the latest asset id and add 1, if it doesnt exist default to AST-1
         $latestAsset = Asset::latest('id')->first();
@@ -60,6 +54,14 @@ class AssetsController extends Controller
                                                                     , 'employees', 'suppliers'));
     }
 
+    public function getEditAsset($id){
+        $categories = Category::orderBy('name')->pluck('name', 'id');
+
+        $asset = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->findOrFail($id);
+
+        return view('pages.assets.edit-asset', compact('asset', 'categories'));
+    }
+
     public function getSubcategories(Category $category){
         return response()->json($category->subCategories);
     }
@@ -73,6 +75,7 @@ class AssetsController extends Controller
             "category" => ["required", "exists:categories,id"],
             "subcategory" => ["nullable", "exists:sub_categories,id"],
             "description" => ["nullable", "string", "max:255"],
+            "image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"], //max 2MB
 
             //assignment fields
             "department" => ["required", "exists:departments,id"],
@@ -92,6 +95,11 @@ class AssetsController extends Controller
 
         //make the is_depreciable true/false!
         $validated['is_depreciable'] = $request->has('is_depreciable');
+
+        //store the image in the public folder if uploaded!
+        if($request->hasFile('image')){
+            $imagePath = $request->file('image')->store('assets/images', 'public');
+        }
         
         Asset::create([
             "asset_code" => $validated['asset_code'],
@@ -100,6 +108,7 @@ class AssetsController extends Controller
             "category_id" => $validated['category'],
             "sub_category_id" => $validated['subcategory'] ?? null,
             "description" => $validated['description'],
+            "image_path" => $imagePath,
 
             "department_id" => $validated['department'],
             "custodian_id" => $validated['custodian'] ?? null,
@@ -108,12 +117,16 @@ class AssetsController extends Controller
             "acquisition_date" => $validated['acquisition_date'],
             "useful_life_in_years" => $validated['useful_life_in_years'],
             "end_of_life_date" => $validated['end_of_life_date'],
-            "cost" => $validated['cost'],
-            "salvage_value" => $validated['salvage_value'],
+            "cost" => $validated['cost'] ?? 0,
+            "salvage_value" => $validated['salvage_value'] ?? 0,
             
             "supplier_id" => $validated['supplier'] ?? null,
         ]);
 
         return redirect()->route('assets.index')->with('success', 'Asset successfully created!');
+    }
+
+    public function updateAsset(Request $request, $id){
+
     }
 }

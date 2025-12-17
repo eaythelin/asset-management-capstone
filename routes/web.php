@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
       Route::group(["prefix" => "/edit", "middleware" => "check.permission:manage assets"], function(){
         Route::get('/{id}', [AssetsController::class, 'getEditAsset'])->name('assets.edit');
+        Route::put('/update/{id}', [AssetsController::class, 'updateAsset'])->name('assets.update');
       });
 
       Route::get('/{id}', [AssetsController::class, 'getAsset'])->name('assets.show');

@@ -4,11 +4,11 @@
 <div class="md:mx-4">
   <x-back-link route="assets.index">Return to Assets</x-back-link>
   <x-validation-error />
-  <form method="POST" action="{{ route("assets.store") }}">
+  <form method="POST" action="{{ route("assets.store") }}" enctype="multipart/form-data">
+    @csrf
     <div class="bg-white p-4 rounded-2xl shadow-2xl mt-4">
       <h2 class="text-lg font-bold text-gray-800 mb-4">General Information</h2>
       <div class = "flex flex-col sm:flex-row gap-6">
-        @csrf
         {{-- Left Column!! --}}
         <div class = "flex flex-col flex-1 gap-4">
           <div class = "form-row">
@@ -27,8 +27,8 @@
           </div>
 
           <div class = "form-row">
-            <x-page-label for="image_path">Asset Image</x-page-label>
-            <input type="file" class="file-input" name="image_path" id="image_path">
+            <x-page-label for="image">Asset Image</x-page-label>
+            <input type="file" class="file-input" name="image" id="image">
           </div>
         </div>
 
@@ -167,6 +167,6 @@
 @endsection
 
 @section('scripts')
-  @vite('resources/js/assets/getSubcategory.js')
-  @vite('resources/js/assets/endOfLifeCalc.js')
+  @vite('resources/js/assets/create-asset/getSubcategory.js')
+  @vite('resources/js/assets/create-asset/endOfLifeCalc.js')
 @endsection
