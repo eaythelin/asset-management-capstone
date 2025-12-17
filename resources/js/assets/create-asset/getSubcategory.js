@@ -1,9 +1,7 @@
 const categorySelect = document.getElementById("category");
 const subcategorySelect = document.getElementById("subcategory");
 
-categorySelect.addEventListener('change', async function(){
-  const categoryId = this.value;
-
+async function loadSubcategories(categoryId){
   //empties subcategory when you change the category
   subcategorySelect.innerHTML = '<option value="" disabled selected>--Select Subcategory</option>';
   subcategorySelect.disabled = true;
@@ -12,7 +10,7 @@ categorySelect.addEventListener('change', async function(){
 
   try {
     //fetch subcategories
-    const response = await fetch(`/assets/create/subcategories/${categoryId}`);
+    const response = await fetch(`/assets/subcategories/${categoryId}`);
     const subCategories = await response.json();
     
     //populate the subcategory!!
@@ -27,5 +25,14 @@ categorySelect.addEventListener('change', async function(){
 
   } catch(error) {
     console.error('Error fetching subcategories: ', error);
+  }
+}
+categorySelect.addEventListener('change', function(){
+  loadSubcategories(this.value);
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  if(categorySelect.value){
+    loadSubcategories(categorySelect.value);
   }
 })

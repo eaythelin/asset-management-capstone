@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
       Route::group(["prefix" => "/create", "middleware" => "check.permission:manage assets"], function(){
         Route::get('/', [AssetsController::class, 'getCreateAsset'])->name('assets.create');
         Route::post('/store', [AssetsController::class, "storeAsset"])->name("assets.store");
-        Route::get('/subcategories/{category}', [AssetsController::class, 'getSubcategories'])->name('subcategories.get');
+        
       });
 
       Route::group(["prefix" => "/edit", "middleware" => "check.permission:manage assets"], function(){
@@ -35,6 +35,10 @@ Route::middleware(['auth'])->group(function () {
       });
 
       Route::get('/{id}', [AssetsController::class, 'getAsset'])->name('assets.show');
+
+      Route::get('/subcategories/{categoryID}', [AssetsController::class, 'getSubcategories'])
+        ->middleware('check.permission:manage assets')
+        ->name('subcategories.get');
     });
 
     //employees

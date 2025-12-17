@@ -62,8 +62,8 @@ class AssetsController extends Controller
         return view('pages.assets.edit-asset', compact('asset', 'categories'));
     }
 
-    public function getSubcategories(Category $category){
-        return response()->json($category->subCategories);
+    public function getSubcategories(Category $categoryID){
+        return response()->json($categoryID->subCategories);
     }
 
     public function storeAsset(Request $request){
