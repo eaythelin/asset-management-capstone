@@ -32,7 +32,7 @@
             <input type="file" class="file-input" name="image" id="image">
           </div>
         </div>
-
+        {{-- Right Column --}}
         <div class = "flex flex-col flex-1 gap-4">
           <div class="form-row">
             <x-page-label for="category" :required="true">Category</x-page-label>
@@ -58,6 +58,68 @@
             </x-page-textarea>
           </div>
         </div>
+      </div>
+
+      <hr class="border-gray-300 m-5">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Assignment Details</h2>
+
+      <div class="flex flex-col sm:flex-row gap-6">
+        {{-- Left Column --}}
+        <div class = "flex flex-col flex-1 gap-4">
+          <div class="form-row">
+            <x-page-label for="department" :required="true">Department</x-page-label>
+            <x-page-select name="department" id="department">
+              <option value="" disabled>--Select Department--</option>
+              @foreach($departments as $id=>$name)
+                <option value="{{ $id }}" {{ old('department', $asset->department_id) == $id ? 'selected' : '' }}>{{ $name }}</option>
+              @endforeach
+            </x-page-select>
+          </div>
+        </div>
+
+        {{-- Right Column --}}
+        <div class = "flex flex-col flex-1 gap-4">
+          <div class="form-row">
+            <x-page-label for="custodian">Custodian</x-page-label>
+            <x-page-select name="custodian" id="custodian">
+              <option value="" disabled>--Select Employee--</option>
+              @foreach($employees as $id=>$name)
+                <option value="{{ $id }}" {{ old('custodian', $asset->custodian_id) == $id ? 'selected' : '' }}>{{ $name }}</option>
+              @endforeach
+            </x-page-select>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-gray-300 m-5">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Financial Details</h2>
+
+      <hr class="border-gray-300 m-5">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Misc. Details</h2>
+
+      <div class="flex flex-col sm:flex-row gap-6">
+        {{-- Left Column --}}
+        <div class = "flex flex-col flex-1 gap-4">
+          <div class="form-row">
+            <x-page-label for="supplier" :required="true">Supplier</x-page-label>
+            <x-page-select name="supplier" id="supplier">
+              <option value="" disabled>--Select Supplier--</option>
+              @foreach($suppliers as $id=>$name)
+                <option value="{{ $id }}" {{ old('supplier', $asset->supplier_id) == $id ? 'selected' : '' }}>{{ $name }}</option>
+              @endforeach
+            </x-page-select>
+          </div>
+        </div>
+
+        {{-- Right Column --}}
+        <div class = "flex flex-col flex-1 gap-4"></div>
+      </div>
+
+      <div class="flex justify-end mt-2">
+        <x-buttons type="submit" class="w-full md:w-auto">
+          <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
+          Save Changes
+        </x-buttons>
       </div>
     </div>
   </form>

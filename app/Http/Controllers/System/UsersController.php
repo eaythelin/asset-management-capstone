@@ -36,11 +36,8 @@ class UsersController extends Controller
             })
             ->orderBy('first_name')
             ->orderBy('last_name')
-            ->get();
-
-        $employees = $employees->mapWithKeys(function ($employee) {
-                return [$employee->id => $employee->first_name . ' ' . $employee->last_name];
-        });
+            ->get()
+            ->pluck('full_name', 'id');
 
         $roles = Role::orderBy('name')->pluck('name', 'id');
         

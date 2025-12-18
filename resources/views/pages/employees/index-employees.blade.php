@@ -27,7 +27,7 @@
           @foreach($employees as $employee)
             <tr>
               <th class = "p-3 text-center">{{ $employee-> id}}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $employee -> getFullName()}}</td>
+              <td class = "p-3 break-words max-w-xs">{{ $employee->full_name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $employee-> department -> name}}</td>
               <td class = "p-3 text-center">
                 @if($employee->assets->count() > 0)

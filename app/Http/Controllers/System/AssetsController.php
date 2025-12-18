@@ -42,11 +42,8 @@ class AssetsController extends Controller
         $employees = Employee::select('id', 'first_name', 'last_name')
             ->orderBy('first_name')
             ->orderBy('last_name')
-            ->get();
-
-        $employees = $employees->mapWithKeys(function ($employee) {
-                return [$employee->id => $employee->first_name . ' ' . $employee->last_name];
-        });
+            ->get()
+            ->pluck('full_name', 'id');
 
         $suppliers = Supplier::orderBy('name')->pluck('name', 'id');
 
@@ -56,10 +53,17 @@ class AssetsController extends Controller
 
     public function getEditAsset($id){
         $categories = Category::orderBy('name')->pluck('name', 'id');
+        $departments = Department::orderBy('name')->pluck('name', 'id');
+        $employees = Employee::select('id', 'first_name', 'last_name')
+            ->orderBy('first_name')
+            ->orderBy('last_name')
+            ->get()
+            ->pluck('full_name', 'id');
+        $suppliers = Supplier::orderBy('name')->pluck('name', 'id');
 
         $asset = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->findOrFail($id);
 
-        return view('pages.assets.edit-asset', compact('asset', 'categories'));
+        return view('pages.assets.edit-asset', compact('asset', 'categories', 'departments', 'employees', 'suppliers'));
     }
 
     public function getSubcategories(Category $categoryID){

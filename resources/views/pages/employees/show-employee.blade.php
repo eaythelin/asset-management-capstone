@@ -9,7 +9,7 @@
   <div class = "bg-white p-4 rounded-2xl shadow-xl mb-4">
     <div class = "flex flex-col sm:flex-row items-center sm:justify-between px-2 gap-5">
       <div class="flex flex-col gap-2">
-        <p class="text-xl sm:text-2xl font-bold text-gray-800">{{ $employee->getFullName() }}</p>
+        <p class="text-xl sm:text-2xl font-bold text-gray-800">{{ $employee->full_name }}</p>
         <div class="flex items-center gap-2 text-sm">
             <x-heroicon-s-briefcase class="text-gray-500 size-4"/>
             <span class="text-gray-500">Department:</span>

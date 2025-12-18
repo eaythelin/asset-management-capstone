@@ -18,7 +18,8 @@ class Employee extends Model
         'department_id',
     ];
 
-    public function getFullName():string {
+    //accessor for full_name attribute, laravel converts getFullNameAttribute -> full_name
+    public function getFullNameAttribute():string {
         return "{$this->first_name} {$this->last_name}";
     }
     
