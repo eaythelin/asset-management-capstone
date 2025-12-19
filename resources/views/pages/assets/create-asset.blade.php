@@ -100,7 +100,7 @@
             <x-page-label for="is_depreciable">Is Depreciable
               <span class="text-xs text-gray-500 align-super tooltip tooltip-info" data-tip="Asset will be included in asset depreciation">?</span>
             </x-page-label>
-            <input x-model="isDepreciable" type="checkbox" class="checkbox border-2 border-gray-400" name="is_depreciable" id="is_depreciable" checked="isDepreciable">
+            <input x-model="isDepreciable" type="checkbox" class="checkbox border-2 border-gray-400" name="is_depreciable" id="is_depreciable">
           </div>
 
           <div class = "form-row">
@@ -168,5 +168,5 @@
 
 @section('scripts')
   @vite('resources/js/assets/create-asset/getSubcategory.js')
-  @vite('resources/js/assets/create-asset/endOfLifeCalc.js')
+  @vite('resources/js/assets/endOfLifeCalc.js')
 @endsection

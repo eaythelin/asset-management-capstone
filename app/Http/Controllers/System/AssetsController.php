@@ -5,10 +5,8 @@ namespace App\Http\Controllers\System;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Employee;
-use App\Models\SubCategory;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Asset;
 use App\Models\Category;
 
@@ -100,6 +98,7 @@ class AssetsController extends Controller
         //make the is_depreciable true/false!
         $validated['is_depreciable'] = $request->has('is_depreciable');
 
+        $imagePath = null;
         //store the image in the public folder if uploaded!
         if($request->hasFile('image')){
             $imagePath = $request->file('image')->store('assets/images', 'public');
@@ -131,6 +130,6 @@ class AssetsController extends Controller
     }
 
     public function updateAsset(Request $request, $id){
-
+        dd($request);
     }
 }
