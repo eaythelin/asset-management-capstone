@@ -9,6 +9,8 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\Asset;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class AssetsController extends Controller
 {
@@ -77,7 +79,7 @@ class AssetsController extends Controller
             "category" => ["required", "exists:categories,id"],
             "subcategory" => ["nullable", "exists:sub_categories,id"],
             "description" => ["nullable", "string", "max:255"],
-            "image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"], //max 2MB
+            "image_path" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"], //max 2MB
 
             //assignment fields
             "department" => ["required", "exists:departments,id"],
@@ -100,8 +102,8 @@ class AssetsController extends Controller
 
         $imagePath = null;
         //store the image in the public folder if uploaded!
-        if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('assets/images', 'public');
+        if($request->hasFile('image_path')){
+            $imagePath = $request->file('image_path')->store('assets/images', 'public');
         }
         
         Asset::create([
@@ -130,6 +132,69 @@ class AssetsController extends Controller
     }
 
     public function updateAsset(Request $request, $id){
-        dd($request);
+
+        $asset = Asset::findOrFail($id);
+
+        $validated = $request->validate([
+            //general fields
+            "asset_code" => ["required", Rule::unique('assets', 'asset_code')->ignore($id)],
+            "asset_name" => ["required", "string", "max:100"],
+            "serial_name" => ["nullable", "string", "max:100"],
+            "category" => ["required", "exists:categories,id"],
+            "subcategory" => ["nullable", "exists:sub_categories,id"],
+            "description" => ["nullable", "string", "max:255"],
+            "image_path" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"],
+
+            //assignment fields
+            "department" => ["required", "exists:departments,id"],
+            "custodian" => ["nullable", "exists:employees,id"],
+
+            //financial fields!!
+            "is_depreciable" => ["nullable"],
+            "cost" => ["required_if:is_depreciable,on", "nullable", "numeric", "min:0"],
+            "salvage_value" => ["required_if:is_depreciable,on", "nullable", "numeric", "min:0"],
+            "acquisition_date" => ["required_if:is_depreciable,on", "nullable", "date"],
+            "useful_life_in_years" => ["required_if:is_depreciable,on", "nullable", "integer", "min:1"],
+            "end_of_life_date" => ["required_if:is_depreciable,on", "nullable", "date"],
+
+            //misc fields
+            "supplier" => ["nullable", "exists:suppliers,id"]
+        ]);
+
+        //make the is_depreciable true/false!
+        $validated['is_depreciable'] = $request->has('is_depreciable');
+
+        //store the image in the public folder if uploaded!
+        if($request->hasFile('image_path')){
+            //delete old image file
+            if($asset->image_path){
+                Storage::disk('public')->delete($asset->image_path);
+            }
+            $validated['image_path'] = $request->file('image_path')->store('assets', 'public');
+        }
+
+        $asset->update([
+            "asset_code" => $validated['asset_code'],
+            "name" => $validated['asset_name'],
+            "serial_name" => $validated['serial_name'],
+            "category_id" => $validated['category'],
+            "sub_category_id" => $validated['subcategory'] ?? null,
+            "description" => $validated['description'],
+            "image_path" => $validated['image_path'] ?? $asset->image_path,
+
+            "department_id" => $validated['department'],
+            "custodian_id" => $validated['custodian'] ?? null,
+
+            "is_depreciable" => $validated['is_depreciable'],
+            "acquisition_date" => $validated['acquisition_date'],
+            "useful_life_in_years" => $validated['useful_life_in_years'],
+            "end_of_life_date" => $validated['end_of_life_date'],
+            "cost" => $validated['cost'] ?? 0,
+            "salvage_value" => $validated['salvage_value'] ?? 0,
+            
+            "supplier_id" => $validated['supplier'] ?? null,
+        ]);
+
+        return redirect()->route('assets.index')->with('success', 'Asset edited successfully!');
     }
 }

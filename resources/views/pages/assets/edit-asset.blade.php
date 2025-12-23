@@ -2,13 +2,19 @@
 @section("content")
 
 <div class="md:mx-4">
-  <x-back-link route="assets.index">Return to Assets</x-back-link>
+  <div class = "mb-4">
+    <x-back-link route="assets.index">Return to Assets</x-back-link>
+  </div>
+
   <x-validation-error />
   <form method="POST" action="{{ route("assets.update", $asset->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="bg-white p-4 rounded-2xl shadow-2xl mt-4">
-      <h2 class="text-lg font-bold text-gray-800 mb-4">General Information</h2>
+      <div class="flex flex-row items-center gap-2 mb-4">
+        <x-heroicon-s-information-circle class="size-6 text-blue-700"/>
+        <p class="text-lg font-bold">General Information</p>
+      </div>
       <div class="flex flex-col sm:flex-row gap-6">
         {{-- Left Column --}}
         <div class = "flex flex-col flex-1 gap-4">
@@ -28,8 +34,8 @@
           </div>
 
           <div class = "form-row">
-            <x-page-label for="image">Asset Image</x-page-label>
-            <input type="file" class="file-input" name="image" id="image">
+            <x-page-label for="image_path">Asset Image</x-page-label>
+            <input type="file" class="file-input" name="image_path" id="image_path">
           </div>
         </div>
         {{-- Right Column --}}
@@ -61,7 +67,10 @@
       </div>
 
       <hr class="border-gray-300 m-5">
-      <h2 class="text-lg font-bold text-gray-800 mb-4">Assignment Details</h2>
+      <div class="flex flex-row items-center gap-2 mb-4">
+        <x-heroicon-s-user-group class="size-6 text-green-700"/>
+        <p class="text-lg font-bold">Assignment Details</p>
+      </div>
 
       <div class="flex flex-col sm:flex-row gap-6">
         {{-- Left Column --}}
@@ -92,7 +101,10 @@
       </div>
 
       <hr class="border-gray-300 m-5">
-      <h2 class="text-lg font-bold text-gray-800 mb-4">Financial Details</h2>
+      <div class="flex flex-row items-center gap-2 mb-4">
+        <x-heroicon-s-currency-dollar class="size-6 text-yellow-400"/>
+        <p class="text-lg font-bold">Financial Details</p>
+      </div>
 
       <div class="flex flex-col sm:flex-row gap-6" x-data="{ isDepreciable: {{ old('is_depreciable', $asset->is_depreciable ?? false) ? 'true' : 'false' }} }">
         {{-- Left Column --}}
@@ -135,13 +147,16 @@
         </div>
       </div>
       <hr class="border-gray-300 m-5">
-      <h2 class="text-lg font-bold text-gray-800 mb-4">Misc. Details</h2>
+      <div class="flex flex-row items-center gap-2 mb-4">
+        <x-heroicon-s-clipboard-document-list class="size-6 text-gray-600"/>
+        <p class="text-lg font-bold">Misc. Details</p>
+      </div>
 
       <div class="flex flex-col sm:flex-row gap-6">
         {{-- Left Column --}}
         <div class = "flex flex-col flex-1 gap-4">
           <div class="form-row">
-            <x-page-label for="supplier" :required="true">Supplier</x-page-label>
+            <x-page-label for="supplier">Supplier</x-page-label>
             <x-page-select name="supplier" id="supplier">
               <option value="" disabled>--Select Supplier--</option>
               @foreach($suppliers as $id=>$name)

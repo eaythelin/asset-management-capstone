@@ -2,12 +2,82 @@
 @section("content")
 
 <div class="md:mx-4">
-  <x-back-link route="assets.index">Return to Assets</x-back-link>
+  <div class = "mb-4">
+    <x-back-link route="assets.index">Return to Assets</x-back-link>
+  </div>
 
-  @if($asset->image_path)
-    <img src="{{ asset('storage/' . $asset->image_path) }}" alt="{{ $asset->name }}">
-  @else
-    <p>No Image uploaded!</p>
-  @endif
+  <div class="bg-white p-4 rounded-2xl shadow-2xl mb-4">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      {{-- Image! --}}
+      <div class="size-32 flex-shrink-0">{{-- prevents the image from being pushed --}}
+        @if($asset->image_path)
+          <img src="{{ Storage::url($asset->image_path) }}" alt="{{ $asset->name }}" class="w-full h-full object-cover rounded-lg shadow-xl">
+        @else
+          <div class="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center">
+            <x-heroicon-o-photo class="size-16 text-gray-400" />
+          </div>
+        @endif
+      </div>
+
+      <div class="flex-grow">{{-- will take as much space as possible --}}
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $asset->name }}</h2>
+        <div class="flex items-center gap-2 text-sm mt-1">
+          <x-heroicon-s-hashtag class="text-gray-500 size-4"/>
+          <span class="text-gray-500">Asset Code:</span>
+          <span class="font-semibold text-gray-700">{{ $asset->asset_code }}</span>
+        </div>
+        <div class="flex items-center gap-2 text-sm mt-1">
+          <x-heroicon-s-identification class="text-gray-500 size-4"/>
+          <span class="text-gray-500">Serial Name:</span>
+          <span class="font-semibold text-gray-700">{{ $asset->serial_name ?? 'N/A' }}</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col mx-10 gap-2">
+        @if($asset->status->label() === "Active")
+          <span class="badge badge-success text-white font-medium text-sm p-3">Active</span>
+        @endif
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-4 mb-4">
+    <div class="bg-white p-4 rounded-2xl shadow-2xl">
+      <div class="flex flex-row items-center gap-2 mb-2">
+        <x-heroicon-s-information-circle class="size-6 text-blue-700"/>
+        <p class="text-lg font-semibold">General Information</p>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <p class="text-sm text-gray-500">Category</p>
+          <p class="font-semibold text-gray-700">{{ $asset->category->name }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Subcategory</p>
+          <p class="font-semibold text-gray-700">{{ $asset->subCategory->name ?? 'N/A'}}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Description</p>
+          <p class="font-semibold text-gray-700">{{ $asset->description ?? 'N/A' }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded-2xl shadow-2xl">
+      <div class="flex flex-row items-center gap-2 mb-2">
+        <x-heroicon-s-user-group class="size-6 text-green-700"/>
+        <p class="text-lg font-semibold">Assignment Information</p>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <p class="text-sm text-gray-500">Department</p>
+          <p class="font-semibold text-gray-700">{{ $asset->department->name }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Custodian</p>
+          <p class="font-semibold text-gray-700">{{ $asset->custodian->full_name ?? 'No Custodian Assigned'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
