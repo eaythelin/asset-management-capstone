@@ -170,7 +170,7 @@ class AssetsController extends Controller
             if($asset->image_path){
                 Storage::disk('public')->delete($asset->image_path);
             }
-            $validated['image_path'] = $request->file('image_path')->store('assets', 'public');
+            $validated['image_path'] = $request->file('image_path')->store('assets/images', 'public');
         }
 
         $asset->update([
