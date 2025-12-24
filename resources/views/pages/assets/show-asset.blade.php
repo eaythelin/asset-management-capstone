@@ -45,7 +45,7 @@
     <div class="bg-white p-4 rounded-2xl shadow-2xl">
       <div class="flex flex-row items-center gap-2 mb-2">
         <x-heroicon-s-information-circle class="size-6 text-blue-700"/>
-        <p class="text-lg font-semibold">General Information</p>
+        <p class="text-lg font-semibold">General Details</p>
       </div>
       <div class="space-y-3">
         <div>
@@ -54,7 +54,7 @@
         </div>
         <div>
           <p class="text-sm text-gray-500">Subcategory</p>
-          <p class="font-semibold text-gray-700">{{ $asset->subCategory->name ?? 'N/A'}}</p>
+          <p class="font-semibold text-gray-700">{{ $asset->subCategory?->name ?? 'N/A'}}</p>
         </div>
         <div>
           <p class="text-sm text-gray-500">Description</p>
@@ -65,7 +65,7 @@
     <div class="bg-white p-4 rounded-2xl shadow-2xl">
       <div class="flex flex-row items-center gap-2 mb-2">
         <x-heroicon-s-user-group class="size-6 text-green-700"/>
-        <p class="text-lg font-semibold">Assignment Information</p>
+        <p class="text-lg font-semibold">Assignment Details</p>
       </div>
       <div class="space-y-3">
         <div>
@@ -76,6 +76,58 @@
           <p class="text-sm text-gray-500">Custodian</p>
           <p class="font-semibold text-gray-700">{{ $asset->custodian->full_name ?? 'No Custodian Assigned'}}</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white p-4 rounded-2xl shadow-2xl mb-4">
+    <div class="flex flex-row items-center gap-2 mb-2">
+      <x-heroicon-s-currency-dollar class="size-6 text-yellow-400"/>
+      <p class="text-lg font-semibold">Financial Details</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <div class="space-y-3">
+        <div>
+          <p class="text-sm text-gray-500">Acquisition Date</p>
+          <p class="font-semibold text-gray-700">{{ $asset->acquisition_date?->format('F j, Y') ?? 'N/A'}}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Useful Life in Years</p>
+          <p class="font-semibold text-gray-700">{{ $asset->useful_life_in_years ?? 'N/A'}}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">End of Life Date</p>
+          <p class="font-semibold text-gray-700">{{ $asset->end_of_life_date?->format('F j, Y') ?? 'N/A'}}</p>
+        </div>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <p class="text-sm text-gray-500">Cost</p>
+          <p class="font-semibold text-gray-700">₱{{ $asset->cost ?? 'N/A'}}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Salvage Value</p>
+          <p class="font-semibold text-gray-700">₱{{ $asset->salvage_value ?? 'N/A'}}</p>
+        </div>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <p class="text-sm text-gray-500">Current Book Value</p>
+          <p class="font-semibold text-gray-700">₱{{ $asset->book_value}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white p-4 rounded-2xl shadow-2xl mb-4">
+    <div class="flex flex-row items-center gap-2 mb-2">
+      <x-heroicon-s-clipboard-document-list class="size-6 text-gray-600"/>
+      <p class="text-lg font-semibold">Misc. Details</p>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm text-gray-500">Supplier</p>
+        <p class="font-semibold text-gray-700">{{ $asset->supplier->name ?? 'N/A'}}</p>
       </div>
     </div>
   </div>

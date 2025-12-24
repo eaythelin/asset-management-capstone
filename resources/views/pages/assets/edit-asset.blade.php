@@ -13,7 +13,7 @@
     <div class="bg-white p-4 rounded-2xl shadow-2xl mt-4">
       <div class="flex flex-row items-center gap-2 mb-4">
         <x-heroicon-s-information-circle class="size-6 text-blue-700"/>
-        <p class="text-lg font-bold">General Information</p>
+        <p class="text-lg font-bold">General Details</p>
       </div>
       <div class="flex flex-col sm:flex-row gap-6">
         {{-- Left Column --}}
@@ -132,7 +132,11 @@
         <div class = "flex flex-col flex-1 gap-4">
           <div class = "form-row">
             <x-page-label for="acquisition_date" required="isDepreciable">Acquisition Date</x-page-label>
-            <input class="input max-w-xs border-2 border-gray-400" type="date" name="acquisition_date" id="acquisition_date" value="{{ old('acquisition_date', $asset->acquisition_date) }}">
+            <input 
+              class="input max-w-xs border-2 border-gray-400" 
+              type="date" name="acquisition_date" 
+              id="acquisition_date" 
+              value="{{ old('acquisition_date', $asset->acquisition_date?->format('Y-m-d')) }}">
           </div>
 
           <div class = "form-row">
@@ -142,7 +146,12 @@
 
           <div class = "form-row">
             <x-page-label for="end_of_life_date" required="isDepreciable">End of Life Date</x-page-label>
-            <input class="input max-w-xs border-2 border-gray-400" type="date" name="end_of_life_date" id="end_of_life_date" value="{{ old('end_of_life_date', $asset->end_of_life_date) }}"readonly>
+            <input 
+              class="input max-w-xs border-2 border-gray-400" 
+              type="date" 
+              name="end_of_life_date" 
+              id="end_of_life_date" 
+              value="{{ old('end_of_life_date', $asset->end_of_life_date?->format('Y-m-d')) }}"readonly>
           </div>
         </div>
       </div>

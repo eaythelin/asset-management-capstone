@@ -12,7 +12,7 @@
     <div class="bg-white p-4 rounded-2xl shadow-2xl mt-4">
       <div class="flex flex-row items-center gap-2 mb-4">
         <x-heroicon-s-information-circle class="size-6 text-blue-700"/>
-        <p class="text-lg font-bold">General Information</p>
+        <p class="text-lg font-bold">General Details</p>
       </div>
       <div class = "flex flex-col sm:flex-row gap-6">
         {{-- Left Column!! --}}

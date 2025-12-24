@@ -6,13 +6,16 @@ use App\Enums\AssetStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Asset extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $casts = [
-      'status' => AssetStatus::class  
+      'status' => AssetStatus::class,
+      'acquisition_date' => 'date',
+      'end_of_life_date' => 'date'
     ];
 
     protected $fillable = [
@@ -52,5 +55,20 @@ class Asset extends Model
 
     public function supplier(){
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function getBookValueAttribute(){
+        //this is Straight Line Depreciation
+        if(!$this->is_depreciable){
+            return $this->cost ?? 'N/A';
+        }
+
+        $monthElapsed = floor(Carbon::parse($this->acquisition_date)->diffInMonths(now())); //this keeps returning a decimal i dont know why >:(
+        $totalMonths = $this->useful_life_in_years * 12;
+        $monthlyDepreciation = ($this->cost - $this->salvage_value) / $totalMonths;
+        $accumulatedDepreciation = $monthlyDepreciation * $monthElapsed;
+
+        $bookValue = max($this->cost - $accumulatedDepreciation, $this->salvage_value);
+        return round($bookValue, 2);
     }
 }
