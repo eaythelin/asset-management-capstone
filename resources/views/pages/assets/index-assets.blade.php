@@ -36,11 +36,11 @@
           @foreach($assets as $asset)
             <tr>
               <th class = "p-3 text-center">{{ $asset->asset_code }}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $asset->name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $asset->serial_name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $asset->department->name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $asset->custodian?->first_name}} {{ $asset->custodian?->last_name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $asset->category->name}}</td>
+              <x-td>{{ $asset->name}}</x-td>
+              <x-td>{{ $asset->serial_name}}</x-td>
+              <x-td>{{ $asset->department->name}}</x-td>
+              <x-td>{{ $asset->custodian?->first_name}} {{ $asset->custodian?->last_name}}</x-td>
+              <x-td>{{ $asset->category->name}}</x-td>
               <td class = "p-3 break-words max-w-xs text-center">
                 @if($asset->computed_status === "expired")
                   <span class = "badge badge-warning text-white font-medium text-sm p-3 tooltip tooltip-top"

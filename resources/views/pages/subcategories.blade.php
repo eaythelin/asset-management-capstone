@@ -21,15 +21,15 @@
         </x-buttons>
       @endcan
     </div>
-    <x-tables :columnNames="$columns">
+    <x-tables :columnNames="$columns" :centeredColumns="[4]">
       <tbody class = "divide-y divide-gray-400">
           @foreach($subCategories as $subCategory)
             <tr>
               <th class = "p-3 text-center">{{ $subCategory->id }}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $subCategory->name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $subCategory->category->name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $subCategory->description}}</td>
-              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <x-td>{{ $subCategory->name}}</x-td>
+              <x-td>{{ $subCategory->category->name}}</x-td>
+              <x-td>{{ $subCategory->description}}</x-td>
+              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
                 @can("manage sub-categories")
                   <x-buttons onclick="editSubCategory.showModal()"
                     class="editBtn tooltip tooltip-top"

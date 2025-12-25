@@ -22,14 +22,14 @@
         </x-buttons>
       @endcan
     </div>
-    <x-tables :columnNames="$columns">
+    <x-tables :columnNames="$columns" :centeredColumns="[3]">
       <tbody class = "divide-y divide-gray-400">
           @foreach($categories as $category)
             <tr>
               <th class = "p-3 text-center">{{ $category -> id }}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $category -> name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $category -> description}}</td>
-              <td class = "flex flex-row gap-2 sm:gap-4">
+              <x-td>{{ $category->name }}</x-td>
+              <x-td>{{ $category->description}}</x-td>
+              <td class = "flex flex-row gap-2 sm:gap-4 justify-center">
                 @can("manage categories")
                   <x-buttons onclick="editCategory.showModal()"
                     class="editBtn tooltip tooltip-top"

@@ -22,17 +22,17 @@
         </x-buttons>
       @endcan
     </div>
-    <x-tables :columnNames="$columns">
+    <x-tables :columnNames="$columns" :centeredColumns="[4,6]">
       <tbody class = "divide-y divide-gray-400">
           @foreach($suppliers as $supplier)
             <tr>
               <th class = "p-3 text-center">{{ $supplier->id }}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $supplier->name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $supplier->contact_person}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $supplier->email}}</td>
-              <td class = "p-3 break-words max-w-xs text-center">{{ $supplier->phone_number}}</td>
-              <td class = "p-3 break-words whitespace-normal max-w-xs">{{ $supplier->address}}</td>
-              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <x-td>{{ $supplier->name}}</x-td>
+              <x-td>{{ $supplier->contact_person}}</x-td>
+              <x-td>{{ $supplier->email}}</x-td>
+              <x-td class="text-center">{{ $supplier->phone_number}}</x-td>
+              <x-td class="whitespace-normal">{{ $supplier->address}}</x-td>
+              <td class = "flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
                 @can("manage suppliers")
                   <x-buttons onclick="editSupplier.showModal()"
                     class="editBtn tooltip tooltip-top"

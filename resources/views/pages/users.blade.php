@@ -40,13 +40,13 @@
         </x-buttons>
       @endcan
 </div>
-    <x-tables :columnNames="$columns">
+    <x-tables :columnNames="$columns" :centeredColumns="[5]">
       <tbody class = "divide-y divide-gray-400">
           @foreach($users as $user)
             <tr>
               <th class = "p-3 text-center">{{ $user -> id }}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $user -> name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $user -> email}}</td>
+              <x-td>{{ $user->name}}</x-td>
+              <x-td>{{ $user->email}}</x-td>
               <td class = "p-3">
                 @if($user -> is_active)
                   <span class = "badge badge-success text-white font-medium">Active</span>
@@ -55,7 +55,7 @@
                 @endif
               </td>
               <td class = 'p-3'>{{ $user -> getRoleNames() -> first() }}</td>
-              <td class = "flex flex-row gap-2 sm:gap-4">
+              <td class = "flex flex-row gap-2 sm:gap-4 justify-center">
                 @if($user->trashed())
                 <div class = "flex flex-col sm:flex-row gap-2">
                   <x-buttons onclick="reactivateUser.showModal()"

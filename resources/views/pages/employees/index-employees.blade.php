@@ -22,13 +22,13 @@
         </x-buttons>
       @endcan
     </div>
-    <x-tables :columnNames="$columns" :centeredColumns="[3]">
+    <x-tables :columnNames="$columns" :centeredColumns="[3,4]">
       <tbody class = "divide-y divide-gray-400">
           @foreach($employees as $employee)
             <tr>
               <th class = "p-3 text-center">{{ $employee-> id}}</th>
-              <td class = "p-3 break-words max-w-xs">{{ $employee->full_name}}</td>
-              <td class = "p-3 break-words max-w-xs">{{ $employee-> department -> name}}</td>
+              <x-td>{{ $employee->full_name}}</x-td>
+              <x-td>{{ $employee->department->name}}</x-td>
               <td class = "p-3 text-center">
                 @if($employee->assets->count() > 0)
                   <span class="badge badge-success"><x-heroicon-m-check class="size-5"/></span>
@@ -36,7 +36,7 @@
                   <span class="badge badge-error"><x-heroicon-c-x-mark class="size-5"/></span>
                 @endif
               </td>
-              <td class = "flex flex-row gap-2 sm:gap-4">
+              <td class = "flex flex-row gap-2 sm:gap-4 justify-center">
                 @can('view employees')
                   <a href="{{ route('employees.show', $employee->id) }}" class="w-full sm:w-auto flex justify-center">
                     <x-buttons class="px-4 tooltip tooltip-top" data-tip="View Employee" aria-label="View Employee">
