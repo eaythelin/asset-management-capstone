@@ -6,8 +6,7 @@ enum AssetStatus:string
 {
     case ACTIVE = 'active';
     case DISPOSED = 'disposed';
-    case UNDER_SERVICE = 'under service'; // maintenance
-    case EXPIRED = 'expired';
+    case UNDER_SERVICE = 'under_service'; // maintenance
 
     public function label(): string
     {
@@ -15,7 +14,6 @@ enum AssetStatus:string
             self::ACTIVE => 'Active',
             self::DISPOSED => 'Disposed',
             self::UNDER_SERVICE => 'Under Service',
-            self::EXPIRED => 'Expired',
         };
     }
 }

@@ -42,8 +42,15 @@
               <td class = "p-3 break-words max-w-xs">{{ $asset->custodian?->first_name}} {{ $asset->custodian?->last_name}}</td>
               <td class = "p-3 break-words max-w-xs">{{ $asset->category->name}}</td>
               <td class = "p-3 break-words max-w-xs text-center">
-                @if($asset->status->label() === "Active")
-                  <span class = "badge badge-success text-white font-medium text">Active</span>
+                @if($asset->computed_status === "expired")
+                  <span class = "badge badge-warning text-white font-medium text-sm p-3 tooltip tooltip-top"
+                    data-tip="Asset has reach the end of its lifecycle">Expired</span>
+                @elseif($asset->computed_status === "disposed")
+                  <span class = "badge badge-error text-white font-medium text-sm">Disposed</span>
+                @elseif($asset->computed_status === "under_service")
+                  <span class = "badge badge-info text-white font-medium text-sm">Under Service</span>
+                @elseif($asset->computed_status === "active")
+                  <span class = "badge badge-success text-white font-medium text-sm">Active</span>
                 @endif
               </td>
               <td class = "flex flex-row gap-2 sm:gap-3 justify-center">
@@ -63,10 +70,10 @@
                       <x-heroicon-o-pencil-square class="size-4 sm:size-5" />
                     </x-buttons>
                   </a>
-                  <x-buttons
-                    class="deleteBtn bg-red-700 tooltip tooltip-top"
+                  <x-buttons onclick="disposeAsset.showModal()"
+                    class="disposeBtn bg-red-700 tooltip tooltip-top"
                     data-tip="Dispose"
-                    aria-label="Delete Asset">
+                    aria-label="Dispose Asset">
                     <x-heroicon-s-archive-box class="size-4 sm:size-5"/>
                   </x-buttons>
                 @endcan
@@ -81,4 +88,5 @@
   </div>
 </div>
 
+@include('modals.assets-modals.dispose-asset-modal')
 @endsection

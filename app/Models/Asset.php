@@ -60,7 +60,7 @@ class Asset extends Model
     public function getBookValueAttribute(){
         //this is Straight Line Depreciation
         if(!$this->is_depreciable){
-            return $this->cost ?? 'N/A';
+            return null;
         }
 
         $monthElapsed = floor(Carbon::parse($this->acquisition_date)->diffInMonths(now())); //this keeps returning a decimal i dont know why >:(
@@ -70,5 +70,19 @@ class Asset extends Model
 
         $bookValue = max($this->cost - $accumulatedDepreciation, $this->salvage_value);
         return round($bookValue, 2);
+    }
+
+    public function getComputedStatusAttribute(){
+        if($this->deleted_at){
+            return 'disposed';
+        }
+
+        if($this->is_depreciable && $this->end_of_life_date){
+            if(now()->greaterThan($this->end_of_life_date)){
+                return 'expired';
+            }
+        }
+
+        return $this->status->value;
     }
 }

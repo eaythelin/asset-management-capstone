@@ -34,8 +34,15 @@
       </div>
 
       <div class="flex flex-col mx-10 gap-2">
-        @if($asset->status->label() === "Active")
-          <span class="badge badge-success text-white font-medium text-sm p-3">Active</span>
+        @if($asset->computed_status === "expired")
+          <span class = "badge badge-warning text-white font-medium text-sm p-3 tooltip tooltip-top"
+            data-tip="Asset has reach the end of its lifecycle">Expired</span>
+        @elseif($asset->computed_status === "disposed")
+          <span class = "badge badge-error text-white font-medium text-sm p-3">Disposed</span>
+        @elseif($asset->computed_status === "under_service")
+          <span class = "badge badge-info text-white font-medium text-sm p-3">Under Service</span>
+        @elseif($asset->computed_status === "active")
+          <span class = "badge badge-success text-white font-medium text-sm p-3">Active</span>
         @endif
       </div>
     </div>
@@ -113,7 +120,7 @@
       <div class="space-y-3">
         <div>
           <p class="text-sm text-gray-500">Current Book Value</p>
-          <p class="font-semibold text-gray-700">₱{{ $asset->book_value}}</p>
+          <p class="font-semibold text-gray-700">₱{{ $asset->book_value ?? 'N/A'}}</p>
         </div>
       </div>
     </div>

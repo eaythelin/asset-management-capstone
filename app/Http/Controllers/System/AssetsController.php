@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\System;
 
+use App\Enums\DisposalMethods;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Employee;
@@ -23,7 +24,10 @@ class AssetsController extends Controller
         $assets = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->paginate(5);
         $columns = ["Asset Code", "Asset Name", "Serial Name","Department", "Custodian", "Category", "Status", "Actions"];
 
-        return view('pages.assets.index-assets', compact('desc', 'assets', 'columns'));
+        return view('pages.assets.index-assets', ['desc' => $desc,
+                                                              'assets' => $assets,
+                                                              'columns' => $columns,
+                                                              'disposalMethods' => DisposalMethods::cases()]);
     }
 
     public function getAsset($id){
