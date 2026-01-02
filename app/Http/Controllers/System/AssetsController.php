@@ -201,4 +201,8 @@ class AssetsController extends Controller
 
         return redirect()->route('assets.index')->with('success', 'Asset edited successfully!');
     }
+
+    public function disposeAsset(Request $request,$id){
+        dd($request);
+    }
 }

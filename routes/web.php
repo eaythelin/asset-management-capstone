@@ -31,14 +31,19 @@ Route::middleware(['auth'])->group(function () {
 
       Route::group(["prefix" => "/edit", "middleware" => "check.permission:manage assets"], function(){
         Route::get('/{id}', [AssetsController::class, 'getEditAsset'])->name('assets.edit');
-        Route::put('/update/{id}', [AssetsController::class, 'updateAsset'])->name('assets.update');
+        Route::put('/{id}/update', [AssetsController::class, 'updateAsset'])->name('assets.update');
       });
 
+      //individual page
       Route::get('/{id}', [AssetsController::class, 'getAsset'])->name('assets.show');
 
       Route::get('/subcategories/{categoryID}', [AssetsController::class, 'getSubcategories'])
         ->middleware('check.permission:manage assets')
         ->name('subcategories.get');
+      
+      Route::delete('/{id}/dispose', [AssetsController::class, 'disposeAsset'])
+        ->middleware('check.permission:manage assets')
+        ->name('assets.dispose');
     });
 
     //employees

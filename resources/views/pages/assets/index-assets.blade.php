@@ -73,7 +73,8 @@
                   <x-buttons onclick="disposeAsset.showModal()"
                     class="disposeBtn bg-red-700 tooltip tooltip-top"
                     data-tip="Dispose"
-                    aria-label="Dispose Asset">
+                    aria-label="Dispose Asset"
+                    data-route="{{ route('assets.dispose', $asset->id) }}">
                     <x-heroicon-s-archive-box class="size-4 sm:size-5"/>
                   </x-buttons>
                 @endcan
@@ -89,4 +90,8 @@
 </div>
 
 @include('modals.assets-modals.dispose-asset-modal')
+@endsection
+
+@section('scripts')
+  @vite('resources/js/assets/dispose-asset/disposeAsset.js')
 @endsection

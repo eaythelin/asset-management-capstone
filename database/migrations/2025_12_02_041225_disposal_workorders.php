@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('asset_id')->constrained('assets')->onDelete('restrict');
             $table->string('disposal_method');
             $table->date('disposal_date');
-            $table->text('disposal_notes')->nullable();
+            $table->text('reason')->nullable();
             $table->timestamps();
         });
     }
