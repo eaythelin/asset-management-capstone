@@ -17,4 +17,18 @@ class Workorder extends Model
       'type' => WorkorderType::class,
       'status' => WorkorderStatus::class 
     ];
+
+    protected $fillable = [
+      'request_id',
+      'completed_by',
+      'start_date',
+      'end_date',
+      'priority_level',
+      'type',
+      'status'
+    ];
+
+    public function disposalWorkOrders(){
+      return $this->hasMany(DisposalWorkorder::class);
+    }
 }

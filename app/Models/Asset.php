@@ -57,14 +57,25 @@ class Asset extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    public function disposalWorkorder(){
+        return $this->hasOne(DisposalWorkorder::class);
+    }
+
     public function getBookValueAttribute(){
         //this is Straight Line Depreciation
         if(!$this->is_depreciable){
             return null;
         }
 
+        if($this->status === AssetStatus::DISPOSED){
+            return $this->salvage_value;
+        }
+
         $monthElapsed = floor(Carbon::parse($this->acquisition_date)->diffInMonths(now())); //this keeps returning a decimal i dont know why >:(
         $totalMonths = $this->useful_life_in_years * 12;
+        //so asset monthlapsed wont go over useful life months
+        $monthElapsed = min($monthElapsed, $totalMonths);
+
         $monthlyDepreciation = ($this->cost - $this->salvage_value) / $totalMonths;
         $accumulatedDepreciation = $monthlyDepreciation * $monthElapsed;
 

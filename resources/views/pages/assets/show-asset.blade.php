@@ -6,7 +6,7 @@
     <x-back-link route="assets.index">Return to Assets</x-back-link>
   </div>
 
-  <div class="bg-white p-4 rounded-2xl shadow-2xl mb-4">
+  <div class="bg-white p-4 rounded-2xl shadow-xl mb-4">
     <div class="flex flex-col sm:flex-row items-center gap-4">
       {{-- Image! --}}
       <div class="size-32 flex-shrink-0">{{-- prevents the image from being pushed --}}
@@ -49,7 +49,7 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-4 mb-4">
-    <div class="bg-white p-4 rounded-2xl shadow-2xl">
+    <div class="bg-white p-4 rounded-2xl shadow-xl">
       <div class="flex flex-row items-center gap-2 mb-2">
         <x-heroicon-s-information-circle class="size-6 text-blue-700"/>
         <p class="text-lg font-semibold">General Details</p>
@@ -69,7 +69,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-white p-4 rounded-2xl shadow-2xl">
+    <div class="bg-white p-4 rounded-2xl shadow-xl">
       <div class="flex flex-row items-center gap-2 mb-2">
         <x-heroicon-s-user-group class="size-6 text-green-700"/>
         <p class="text-lg font-semibold">Assignment Details</p>
@@ -87,7 +87,7 @@
     </div>
   </div>
 
-  <div class="bg-white p-4 rounded-2xl shadow-2xl mb-4">
+  <div class="bg-white p-4 rounded-2xl shadow-xl mb-4">
     <div class="flex flex-row items-center gap-2 mb-2">
       <x-heroicon-s-currency-dollar class="size-6 text-yellow-400"/>
       <p class="text-lg font-semibold">Financial Details</p>
@@ -126,7 +126,7 @@
     </div>
   </div>
 
-  <div class="bg-white p-4 rounded-2xl shadow-2xl mb-4">
+  <div class="bg-white p-4 rounded-2xl shadow-xl mb-4">
     <div class="flex flex-row items-center gap-2 mb-2">
       <x-heroicon-s-clipboard-document-list class="size-6 text-gray-600"/>
       <p class="text-lg font-semibold">Misc. Details</p>

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('disposal_workorders', function(Blueprint $table){
             $table->id();
             $table->foreignId('workorder_id')->constrained('workorders')->onDelete('restrict');
-            $table->foreignId('asset_id')->constrained('assets')->onDelete('restrict');
+            //even if asset gets deleted the disposal record stays
+            $table->foreignId('asset_id')->nullable()->constrained('assets')->onDelete('set null');
             $table->string('disposal_method');
             $table->date('disposal_date');
             $table->text('reason')->nullable();

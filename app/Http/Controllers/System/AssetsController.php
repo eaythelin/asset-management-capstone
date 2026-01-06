@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers\System;
 
+use App\Enums\AssetStatus;
 use App\Enums\DisposalMethods;
+use App\Enums\PriorityLevel;
+use App\Enums\WorkorderStatus;
+use App\Enums\WorkorderType;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DisposalWorkorder;
 use App\Models\Employee;
 use App\Models\Supplier;
+use App\Models\Workorder;
 use Illuminate\Http\Request;
 use App\Models\Asset;
 use App\Models\Category;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Enum;
+use Illuminate\Support\Facades\DB;
 
 class AssetsController extends Controller
 {
@@ -38,7 +46,7 @@ class AssetsController extends Controller
 
     public function getCreateAsset(){
         //gets the latest asset id and add 1, if it doesnt exist default to AST-1
-        $latestAsset = Asset::latest('id')->first();
+        $latestAsset = Asset::withTrashed()->latest('id')->first();
         $nextCode = $latestAsset ? 'AST-' . ($latestAsset->id + 1): 'AST-1';
         
         $categories = Category::orderBy('name')->pluck('name', 'id');
@@ -203,6 +211,48 @@ class AssetsController extends Controller
     }
 
     public function disposeAsset(Request $request,$id){
-        dd($request);
+        $validated = $request->validate([
+            //checks if the enum value exists
+            "disposal_method" => ["required", new Enum(DisposalMethods::class)],
+            "reason" => ["nullable", "string", "max:255"]
+        ]);
+
+        //this make is so the DB updates in one go and if anything fails then everything fails!!
+        try{
+            DB::transaction(function() use($validated, $id){
+                $asset = Asset::findOrFail($id);
+
+                if($asset->status === AssetStatus::DISPOSED){
+                    return redirect()->route("assets.index")->with('error', 'This asset is already disposed!');
+                }
+
+                //first create workorder!
+                $workorder = Workorder::create([
+                    "completed_by" => auth()->user()->id,
+                    "start_date" => now(),
+                    "end_date" => now(),
+                    "priority_level" => PriorityLevel::HIGH,
+                    "type" => WorkorderType::DISPOSAL,
+                    "status" => WorkorderStatus::COMPLETED
+                ]);
+
+                //create disposal workorder
+                DisposalWorkorder::create([
+                    "workorder_id" => $workorder->id,
+                    "asset_id" => $asset->id,
+                    "disposal_method" => $validated['disposal_method'],
+                    "disposal_date" => now(),
+                    "reason" => $validated['reason'] ?? null
+                ]);
+
+                $asset->status = AssetStatus::DISPOSED;
+                $asset->save();
+                $asset->delete();
+            });
+        }catch(\Exception $e){
+            return redirect()->route("assets.index")->with('error', 'Something went wrong!');
+        }
+
+        return redirect()->route("assets.index")->with('success', 'Asset disposed Successfully!');
     }
 }
