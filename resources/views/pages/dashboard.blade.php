@@ -12,10 +12,10 @@
 
 <!--Cards-->
 <div class ="grid grid-cols-2 md:grid-cols-4 gap-4 md:mx-6 p-3 bg-white rounded-2xl shadow-xl">
-  <x-dashboard-cards bgColor="bg-green-500" title="Active Assets" :number="0">
+  <x-dashboard-cards bgColor="bg-green-500" title="Active Assets" :number="$activeAssets">
     <x-heroicon-s-clipboard-document-check class="size-8 md:size-10"/>
   </x-dashboard-cards>
-  <x-dashboard-cards bgColor="bg-red-500" title="Disposed Assets" :number="0">
+  <x-dashboard-cards bgColor="bg-red-500" title="Disposed Assets" :number="$disposedAssets">
     <x-heroicon-s-trash class="size-8 md:size-10"/>
   </x-dashboard-cards>
   <x-dashboard-cards bgColor="bg-gray-800" title="Assets Under Service" :number="0">
@@ -31,7 +31,11 @@
 <div class="grid grid-cols-1 {{ $gridNumber }} gap-4 md:mx-6 mt-6">
   <!--Chart for Category-->
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
-    <canvas id="categoryChart"></canvas>
+    <div id="chartLoading" class="text-center py-8 mt-8">
+      <span class="loading loading-spinner loading-lg"></span>
+      <p class="text-gray-500 mt-2">Loading chart...</p>
+    </div>
+    <canvas id="categoryChart"  class="hidden"></canvas>
   </div>
   <div class = "bg-white p-4 rounded-2xl shadow-xl">
     <!--Chart for Subcategory(which is filtered)-->

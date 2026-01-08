@@ -5,10 +5,12 @@ use App\Http\Controllers\System\AssetsController;
 use App\Http\Controllers\System\CategoriesController;
 use App\Http\Controllers\System\DepartmentsController;
 use App\Http\Controllers\System\EmployeesController;
+use App\Http\Controllers\System\RequestsController;
 use App\Http\Controllers\System\SubCategoriesController;
 use App\Http\Controllers\System\SuppliersController;
 use App\Http\Controllers\System\UsersController;
 use App\Http\Controllers\System\DashboardController;
+use App\Http\Controllers\System\WorkordersController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -17,6 +19,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(["prefix" => "/dashboard", "middleware" => "check.permission:view dashboard"], function(){
       Route::get('/', [DashboardController::class, 'getDashboard'])->name('dashboard.index');
       Route::get('/subcategories/{category}', [DashboardController::class, 'getSubcategoryCount'])->name('subcategorycount.get');
+      Route::get('/chart-data', [DashboardController::class, 'getChartData'])->name('dashboard.chartData');
     });
 
     //Assets
@@ -44,6 +47,16 @@ Route::middleware(['auth'])->group(function () {
       Route::delete('/{id}/dispose', [AssetsController::class, 'disposeAsset'])
         ->middleware('check.permission:manage assets')
         ->name('assets.dispose');
+    });
+
+    //Requests
+    Route::group(["prefix" => "/requests", "middleware" => "check.permission:view requests"], function(){
+      Route::get('/', [RequestsController::class, "getRequests"])->name('requests.index');
+    });
+
+    //Workorders
+    Route::group(["prefix" => "/workorders", "middleware" => "check.permission:view workorders"], function(){
+      Route::get('/', [WorkordersController::class, 'getWorkOrders'])->name('workorders.index');
     });
 
     //employees

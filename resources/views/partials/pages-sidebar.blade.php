@@ -23,14 +23,14 @@
         @endcan
         @can("view requests")
         <li>
-          <x-navlinks routeName="placeholder" title="Requests">
+          <x-navlinks routeName="requests.index" title="Requests">
              <x-heroicon-s-clipboard-document-list class="size-5 mr-2" />
           </x-navlinks>
         </li>
         @endcan
         @can("view workorders")
         <li>
-          <x-navlinks routeName="placeholder" title="Workorders">
+          <x-navlinks routeName="workorders.index" title="Workorders">
             <x-heroicon-s-clipboard-document class="size-5 mr-2" />
           </x-navlinks>
         </li>
