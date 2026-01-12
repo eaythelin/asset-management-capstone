@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('requests', function(Blueprint $table){
             $table->id();
+            $table->text('description')->nullable();
+            $table->dateTime('date_requested');
+            $table->dateTime('date_approved')->nullable();
+            //relations
+            $table->foreignId('requested_by')->constrained('users', 'id')->onDelete('restrict');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('restrict');
+            $table->foreignId('sub_category_id')->nullable()->constrained('sub_categories')->onDelete('set null');
+            $table->foreignId('approved_by')->nullable()->constrained('users', 'id')->onDelete('restrict');
+            $table->foreignId('asset_id')->nullable()->constrained('assets')->onDelete('set null');
+            //enums
+            $table->string('type');
+            $table->string('service_type')->nullable(); //if its a service
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

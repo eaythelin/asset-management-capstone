@@ -17,7 +17,7 @@ return new class extends Migration
             //even if asset gets deleted the disposal record stays
             $table->foreignId('asset_id')->nullable()->constrained('assets')->onDelete('set null');
             $table->string('disposal_method');
-            $table->date('disposal_date');
+            $table->dateTime('disposal_date');
             $table->text('reason')->nullable();
             $table->timestamps();
         });
