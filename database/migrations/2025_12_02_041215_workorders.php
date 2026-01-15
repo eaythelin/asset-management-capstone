@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('request_id')->nullable()->constrained('requests')->onDelete('set null');
             $table->foreignId('completed_by')->nullable()->constrained('users', 'id')->onDelete('restrict');
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             //enums
             $table->string('priority_level')->default('low');
             $table->string('type');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('asset_name')->nullable();
             //relations
             $table->foreignId('requested_by')->constrained('users', 'id')->onDelete('restrict');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('restrict');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('restrict');
             $table->foreignId('sub_category_id')->nullable()->constrained('sub_categories')->onDelete('set null');
             $table->foreignId('approved_by')->nullable()->constrained('users', 'id')->onDelete('restrict');
             $table->foreignId('asset_id')->nullable()->constrained('assets')->onDelete('set null');
