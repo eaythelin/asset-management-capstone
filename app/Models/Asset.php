@@ -57,6 +57,10 @@ class Asset extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    public function requests(){
+        return $this->hasMany(Request::class);
+    }
+
     public function disposalWorkorder(){
         return $this->hasOne(DisposalWorkorder::class);
     }

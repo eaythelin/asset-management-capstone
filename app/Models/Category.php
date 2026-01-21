@@ -22,6 +22,10 @@ class Category extends Model
         return $this->hasMany(Asset::class);
     }
 
+    public function requests(){
+        return $this->hasMany(Request::class);
+    }
+
     // Local scope: define as scope""Name""() in model, call as name() in the controller
     // Example: scopeSearch($query, $term) → Category::search($term)
     public function scopeSearch($query, $search){

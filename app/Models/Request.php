@@ -19,12 +19,33 @@ class Request extends Model
         'sub_category_id',
         'approved_by',
         'asset_id',
-        'status'
     ];
 
-    protected $cast = [
+    protected $casts = [
         'type' => RequestTypes::class,
         'service_type' => ServiceTypes::class,
-        'status' => RequestStatus::class
+        'status' => RequestStatus::class,
+        'date_requested' => 'date'
     ];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    public function subCategory(){
+        return $this->belongsTo(SubCategory::class);
+    }
+
+    public function requestedBy(){
+        return $this->belongsTo(User::class, 'requested_by');
+    }
+
+    public function approvedBy(){
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function asset(){
+        return $this->belongsTo(Asset::class);
+    }
+
 }

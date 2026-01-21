@@ -19,8 +19,8 @@ class RequestSeeder extends Seeder
         Request::create([
             'description' => 'Laptop overheating',
             'date_requested' => fake()->date(),
-            'requested_by' => 3,
-            'asset_id' => 1,
+            'requested_by' => 2,
+            'asset_id' => 2,
             'type' => RequestTypes::SERVICE,
             'service_type' => ServiceTypes::REPAIR
         ]);

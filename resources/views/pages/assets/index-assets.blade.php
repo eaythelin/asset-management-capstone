@@ -41,7 +41,7 @@
               <x-td>{{ $asset->department->name}}</x-td>
               <x-td>{{ $asset->custodian?->first_name}} {{ $asset->custodian?->last_name}}</x-td>
               <x-td>{{ $asset->category->name}}</x-td>
-              <td class = "p-3 break-words max-w-xs text-center">
+              <x-td class="text-center">
                 @if($asset->computed_status === "expired")
                   <span class = "badge badge-warning text-white font-medium text-sm p-3 tooltip tooltip-top"
                     data-tip="Asset has reach the end of its lifecycle">Expired</span>
@@ -52,7 +52,7 @@
                 @elseif($asset->computed_status === "active")
                   <span class = "badge badge-success text-white font-medium text-sm">Active</span>
                 @endif
-              </td>
+              </x-td>
               <td class = "flex flex-row gap-2 sm:gap-3 justify-center">
                 @can("view assets")
                   <a href="{{ route('assets.show', $asset->id) }}" class="w-full sm:w-auto flex justify-center">

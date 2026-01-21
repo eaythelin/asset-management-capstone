@@ -10,7 +10,15 @@ use App\Models\Request as RequestModel;
 class RequestsController extends Controller
 {
     public function getRequests(){
+
         $role = Auth::user() -> getRoleNames() -> first();
+
+        $query = RequestModel::with('category', 'subCategory', 'requestedBy', 'approvedBy', 'asset');
+
+        if(auth()->user()->getRoleNames()->contains('Department Head')){
+            $userID = auth()->user()->id;
+            $query->where('requested_by', $userID);
+        }
 
         $desc = match($role) {
             'Department Head' => 'View and manage your requests',
@@ -18,9 +26,20 @@ class RequestsController extends Controller
             default => 'View pending requests',
         };
 
-        $requests = RequestModel::all();
-        dd($requests);
+        $columns = match($role) {
+            'Department Head' => ["", "Asset Name", "Type", "Category", "Date Requested", "Status", "Actions"],
+            'General Manager', 'System Supervisor' => ["", "Requested By", "Asset Name", "Type","Category", "Date Requested", "Status", "Actions"],
+            default => [],
+        };
 
-        return view('pages.requests.index-requests', compact('desc', 'requests'));
+        $centeredColumns = match($role){
+            'Department Head' => [5,6],
+            'General Manager', 'System Supervisor' => [6,7],
+            default => [],
+        };
+
+        $requests = $query->paginate(5);
+
+        return view('pages.requests.index-requests', compact('desc', 'requests', 'columns', 'centeredColumns'));
     }
 }

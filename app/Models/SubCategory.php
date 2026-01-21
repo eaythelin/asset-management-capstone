@@ -22,6 +22,10 @@ class SubCategory extends Model
         return $this->hasMany(Asset::class);
     }
 
+    public function requests(){
+        return $this->hasMany(Request::class);
+    }
+
     public function scopeSearch($query, $search){
         if (!$search) return $query;
 

@@ -27,9 +27,18 @@ class AssetsController extends Controller
 
         $role = auth()->user()->getRoleNames()->first();
 
+        $query = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier']);
+
+        if(auth()->user()->getRoleNames()->contains('Department Head')){
+            $departmentid = auth()->user()->employee?->department_id;
+            if($departmentid){
+                $query->where('department_id', $departmentid);
+            }
+        }
+
         $desc = $role === "System Supervisor" ? "View and manage assets" : "View assets information";
 
-        $assets = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->paginate(5);
+        $assets = $query->paginate(5);
         $columns = ["Asset Code", "Asset Name", "Serial Name","Department", "Custodian", "Category", "Status", "Actions"];
 
         return view('pages.assets.index-assets', ['desc' => $desc,

@@ -36,7 +36,8 @@ class RolePermissionSeeder extends Seeder
         $requestPermissions = [
             'approve requests',
             'decline requests',
-            'submit requests'
+            'submit requests',
+            'create requests'
         ];
 
         $viewPermissions = [
@@ -102,7 +103,8 @@ class RolePermissionSeeder extends Seeder
             'view employees',
             'view dashboard',
             'view requests',
-            'submit requests'
+            'submit requests',
+            'create requests'
         ];
 
         foreach($deptHeadPerms as $perms){

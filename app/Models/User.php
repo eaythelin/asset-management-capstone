@@ -59,6 +59,14 @@ class User extends Authenticatable
         return $this->belongsTo(Employee::class);
     }
 
+    public function requestedRequests(){
+        return $this->hasMany(Request::class, 'requested_by');
+    }
+
+    public function approvedRequests(){
+        return $this->hasMany(Request::class, 'approved_by');
+    }
+
     public function scopeSearch($query, $search){
         if (!$search) return $query;
 
