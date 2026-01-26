@@ -14,7 +14,7 @@ class AssetSeeder extends Seeder
     public function run(): void
     {
         Asset::create([
-            "asset_code" => 'AST-01',
+            "asset_code" => 'AST-1',
             "name" => 'Helixcore Laptop',
             "serial_name" => 'HelixCore M52',
             "description" => 'Brand new laptop for Maintenance Department',
@@ -27,7 +27,7 @@ class AssetSeeder extends Seeder
         ]);
 
         Asset::create([
-            "asset_code" => 'AST-02',
+            "asset_code" => 'AST-2',
             "name" => 'AstraCore PC',
             "serial_name" => 'AstraCore M45',
             "description" => 'PC for Admin',
@@ -35,6 +35,30 @@ class AssetSeeder extends Seeder
             "category_id" => 1,
             "department_id" => 2,
             "sub_category_id" => 1,
+            "supplier_id" => 1,
+            "custodian_id" => 2,
+        ]);
+
+        Asset::create([
+            "asset_code" => 'AST-3',
+            "name" => 'Office Table',
+            "description" => 'Table for Admin',
+            "acquisition_date" => fake()->date(),
+            "category_id" => 2,
+            "department_id" => 2,
+            "sub_category_id" => 4,
+            "supplier_id" => 1,
+            "custodian_id" => 2,
+        ]);
+
+        Asset::create([
+            "asset_code" => 'AST-04',
+            "name" => 'Office Chair',
+            "description" => 'Chair for Admin',
+            "acquisition_date" => fake()->date(),
+            "category_id" => 2,
+            "department_id" => 2,
+            "sub_category_id" => 4,
             "supplier_id" => 1,
             "custodian_id" => 2,
         ]);

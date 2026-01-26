@@ -49,8 +49,9 @@ class AssetsController extends Controller
 
     public function getAsset($id){
         $asset = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier'])->findOrFail($id);
+        $disposalMethods = DisposalMethods::cases();
 
-        return view('pages.assets.show-asset', compact('asset'));
+        return view('pages.assets.show-asset', compact('asset', 'disposalMethods'));
     }
 
     public function getCreateAsset(){

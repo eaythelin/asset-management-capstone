@@ -42,5 +42,14 @@ class RequestSeeder extends Seeder
             'asset_id' => 2,
             'type' => RequestTypes::DISPOSAL,
         ]);
+
+        Request::create([
+            'description' => 'Old Table',
+            'date_requested' => fake()->date(),
+            'requested_by' => 2,
+            'asset_id' => 3,
+            'type' => RequestTypes::DISPOSAL,
+            'status' => RequestStatus::APPROVED
+        ]);
     }
 }

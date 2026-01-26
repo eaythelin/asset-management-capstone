@@ -34,7 +34,7 @@
               @if($request->type->value === "requisition")
                 <x-td>{{ $request->asset_name }}</x-td>
               @else
-                <x-td>{{ $request->asset->name }}</x-td>
+                <x-td>{{ $request->asset?->name }}</x-td>
               @endif
 
               <x-td>{{ $request->type->label() }}</x-td>
@@ -42,7 +42,7 @@
               @if($request->type->value === "requisition")
                 <x-td>{{ $request->category->name }}</x-td>
               @else
-                <x-td>{{ $request->asset->category->name }}</x-td>
+                <x-td>{{ $request->asset->category?->name }}</x-td>
               @endif
 
               <x-td>{{ $request->date_requested->format('M d, Y') }}</x-td>
