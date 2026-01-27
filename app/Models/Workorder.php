@@ -28,7 +28,19 @@ class Workorder extends Model
       'status'
     ];
 
-    public function disposalWorkOrders(){
-      return $this->hasMany(DisposalWorkorder::class);
+    public function disposalWorkOrder(){
+      return $this->hasOne(DisposalWorkorder::class);
+    }
+
+    public function serviceWorkorder(){
+      return $this->hasOne(ServiceWorkorder::class);
+    }
+
+    public function acquisitionWorkorder(){
+      return $this->hasOne(AcquisitionWorkorder::class);
+    }
+
+    public function request(){
+      return $this->belongsTo(Request::class);
     }
 }

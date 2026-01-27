@@ -21,6 +21,10 @@ class Supplier extends Model
         return $this->hasMany(Asset::class);
     }
 
+    public function acquistionWorkOrders(){
+        return $this->hasMany(AcquisitionWorkorder::class);
+    }
+
     public function scopeSearch($query, $search){
         if (!$search) return $query;
 

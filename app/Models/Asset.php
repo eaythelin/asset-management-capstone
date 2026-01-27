@@ -65,6 +65,10 @@ class Asset extends Model
         return $this->hasOne(DisposalWorkorder::class);
     }
 
+    public function serviceWorkorders(){
+        return $this->hasMany(ServiceWorkorder::class);
+    }
+
     public function getBookValueAttribute(){
         //this is Straight Line Depreciation
         if(!$this->is_depreciable){

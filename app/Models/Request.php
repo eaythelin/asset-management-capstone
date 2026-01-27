@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Enums\RequestStatus;
 use App\Enums\RequestTypes;
 use App\Enums\ServiceTypes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Request extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'description',
         'date_requested',
@@ -48,4 +50,7 @@ class Request extends Model
         return $this->belongsTo(Asset::class);
     }
 
+    public function workorder(){
+        return $this->hasOne(Workorder::class);
+    }
 }

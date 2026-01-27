@@ -25,7 +25,6 @@
     </div>
   </div>
 
-  {{-- Asset Header (stays outside tabs) --}}
   <div class="bg-white p-4 rounded-2xl shadow-xl mb-4">
     <div class="flex flex-col sm:flex-row items-center gap-4">
       {{-- Image --}}
