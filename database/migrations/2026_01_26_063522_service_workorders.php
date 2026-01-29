@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('service_workorders', function(Blueprint $table){
             $table->id();
-            $table->foreignId('workorder_id')->constrained('workorders')->onDelete('restrict');
+            $table->foreignId('workorder_id')->constrained('workorders')->onDelete('cascade');
             $table->foreignId('asset_id')->nullable()->constrained('assets')->onDelete('set null');
             $table->string('service_type');
             $table->decimal('cost', 15, 2)->default(0);

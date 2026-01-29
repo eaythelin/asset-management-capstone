@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('acquisition_workorders', function(Blueprint $table){
             $table->id();
-            $table->foreignId('workorder_id')->constrained('workorders')->onDelete('restrict');
+            $table->foreignId('workorder_id')->constrained('workorders')->onDelete('cascade');
             $table->date('acquisition_date');
             $table->decimal('estimated_cost', 15, 2)->default(0);
             $table->foreignId('supplier_id')->nullable()->constrained('suppliers')->onDelete('set null');
