@@ -104,4 +104,25 @@ class Asset extends Model
 
         return $this->status->value;
     }
+
+    public function scopeSearch($query, $search){
+        if (!$search) return $query;
+
+        return $query->where(function($q) use ($search) {
+            $q->where('asset_code', 'LIKE', "%{$search}%")
+            ->orWhere('name', 'LIKE', "%{$search}%")
+            ->orWhere('serial_name', 'LIKE', "%{$search}%")
+            ->orWhereHas('department', function($q2) use ($search) {
+                $q2->where('name', 'LIKE', "%{$search}%");
+            })
+            ->orWhereHas('custodian', function($q2) use ($search) {
+                $q2->where('first_name', 'LIKE', "%{$search}%")
+                ->orWhere('last_name', 'LIKE', "%{$search}%")
+                ->orWhereRaw("CONCAT(first_name,' ',last_name) LIKE ?", ["%{$search}%"]);
+            })
+            ->orWhereHas('category', function($q2) use ($search) {
+                $q2->where('name', 'LIKE', "%{$search}%");
+            });;
+        });
+    }
 }

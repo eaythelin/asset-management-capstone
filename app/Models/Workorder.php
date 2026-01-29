@@ -7,15 +7,18 @@ use App\Enums\WorkorderStatus;
 use App\Enums\WorkorderType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Workorder extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $casts = [
       'priority_level' => PriorityLevel::class,
       'type' => WorkorderType::class,
-      'status' => WorkorderStatus::class 
+      'status' => WorkorderStatus::class,
+      'start_date'=> 'date',
+      'end_date' => 'date'
     ];
 
     protected $fillable = [

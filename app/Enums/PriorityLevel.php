@@ -16,4 +16,13 @@ enum PriorityLevel:string
             self::HIGH => "High",
         };
     }
+
+    public function badgeClass():string
+    {
+        return match($this) {
+            self::LOW => "badge-info",
+            self::MEDIUM => "badge-warning",
+            self::HIGH => "badge-warning",
+        };
+    }
 }

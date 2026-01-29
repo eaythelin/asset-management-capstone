@@ -26,7 +26,7 @@
       <tbody class = "divide-y divide-gray-400">
           @foreach($requests as $request)
             <tr>
-              <th class = "p-3 text-center">{{ $request -> id }}</th>
+              <th class = "p-3 text-center">{{ $request->request_code }}</th>
               @if(in_array(auth()->user()->getRoleNames()->first(), ['General Manager', 'System Supervisor']))
                 <x-td>{{ $request->requestedBy->name }}</x-td>
               @endif

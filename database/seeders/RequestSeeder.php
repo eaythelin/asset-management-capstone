@@ -17,6 +17,7 @@ class RequestSeeder extends Seeder
     public function run(): void
     {
         Request::create([
+            'request_code' => 'REQ-1',
             'description' => 'Laptop overheating',
             'date_requested' => fake()->date(),
             'requested_by' => 2,
@@ -26,6 +27,7 @@ class RequestSeeder extends Seeder
         ]);
 
         Request::create([
+            'request_code' => 'REQ-2',
             'description' => 'Need new wireless mouse for workstation',
             'date_requested' => fake()->date(),
             'requested_by' => 2,
@@ -36,6 +38,7 @@ class RequestSeeder extends Seeder
         ]);
 
         Request::create([
+            'request_code' => 'REQ-3',
             'description' => 'Old PC beyond repair, recommend disposal',
             'date_requested' => fake()->date(),
             'requested_by' => 2,
@@ -44,6 +47,7 @@ class RequestSeeder extends Seeder
         ]);
 
         Request::create([
+            'request_code' => 'REQ-4',
             'description' => 'Old Table',
             'date_requested' => fake()->date(),
             'requested_by' => 2,

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('workorders', function(Blueprint $table){
             $table->id();
+            $table->string('workorder_code')->unique();
             $table->foreignId('request_id')->nullable()->constrained('requests')->onDelete('set null');
             $table->foreignId('completed_by')->nullable()->constrained('users', 'id')->onDelete('restrict');
             $table->date('start_date')->nullable();
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('status')->default('pending');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

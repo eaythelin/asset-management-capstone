@@ -23,11 +23,16 @@ use Illuminate\Support\Facades\DB;
 
 class AssetsController extends Controller
 {
-    public function getAssets(){
+    public function getAssets(Request $request){
 
         $role = auth()->user()->getRoleNames()->first();
 
         $query = Asset::with(['category', 'custodian', 'department', 'subCategory', 'supplier']);
+
+        if(request('search')){
+            $search = $request->input('search');
+            $query->search($search);
+        }
 
         if(auth()->user()->getRoleNames()->contains('Department Head')){
             $departmentid = auth()->user()->employee?->department_id;

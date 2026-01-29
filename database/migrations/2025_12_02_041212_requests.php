@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('requests', function(Blueprint $table){
             $table->id();
+            $table->string('request_code')->unique();
             $table->text('description')->nullable();
             $table->dateTime('date_requested');
             $table->dateTime('date_approved')->nullable();
@@ -27,6 +28,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('service_type')->nullable(); //if its a service
             $table->string('status')->default('pending');
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

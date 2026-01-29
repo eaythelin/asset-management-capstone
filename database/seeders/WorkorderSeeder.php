@@ -15,6 +15,7 @@ class WorkorderSeeder extends Seeder
     public function run(): void
     {
         Workorder::create([
+            "workorder_code" => "WO-DIS-1",
             "request_id" => 4,
             "type" => WorkorderType::DISPOSAL,
             "start_date" => now(),
